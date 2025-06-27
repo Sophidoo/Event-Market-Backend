@@ -1,0 +1,215 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  VENDOR
+  ADMIN
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  PROCESSED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CARD
+  PAYSTACK
+  BANK_TRANSFER
+}
+
+enum Category {
+  RENTALS
+  SERVICES
+  PACKAGES
+}
+
+enum PricingUnit {
+  MINUTE
+  HOUR
+  DAY
+  WEEK
+  MONTH
+}
+
+enum BookingType {
+  INSTANT
+  REQUEST
+}
+
+enum BookingStatus {
+  PENDING
+  APPROVED
+  COMPLETED
+}
+
+enum BookingRequest {
+  APPROVED
+  PENDING
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  phone     String   @unique
+  password  String
+  role      Role     @default(USER)
+  verified  Boolean  @default(false)
+  address   String?
+  city      String?
+  state     String?
+  country   String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relationships
+  bookings      Booking[]   @relation("UserBookings")
+  reviews       Review[]    @relation("UserReviews")
+  payments      Payment[]   @relation("UserPayments")
+  savedItems    SavedItem[]
+  vendorProfile Vendor?     @relation("UserVendor")
+}
+
+model Vendor {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  user         User      @relation("UserVendor", fields: [userId], references: [id])
+  userId       String    @unique @db.ObjectId
+  companyName  String?    @map("company_name")
+  contactPhone String?    @map("contact_phone")
+  contactEmail String?    @map("contact_email")
+  address      String?
+  city         String?
+  state        String?
+  country      String?
+  status       Boolean   @default(false)
+  rating       Float?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime?  @updatedAt @map("updated_at")
+  // Relationships
+  reviews      Review[]  @relation("VendorReviews")
+  items        Item[]    @relation("VendorItems")
+  bookings     Booking[] @relation("VendorBookings")
+}
+
+model Item {
+  id                String      @id @default(auto()) @map("_id") @db.ObjectId
+  title             String
+  description       String
+  price             Float
+  minPrice          Float
+  category          Category
+  pricingUnit       PricingUnit @default(DAY)
+  isAvailable       Boolean     @default(true) @map("is_available")
+  nextAvailableDate DateTime?   @map("next_available_date")
+  images            String[]
+  locations         String[]
+  terms             String[]
+  bookingType       BookingType
+  offers            String[]
+  prices            String[]
+  experience        String
+  careerHighlight   String[]
+  education         String[]
+  createdAt         DateTime    @default(now()) @map("created_at")
+  updatedAt         DateTime    @updatedAt @map("updated_at")
+
+  // Relationships
+  savedBy      SavedItem[]
+  vendor       Vendor        @relation("VendorItems", fields: [vendorId], references: [id])
+  vendorId     String        @db.ObjectId
+  categoryType CategoryType? @relation("CategoryItems", fields: [categoryId], references: [id])
+  categoryId   String?       @db.ObjectId
+  reviews      Review[]      @relation("ItemReviews")
+  bookings     Booking[]     @relation("ItemBookings")
+}
+
+model CategoryType {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  // Relationships
+  items     Item[]   @relation("CategoryItems")
+}
+
+model Review {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  comment   String
+  rating    Float
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  // Relationships
+  user      User     @relation("UserReviews", fields: [reviewer], references: [id])
+  reviewer  String   @db.ObjectId
+  item      Item?    @relation("ItemReviews", fields: [itemId], references: [id])
+  itemId    String?  @db.ObjectId
+  vendor    Vendor?  @relation("VendorReviews", fields: [vendorId], references: [id])
+  vendorId  String?  @db.ObjectId
+}
+
+model SavedItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  // Relationships
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  item      Item     @relation(fields: [itemId], references: [id])
+  itemId    String   @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([userId, itemId])
+}
+
+model Booking {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  startDate     DateTime        @map("start_date")
+  endDate       DateTime        @map("end_date")
+  address       String?
+  status        BookingStatus?
+  request       BookingRequest?
+  totalPrice    Float           @map("total_price")
+  paymentStatus PaymentStatus?  @default(PENDING) @map("payment_status")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+  // Relationships
+  user          User            @relation("UserBookings", fields: [bookedBy], references: [id])
+  bookedBy      String          @db.ObjectId
+  vendor        Vendor          @relation("VendorBookings", fields: [vendorId], references: [id])
+  vendorId      String          @db.ObjectId
+  item          Item?           @relation("ItemBookings", fields: [itemId], references: [id])
+  itemId        String?         @db.ObjectId
+  payment       Payment?        @relation("BookingPayment")
+}
+
+model Payment {
+  id         String        @id @default(auto()) @map("_id") @db.ObjectId
+  paidAmount Float         @map("paid_amount")
+  debit      Float
+  credit     Float
+  reason     String
+  status     PaymentStatus @default(PENDING)
+  createdAt  DateTime      @default(now()) @map("created_at")
+  updatedAt  DateTime      @updatedAt @map("updated_at")
+
+  // Relationships
+  user      User     @relation("UserPayments", fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  booking   Booking? @relation("BookingPayment", fields: [bookingId], references: [id])
+  bookingId String?  @unique @db.ObjectId
+}
