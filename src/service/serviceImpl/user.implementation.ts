@@ -8,7 +8,16 @@ import prisma from "../../lib/prisma";
 import UserService from "../user.service";
 import HttpException from "../../utils/exception";
 import { StatusCodes } from "http-status-codes";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
+import crypto from "crypto";
+import { sendEmail } from "../../utils/email"
+import { ForgotPasswordDto } from "../../dtos/forgotPassword.dto";
+import { VendorResponseDto } from "../../dtos/vendorResponse.dto";
+import { EditUserAddressDto, EditUserDto, EditUserPasswordDto } from "../../dtos/editUser.dto";
+
+import cloudinary from "../../config/cloudinary.config";
+import fs from 'fs';
+import path from 'path';
 
 
 
@@ -61,24 +70,269 @@ export default class UserServiceImpl implements UserService{
             );
         };
 
-        const hashedPassword = await this.hashpassword(dto.password)
-
+        const hashedPassword = await this.hashpassword(dto.password);
+        const buffer = crypto.randomBytes(3);
+        const code = buffer.readUIntBE(0, 3) % 1000000;
+        const emailVerificationToken =  code.toString().padStart(6, '0');
+        const emailVerificationExpires = new Date(Date.now() + 15* 60 * 1000);
+        
         const user = await prisma.user.create({
             data: {
-                name: dto.name,
+                name: dto.role === "VENDOR" ? "" : dto.name,
                 email: dto.email,
                 password: hashedPassword, 
                 phone: dto.phone,
                 role: dto.role,
+                token: emailVerificationToken,
+                tokenExpires: emailVerificationExpires,
                 verified: false 
             }
         });
 
+        if(user.role === "VENDOR"){
+            await prisma.vendor.create({
+                data: {
+                    userId: user.id,
+                    companyName: dto.name,
+                }
+            })
+        }
+
+        const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${emailVerificationToken}&id=${user.id}`;
+
+        await sendEmail({
+            to: user.email,
+            subject: "Verify Your Email Address",
+            html: `<!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <style>
+                        body { font-family: Arial, sans-serif; line-height: 1.6; }
+                        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                        .header { color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+                        .code { 
+                            font-size: 24px; 
+                            letter-spacing: 3px; 
+                            padding: 10px 15px;
+                            background: #f8f9fa;
+                            display: inline-block;
+                            margin: 15px 0;
+                        }
+                        .footer { 
+                            margin-top: 20px; 
+                            font-size: 12px; 
+                            color: #7f8c8d; 
+                            border-top: 1px solid #eee;
+                            padding-top: 10px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="header">
+                            <h2>Welcome to Event Market, Sophia!</h2>
+                        </div>
+                        
+                        <p>We're excited to have you join our community. Here's your verification code:</p>
+                        
+                        <div class="code">${emailVerificationToken}</div>
+                        
+                        <p>Please enter this code in your browser to verify your email address. This code expires in 15 minutes.</p>
+                        
+                        <p><strong>Why am I receiving this?</strong><br>
+                        You recently signed up for an Event Market account using this email address.</p>
+                        
+                        <div class="footer">
+                            <p>© 2025 Event Market. All rights reserved.<br>
+                            <a href="https://event-market.vercel.app/privacy">Privacy Policy</a> | 
+                            <a href="https://event-market.vercel.app/terms">Terms of Service</a></p>
+                            
+                            <p>Event Market Ltd, 123 Market St, San Francisco, CA 94103</p>
+                            
+                            <p><small>If you didn't request this code, please 
+                            <a href="https://event-market.vercel.app/security">secure your account</a>.</small></p>
+                        </div>
+                    </div>
+                </body>
+                </html>`
+        });
+
+
         
 
-        return `User ${user.email} registered successfully. Verification email sent.`
+        return `Verification Mail sent successfully`
         
     }
+
+    async sendToken( email: string) : Promise<string>{
+        const user = await prisma.user.findUnique({
+            where: {
+                email
+            }
+        })
+        if (!user) {
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "Account does not exist"
+            );
+        }
+
+        const buffer = crypto.randomBytes(3);
+        const code = buffer.readUIntBE(0, 3) % 1000000;
+        const token =  code.toString().padStart(6, '0');
+        const tokenExpires = new Date(Date.now() + 15* 60 * 1000);
+
+        await sendEmail({
+            to: user.email,
+            subject: "Verify Your Email Address",
+            html: `<!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <style>
+                        body { font-family: Arial, sans-serif; line-height: 1.6; }
+                        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                        .header { color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+                        .code { 
+                            font-size: 24px; 
+                            letter-spacing: 3px; 
+                            padding: 10px 15px;
+                            background: #f8f9fa;
+                            display: inline-block;
+                            margin: 15px 0;
+                        }
+                        .footer { 
+                            margin-top: 20px; 
+                            font-size: 12px; 
+                            color: #7f8c8d; 
+                            border-top: 1px solid #eee;
+                            padding-top: 10px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="header">
+                            <h2>Hi, Sophia!</h2>
+                        </div>
+                        
+                        <p>For your security, here's your one-time verification code:</p>
+                        
+                        <div class="code">${token}</div>
+                        
+                        <p>Please use this code to complete your request. This code will expire in 15 minutes.</p>
+                        
+                        <p><strong>Why am I receiving this?</strong><br>
+                        You recently signed up for an Event Market account using this email address.</p>
+                        
+                        <div class="footer">
+                            <p>© 2025 Event Market. All rights reserved.<br>
+                            <a href="https://event-market.vercel.app/privacy">Privacy Policy</a> | 
+                            <a href="https://event-market.vercel.app/terms">Terms of Service</a></p>
+                            
+                            <p>Event Market Ltd, 123 Market St, San Francisco, CA 94103</p>
+                            
+                            <p><small>If you didn't request this code, please 
+                            <a href="https://event-market.vercel.app/security">secure your account</a>.</small></p>
+                        </div>
+                    </div>
+                </body>
+                </html>`
+        });
+
+        await prisma.user.update({
+            where: { id: user.id },
+            data: {
+                token,
+                tokenExpires,
+            }
+        });
+
+        return "Otp has been sent to your mail"
+        
+    }
+
+    async forgotPassword(email:string, dto: ForgotPasswordDto): Promise<string>{
+         const user = await prisma.user.findUnique({
+            where: { email: email }
+        });
+
+        if (!user) {
+            throw new HttpException(
+                StatusCodes.NOT_FOUND,
+                "User not found"
+            );
+        }
+
+        if(dto.otp !== user.token){
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "Incorrect Otp"
+            )
+        }
+
+        if(dto.password !== dto.confirmPassword){
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "Passwod does not match"
+            )
+        }
+
+        await prisma.user.update({
+            where: { email: email },
+            data: {
+                password: dto.password,
+                token: null,
+                tokenExpires: null
+            }
+        });
+
+        return "Pasword updted Successfully"
+    }
+    async verifyEmail(token: string, userId: string): Promise<string> {
+        const user = await prisma.user.findUnique({
+            where: { id: userId }
+        });
+
+        if (!user) {
+            throw new HttpException(
+                StatusCodes.NOT_FOUND,
+                "User not found"
+            );
+        }
+
+        if (user.verified) {
+            return "Email already verified";
+        }
+
+        if (user.token !== token) {
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "Invalid verification token"
+            );
+        }
+
+        if (new Date() > user.tokenExpires!) {
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "Verification token has expired"
+            );
+        }
+
+        await prisma.user.update({
+            where: { id: userId },
+            data: {
+                verified: true,
+                token: null,
+                tokenExpires: null
+            }
+        });
+
+        return "Email verified successfully";
+    }
+
+    
 
 
     async login(dto: LoginDto): Promise<{user : UserResponseDto, token: string, message: string}> {
@@ -220,4 +474,213 @@ export default class UserServiceImpl implements UserService{
 
         return userResponse
     }
+
+    async getLoggedInUser (authUser: { id: string }) : Promise<UserResponseDto | VendorResponseDto>{
+        
+         const user = await prisma.user.findUnique({
+            where: {
+                id: authUser.id
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                phone: true,
+                role: true,
+                verified: true,
+                address: true,
+                city: true,
+                state: true,
+                country: true,
+                createdAt: true,
+                updatedAt: true,
+                vendorProfile: true
+            }
+        })
+        
+        if(!user){
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "User does not exist"
+            )
+        }
+
+        const userResponse : UserResponseDto = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            role: user.role,
+            verified: user.verified,
+            address: user.address,
+            city: user.city,
+            state: user.state,
+            country: user.country,
+            createdAt: user.createdAt
+        }
+
+        const vendorResponse : VendorResponseDto = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            role: user.role,
+            verified: user.verified,
+            address: user.address,
+            city: user.city,
+            state: user.state,
+            country: user.country,
+            usercreatedAt: user.createdAt,
+            vendorName: user.vendorProfile?.companyName,
+            vendorEmail: user.vendorProfile?.contactEmail,
+            vendorPhone: user.vendorProfile?.contactPhone,
+            vendorAddress: user.vendorProfile?.address,
+            vendorCity: user.vendorProfile?.city,
+            vendorState: user.vendorProfile?.state,
+            vendorCountry: user.vendorProfile?.country,
+            vendorVerified: user.vendorProfile?.verified,
+            vendorCreated: user.vendorProfile?.createdAt
+        }
+
+        return user.role === "VENDOR" ? vendorResponse : userResponse
+    }
+
+
+    async updateUserDetails (authUser: {id: string}, dto: EditUserDto) : Promise<string>{
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id: authUser.id
+            }
+        })
+
+        if(!user){
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "User does not exist"
+            )
+        }
+
+        await prisma.user.update({
+            where: {
+                id: authUser.id
+            },
+            data: {
+                name: dto.name,
+                email: dto.email,
+                phone: dto.phone,
+                role: dto.role
+            }
+        })
+
+        return "Personal Information updated successfully"
+    }
+
+
+    async updateUserAddress (authUser: {id: string}, dto: EditUserAddressDto) : Promise<string>{
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id: authUser.id
+            }
+        })
+
+        if(!user){
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "User does not exist"
+            )
+        }
+
+        await prisma.user.update({
+            where: {
+                id: authUser.id
+            },
+            data: {
+                address: dto.address,
+                city: dto.city,
+                state: dto.state,
+                country: dto.country
+            }
+        })
+
+        return "Address updated successfully"
+    }
+
+
+    async updateUserPassword (authUser: {id: string}, dto: EditUserPasswordDto) : Promise<string>{
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id: authUser.id
+            }
+        })
+
+        if(!user){
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "User does not exist"
+            )
+        }
+        
+        if(user.password !== dto.oldPassword){
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "Your Password is Incorrect"
+            )
+        }
+        
+        if(dto.newPassword !== dto.confirmPassword){
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "Your password does not match"
+            )
+        }
+
+        await prisma.user.update({
+            where: {
+                id: authUser.id
+            },
+            data: {
+                password: dto.newPassword
+            }
+        })
+
+        return "Password updated successfully"
+    }
+
+    async updateProfile(userId: string, file: Express.Multer.File): Promise<string> {
+    try {
+      if (!file) {
+        throw new HttpException(StatusCodes.BAD_REQUEST, "No file uploaded");
+      }
+
+      // Upload to Cloudinary
+      const result = await cloudinary.uploader.upload(file.path, {
+        folder: 'profile-pictures',
+        transformation: [
+          { width: 500, height: 500, crop: 'limit' }
+        ]
+      });
+
+      // Delete the temporary file
+      fs.unlinkSync(file.path);
+
+      // Update user profile in database
+      await prisma.user.update({
+        where: { id: userId },
+        data: {
+          profile: result.secure_url
+        }
+      });
+
+      return result.secure_url;
+    } catch (error) {
+      // Clean up the temporary file if upload fails
+      if (file?.path) {
+        fs.unlink(file.path, () => {});
+      }
+      throw error;
+    }
+  }
 }

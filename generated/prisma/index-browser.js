@@ -116,6 +116,7 @@ Prisma.NullTypes = {
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  profile: 'profile',
   email: 'email',
   phone: 'phone',
   password: 'password',
@@ -124,6 +125,8 @@ exports.Prisma.UserScalarFieldEnum = {
   address: 'address',
   city: 'city',
   state: 'state',
+  token: 'token',
+  tokenExpires: 'tokenExpires',
   country: 'country',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -139,7 +142,7 @@ exports.Prisma.VendorScalarFieldEnum = {
   city: 'city',
   state: 'state',
   country: 'country',
-  status: 'status',
+  verified: 'verified',
   rating: 'rating',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

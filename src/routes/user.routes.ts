@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { IRoute } from "../interface/route.interface";
 import UserController from "../controller/user.controller";
+import authMiddleware from "../middleware/auth.middleware";
+import { uploadMiddleware } from "../middleware/upload.middleware";
 
 
 export default class UserRoutes implements IRoute{
@@ -15,9 +17,17 @@ export default class UserRoutes implements IRoute{
 
     private initializeRoutes(){
         this.router.get(`${this.path}/:page/:pageSize`, this.controller.fetchUsers)
-        this.router.post(`${this.path}`, this.controller.register)
-        this.router.post(`${this.path}`, this.controller.login)
+        this.router.post(`${this.path}/register`, this.controller.register)
+        this.router.post(`${this.path}/login`, this.controller.login)
         this.router.get(`${this.path}/:id`, this.controller.getUniqueUser)
+        this.router.get(`${this.path}/verify-email/:token/:id`, this.controller.verifyEmail)
+        this.router.get(`${this.path}/token/:email`, this.controller.sendToken)
+        this.router.post(`${this.path}/forgot-password/:email`, this.controller.forgotPassword)
+        this.router.get(`${this.path}/user`, authMiddleware, this.controller.forgotPassword)
+        this.router.patch(`${this.path}/user`, authMiddleware, this.controller.updateUserDetails)
+        this.router.patch(`${this.path}/address`, authMiddleware, this.controller.updateUserAddress)
+        this.router.patch(`${this.path}/reset-password`, authMiddleware, this.controller.updateUserPassword)
+        this.router.post(`${this.path}/upload`, authMiddleware, uploadMiddleware, this.controller.updateProfile)
     }
 
 }

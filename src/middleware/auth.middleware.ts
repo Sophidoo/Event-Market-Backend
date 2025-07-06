@@ -54,12 +54,10 @@ const authMiddleware: RequestHandler = async (
       throw new HttpException(StatusCodes.UNAUTHORIZED, "User not found");
     }
 
-    // 4. Attach user to request
     req.authUser = user;
     next();
 
   } catch (error) {
-    // Handle specific JWT errors
     if (error instanceof Error && error.name === 'JsonWebTokenError') {
       return next(new HttpException(StatusCodes.UNAUTHORIZED, "Invalid token"));
     }

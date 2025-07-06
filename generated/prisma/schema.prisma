@@ -65,19 +65,22 @@ enum BookingRequest {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  email     String   @unique
-  phone     String   @unique
-  password  String
-  role      Role     @default(USER)
-  verified  Boolean  @default(false)
-  address   String?
-  city      String?
-  state     String?
-  country   String?
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  profile      String?
+  email        String    @unique
+  phone        String    @unique
+  password     String
+  role         Role      @default(USER)
+  verified     Boolean   @default(false)
+  address      String?
+  city         String?
+  state        String?
+  token        String?
+  tokenExpires DateTime?
+  country      String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
 
   // Relationships
   bookings      Booking[]   @relation("UserBookings")
@@ -98,7 +101,7 @@ model Vendor {
   city         String?
   state        String?
   country      String?
-  status       Boolean   @default(false)
+  verified     Boolean   @default(false)
   rating       Float?
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime? @updatedAt @map("updated_at")
