@@ -16,18 +16,18 @@ export default class UserRoutes implements IRoute{
     }
 
     private initializeRoutes(){
-        this.router.get(`${this.path}/:page/:pageSize`, this.controller.fetchUsers)
+        this.router.get(`${this.path}/users/:page/:pageSize`, authMiddleware, this.controller.fetchUsers)
         this.router.post(`${this.path}/register`, this.controller.register)
         this.router.post(`${this.path}/login`, this.controller.login)
-        this.router.get(`${this.path}/:id`, this.controller.getUniqueUser)
-        this.router.get(`${this.path}/verify-email/:token/:id`, this.controller.verifyEmail)
+        this.router.get(`${this.path}/get-user/:id`, this.controller.getUniqueUser)
+        this.router.get(`${this.path}/verify-email/:token/:email`, this.controller.verifyEmail)
         this.router.get(`${this.path}/token/:email`, this.controller.sendToken)
         this.router.post(`${this.path}/forgot-password/:email`, this.controller.forgotPassword)
-        this.router.get(`${this.path}/user`, authMiddleware, this.controller.forgotPassword)
         this.router.patch(`${this.path}/user`, authMiddleware, this.controller.updateUserDetails)
         this.router.patch(`${this.path}/address`, authMiddleware, this.controller.updateUserAddress)
         this.router.patch(`${this.path}/reset-password`, authMiddleware, this.controller.updateUserPassword)
-        this.router.post(`${this.path}/upload`, authMiddleware, uploadMiddleware, this.controller.updateProfile)
+        this.router.patch(`${this.path}/upload`, authMiddleware, uploadMiddleware, this.controller.updateProfile)
+        this.router.get(`${this.path}/logged-user`, authMiddleware, this.controller.getLoggedInUser)
     }
 
 }

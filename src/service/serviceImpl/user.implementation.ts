@@ -30,7 +30,7 @@ export default class UserServiceImpl implements UserService{
         return jwt.sign(
             { id },
             process.env.JWT_SECRET_KEY as string, 
-            { expiresIn: "7d"}
+            { expiresIn: "7d", algorithm: "HS256"}
         );
     }
 
@@ -278,21 +278,23 @@ export default class UserServiceImpl implements UserService{
                 "Passwod does not match"
             )
         }
+        
+        const hashedPassword = await this.hashpassword(dto.password);
 
         await prisma.user.update({
             where: { email: email },
             data: {
-                password: dto.password,
+                password: hashedPassword,
                 token: null,
                 tokenExpires: null
             }
         });
 
-        return "Pasword updted Successfully"
+        return "Pasword updated Successfully"
     }
-    async verifyEmail(token: string, userId: string): Promise<string> {
+    async verifyEmail(token: string, email: string): Promise<string> {
         const user = await prisma.user.findUnique({
-            where: { id: userId }
+            where: { email }
         });
 
         if (!user) {
@@ -321,7 +323,7 @@ export default class UserServiceImpl implements UserService{
         }
 
         await prisma.user.update({
-            where: { id: userId },
+            where: { email },
             data: {
                 verified: true,
                 token: null,
@@ -477,7 +479,7 @@ export default class UserServiceImpl implements UserService{
 
     async getLoggedInUser (authUser: { id: string }) : Promise<UserResponseDto | VendorResponseDto>{
         
-         const user = await prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {
                 id: authUser.id
             },
@@ -622,8 +624,11 @@ export default class UserServiceImpl implements UserService{
                 "User does not exist"
             )
         }
+
         
-        if(user.password !== dto.oldPassword){
+        const comparePassword = await this.comparePassword(dto.oldPassword, user.password)
+        
+        if(!comparePassword){
             throw new HttpException(
                 StatusCodes.BAD_REQUEST,
                 "Your Password is Incorrect"

@@ -116,6 +116,7 @@ model Item {
   title             String
   description       String
   price             Float
+  quantity Int
   minPrice          Float
   category          Category
   pricingUnit       PricingUnit @default(DAY)

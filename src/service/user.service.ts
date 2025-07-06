@@ -9,7 +9,7 @@ import { IPaginatedUsersResponse } from "../interface/paginatedusers.interface";
 
 export default interface UserService{
     register(dto: CreateUserDto) : Promise<string>
-    verifyEmail(token : string, id: string) : Promise<string>
+    verifyEmail(token : string, email: string) : Promise<string>
     sendToken(email: string) : Promise<string>
     forgotPassword(email:string, dto: ForgotPasswordDto) : Promise<string>
     login(dto: LoginDto) : Promise<{user : UserResponseDto, token : string, message: string}>

@@ -72,8 +72,8 @@ export default class UserController{
         next: NextFunction
     ) => {
         try{
-            const {token, id} = req.query;
-            const user = await this.userService.verifyEmail(token as string, id as string)
+            const {token, email} = req.params;
+            const user = await this.userService.verifyEmail(token as string, email as string)
             res.status(StatusCodes.OK).json(user)
         }catch(err){
             next(err)
