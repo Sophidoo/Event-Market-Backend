@@ -4,14 +4,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/index.js",
     "server": "nodemon src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "build": "tsc",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
     "prisma:studio": "prisma studio",
-    "postinstall": "prisma generate"
+    "postinstall": "npm run build && prisma generate"
   },
   "keywords": [],
   "author": "",
