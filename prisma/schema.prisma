@@ -121,6 +121,7 @@ model Item {
   category          Category
   pricingUnit       PricingUnit? @default(DAY)
   isAvailable       Boolean      @default(true) @map("is_available")
+  status String?
   nextAvailableDate DateTime?    @map("next_available_date")
   images            String[]     @default([])
   locations         String[]     @default([])
@@ -130,7 +131,7 @@ model Item {
   prices            String[]     @default([])
   experience        String?
   careerHighlight   String?
-  education         String[]     @default([])
+  education         String?     
   createdAt         DateTime     @default(now()) @map("created_at")
   updatedAt         DateTime?    @updatedAt @map("updated_at")
 
@@ -156,7 +157,7 @@ model CategoryType {
 model Review {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   comment   String
-  rating    Float
+  rating    Float @default(0)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   // Relationships

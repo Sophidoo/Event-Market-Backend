@@ -22,7 +22,10 @@ export default class App {
     );
   }
 
+  
+
   private initializeRoutes(routes: IRoute[]) {
+    
     routes.forEach((route) => {
       this.app.use(route.router);
     });

@@ -1,11 +1,13 @@
 import App from "./app"
+import ItemRoutes from "./routes/Item.route"
 import UserRoutes from "./routes/user.routes"
 import dotenv from "dotenv"
 
 dotenv.config()
 
 const app = new App([
-    new UserRoutes()
+    new UserRoutes(),
+    new ItemRoutes()
     
 ])
 

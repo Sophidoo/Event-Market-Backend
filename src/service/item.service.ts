@@ -7,10 +7,10 @@ import { IPaginatedItemResponse } from "../interface/paginateditem.interface"
 
 export default interface ItemService{
     createRentals(dto: CreateRentalsDto, files: Express.Multer.File[], id: string) : Promise<string>
-    createServices(dto: CreateServicesDto) : Promise<string>
-    createPackages(dto: CreatePackageDto) : Promise<string>
+    createServices(dto: CreateServicesDto, files: Express.Multer.File[], id: string) : Promise<string>
+    createPackages(dto: CreatePackageDto, files: Express.Multer.File[], id: string) : Promise<string>
     getItem(id: string) : Promise<ItemResponseDto>
-    getItemsList(page: number, pageSize: number, category: Category) : Promise<IPaginatedItemResponse>
+    getItemsList(page: number, pageSize: number, category: Category | null)  : Promise<IPaginatedItemResponse>
     getRentalList(page: number, pageSize: number) : Promise<IPaginatedItemResponse>
     getServiceList(page: number, pageSize: number) : Promise<IPaginatedItemResponse>
     getPackageList(page: number, pageSize: number) : Promise<IPaginatedItemResponse>

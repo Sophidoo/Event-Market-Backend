@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 // Configure storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/rentals/'); // Save to uploads folder
+    cb(null, 'uploads/'); // Save to uploads folder
   },
   filename: (req, file, cb) => {
     const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;

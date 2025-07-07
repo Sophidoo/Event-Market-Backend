@@ -4211,10 +4211,12 @@ export namespace Prisma {
     category: $Enums.Category | null
     pricingUnit: $Enums.PricingUnit | null
     isAvailable: boolean | null
+    status: string | null
     nextAvailableDate: Date | null
     bookingType: $Enums.BookingType | null
     experience: string | null
     careerHighlight: string | null
+    education: string | null
     createdAt: Date | null
     updatedAt: Date | null
     vendorId: string | null
@@ -4231,10 +4233,12 @@ export namespace Prisma {
     category: $Enums.Category | null
     pricingUnit: $Enums.PricingUnit | null
     isAvailable: boolean | null
+    status: string | null
     nextAvailableDate: Date | null
     bookingType: $Enums.BookingType | null
     experience: string | null
     careerHighlight: string | null
+    education: string | null
     createdAt: Date | null
     updatedAt: Date | null
     vendorId: string | null
@@ -4251,6 +4255,7 @@ export namespace Prisma {
     category: number
     pricingUnit: number
     isAvailable: number
+    status: number
     nextAvailableDate: number
     images: number
     locations: number
@@ -4291,10 +4296,12 @@ export namespace Prisma {
     category?: true
     pricingUnit?: true
     isAvailable?: true
+    status?: true
     nextAvailableDate?: true
     bookingType?: true
     experience?: true
     careerHighlight?: true
+    education?: true
     createdAt?: true
     updatedAt?: true
     vendorId?: true
@@ -4311,10 +4318,12 @@ export namespace Prisma {
     category?: true
     pricingUnit?: true
     isAvailable?: true
+    status?: true
     nextAvailableDate?: true
     bookingType?: true
     experience?: true
     careerHighlight?: true
+    education?: true
     createdAt?: true
     updatedAt?: true
     vendorId?: true
@@ -4331,6 +4340,7 @@ export namespace Prisma {
     category?: true
     pricingUnit?: true
     isAvailable?: true
+    status?: true
     nextAvailableDate?: true
     images?: true
     locations?: true
@@ -4444,6 +4454,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit: $Enums.PricingUnit | null
     isAvailable: boolean
+    status: string | null
     nextAvailableDate: Date | null
     images: string[]
     locations: string[]
@@ -4453,7 +4464,7 @@ export namespace Prisma {
     prices: string[]
     experience: string | null
     careerHighlight: string | null
-    education: string[]
+    education: string | null
     createdAt: Date
     updatedAt: Date | null
     vendorId: string
@@ -4489,6 +4500,7 @@ export namespace Prisma {
     category?: boolean
     pricingUnit?: boolean
     isAvailable?: boolean
+    status?: boolean
     nextAvailableDate?: boolean
     images?: boolean
     locations?: boolean
@@ -4523,6 +4535,7 @@ export namespace Prisma {
     category?: boolean
     pricingUnit?: boolean
     isAvailable?: boolean
+    status?: boolean
     nextAvailableDate?: boolean
     images?: boolean
     locations?: boolean
@@ -4539,7 +4552,7 @@ export namespace Prisma {
     categoryId?: boolean
   }
 
-  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "quantity" | "minPrice" | "category" | "pricingUnit" | "isAvailable" | "nextAvailableDate" | "images" | "locations" | "terms" | "bookingType" | "offers" | "prices" | "experience" | "careerHighlight" | "education" | "createdAt" | "updatedAt" | "vendorId" | "categoryId", ExtArgs["result"]["item"]>
+  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "quantity" | "minPrice" | "category" | "pricingUnit" | "isAvailable" | "status" | "nextAvailableDate" | "images" | "locations" | "terms" | "bookingType" | "offers" | "prices" | "experience" | "careerHighlight" | "education" | "createdAt" | "updatedAt" | "vendorId" | "categoryId", ExtArgs["result"]["item"]>
   export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     savedBy?: boolean | Item$savedByArgs<ExtArgs>
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
@@ -4568,6 +4581,7 @@ export namespace Prisma {
       category: $Enums.Category
       pricingUnit: $Enums.PricingUnit | null
       isAvailable: boolean
+      status: string | null
       nextAvailableDate: Date | null
       images: string[]
       locations: string[]
@@ -4577,7 +4591,7 @@ export namespace Prisma {
       prices: string[]
       experience: string | null
       careerHighlight: string | null
-      education: string[]
+      education: string | null
       createdAt: Date
       updatedAt: Date | null
       vendorId: string
@@ -4988,6 +5002,7 @@ export namespace Prisma {
     readonly category: FieldRef<"Item", 'Category'>
     readonly pricingUnit: FieldRef<"Item", 'PricingUnit'>
     readonly isAvailable: FieldRef<"Item", 'Boolean'>
+    readonly status: FieldRef<"Item", 'String'>
     readonly nextAvailableDate: FieldRef<"Item", 'DateTime'>
     readonly images: FieldRef<"Item", 'String[]'>
     readonly locations: FieldRef<"Item", 'String[]'>
@@ -4997,7 +5012,7 @@ export namespace Prisma {
     readonly prices: FieldRef<"Item", 'String[]'>
     readonly experience: FieldRef<"Item", 'String'>
     readonly careerHighlight: FieldRef<"Item", 'String'>
-    readonly education: FieldRef<"Item", 'String[]'>
+    readonly education: FieldRef<"Item", 'String'>
     readonly createdAt: FieldRef<"Item", 'DateTime'>
     readonly updatedAt: FieldRef<"Item", 'DateTime'>
     readonly vendorId: FieldRef<"Item", 'String'>
@@ -10844,6 +10859,7 @@ export namespace Prisma {
     category: 'category',
     pricingUnit: 'pricingUnit',
     isAvailable: 'isAvailable',
+    status: 'status',
     nextAvailableDate: 'nextAvailableDate',
     images: 'images',
     locations: 'locations',
@@ -11358,6 +11374,7 @@ export namespace Prisma {
     category?: EnumCategoryFilter<"Item"> | $Enums.Category
     pricingUnit?: EnumPricingUnitNullableFilter<"Item"> | $Enums.PricingUnit | null
     isAvailable?: BoolFilter<"Item"> | boolean
+    status?: StringNullableFilter<"Item"> | string | null
     nextAvailableDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     images?: StringNullableListFilter<"Item">
     locations?: StringNullableListFilter<"Item">
@@ -11367,7 +11384,7 @@ export namespace Prisma {
     prices?: StringNullableListFilter<"Item">
     experience?: StringNullableFilter<"Item"> | string | null
     careerHighlight?: StringNullableFilter<"Item"> | string | null
-    education?: StringNullableListFilter<"Item">
+    education?: StringNullableFilter<"Item"> | string | null
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Item"> | Date | string | null
     vendorId?: StringFilter<"Item"> | string
@@ -11389,6 +11406,7 @@ export namespace Prisma {
     category?: SortOrder
     pricingUnit?: SortOrder
     isAvailable?: SortOrder
+    status?: SortOrder
     nextAvailableDate?: SortOrder
     images?: SortOrder
     locations?: SortOrder
@@ -11423,6 +11441,7 @@ export namespace Prisma {
     category?: EnumCategoryFilter<"Item"> | $Enums.Category
     pricingUnit?: EnumPricingUnitNullableFilter<"Item"> | $Enums.PricingUnit | null
     isAvailable?: BoolFilter<"Item"> | boolean
+    status?: StringNullableFilter<"Item"> | string | null
     nextAvailableDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     images?: StringNullableListFilter<"Item">
     locations?: StringNullableListFilter<"Item">
@@ -11432,7 +11451,7 @@ export namespace Prisma {
     prices?: StringNullableListFilter<"Item">
     experience?: StringNullableFilter<"Item"> | string | null
     careerHighlight?: StringNullableFilter<"Item"> | string | null
-    education?: StringNullableListFilter<"Item">
+    education?: StringNullableFilter<"Item"> | string | null
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Item"> | Date | string | null
     vendorId?: StringFilter<"Item"> | string
@@ -11454,6 +11473,7 @@ export namespace Prisma {
     category?: SortOrder
     pricingUnit?: SortOrder
     isAvailable?: SortOrder
+    status?: SortOrder
     nextAvailableDate?: SortOrder
     images?: SortOrder
     locations?: SortOrder
@@ -11488,6 +11508,7 @@ export namespace Prisma {
     category?: EnumCategoryWithAggregatesFilter<"Item"> | $Enums.Category
     pricingUnit?: EnumPricingUnitNullableWithAggregatesFilter<"Item"> | $Enums.PricingUnit | null
     isAvailable?: BoolWithAggregatesFilter<"Item"> | boolean
+    status?: StringNullableWithAggregatesFilter<"Item"> | string | null
     nextAvailableDate?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
     images?: StringNullableListFilter<"Item">
     locations?: StringNullableListFilter<"Item">
@@ -11497,7 +11518,7 @@ export namespace Prisma {
     prices?: StringNullableListFilter<"Item">
     experience?: StringNullableWithAggregatesFilter<"Item"> | string | null
     careerHighlight?: StringNullableWithAggregatesFilter<"Item"> | string | null
-    education?: StringNullableListFilter<"Item">
+    education?: StringNullableWithAggregatesFilter<"Item"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Item"> | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
     vendorId?: StringWithAggregatesFilter<"Item"> | string
@@ -12155,6 +12176,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -12164,7 +12186,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
@@ -12184,6 +12206,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -12193,7 +12216,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     vendorId: string
@@ -12212,6 +12235,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -12221,7 +12245,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
@@ -12240,6 +12264,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -12249,7 +12274,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
@@ -12269,6 +12294,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -12278,7 +12304,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     vendorId: string
@@ -12294,6 +12320,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -12303,7 +12330,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -12317,6 +12344,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -12326,7 +12354,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
@@ -12385,7 +12413,7 @@ export namespace Prisma {
   export type ReviewCreateInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutReviewsInput
@@ -12396,7 +12424,7 @@ export namespace Prisma {
   export type ReviewUncheckedCreateInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewer: string
@@ -12427,7 +12455,7 @@ export namespace Prisma {
   export type ReviewCreateManyInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewer: string
@@ -13103,6 +13131,7 @@ export namespace Prisma {
     category?: SortOrder
     pricingUnit?: SortOrder
     isAvailable?: SortOrder
+    status?: SortOrder
     nextAvailableDate?: SortOrder
     images?: SortOrder
     locations?: SortOrder
@@ -13135,10 +13164,12 @@ export namespace Prisma {
     category?: SortOrder
     pricingUnit?: SortOrder
     isAvailable?: SortOrder
+    status?: SortOrder
     nextAvailableDate?: SortOrder
     bookingType?: SortOrder
     experience?: SortOrder
     careerHighlight?: SortOrder
+    education?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     vendorId?: SortOrder
@@ -13155,10 +13186,12 @@ export namespace Prisma {
     category?: SortOrder
     pricingUnit?: SortOrder
     isAvailable?: SortOrder
+    status?: SortOrder
     nextAvailableDate?: SortOrder
     bookingType?: SortOrder
     experience?: SortOrder
     careerHighlight?: SortOrder
+    education?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     vendorId?: SortOrder
@@ -13930,10 +13963,6 @@ export namespace Prisma {
     set: string[]
   }
 
-  export type ItemCreateeducationInput = {
-    set: string[]
-  }
-
   export type SavedItemCreateNestedManyWithoutItemInput = {
     create?: XOR<SavedItemCreateWithoutItemInput, SavedItemUncheckedCreateWithoutItemInput> | SavedItemCreateWithoutItemInput[] | SavedItemUncheckedCreateWithoutItemInput[]
     connectOrCreate?: SavedItemCreateOrConnectWithoutItemInput | SavedItemCreateOrConnectWithoutItemInput[]
@@ -14031,11 +14060,6 @@ export namespace Prisma {
   }
 
   export type ItemUpdatepricesInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type ItemUpdateeducationInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -14804,7 +14828,7 @@ export namespace Prisma {
   export type ReviewCreateWithoutUserInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     item?: ItemCreateNestedOneWithoutReviewsInput
@@ -14814,7 +14838,7 @@ export namespace Prisma {
   export type ReviewUncheckedCreateWithoutUserInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     itemId?: string | null
@@ -15147,7 +15171,7 @@ export namespace Prisma {
   export type ReviewCreateWithoutVendorInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutReviewsInput
@@ -15157,7 +15181,7 @@ export namespace Prisma {
   export type ReviewUncheckedCreateWithoutVendorInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewer: string
@@ -15183,6 +15207,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -15192,7 +15217,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
@@ -15211,6 +15236,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -15220,7 +15246,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     categoryId?: string | null
@@ -15379,6 +15405,7 @@ export namespace Prisma {
     category?: EnumCategoryFilter<"Item"> | $Enums.Category
     pricingUnit?: EnumPricingUnitNullableFilter<"Item"> | $Enums.PricingUnit | null
     isAvailable?: BoolFilter<"Item"> | boolean
+    status?: StringNullableFilter<"Item"> | string | null
     nextAvailableDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     images?: StringNullableListFilter<"Item">
     locations?: StringNullableListFilter<"Item">
@@ -15388,7 +15415,7 @@ export namespace Prisma {
     prices?: StringNullableListFilter<"Item">
     experience?: StringNullableFilter<"Item"> | string | null
     careerHighlight?: StringNullableFilter<"Item"> | string | null
-    education?: StringNullableListFilter<"Item">
+    education?: StringNullableFilter<"Item"> | string | null
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Item"> | Date | string | null
     vendorId?: StringFilter<"Item"> | string
@@ -15495,7 +15522,7 @@ export namespace Prisma {
   export type ReviewCreateWithoutItemInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutReviewsInput
@@ -15505,7 +15532,7 @@ export namespace Prisma {
   export type ReviewUncheckedCreateWithoutItemInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewer: string
@@ -15688,6 +15715,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -15697,7 +15725,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
@@ -15716,6 +15744,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -15725,7 +15754,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     vendorId: string
@@ -15820,6 +15849,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -15829,7 +15859,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
@@ -15848,6 +15878,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -15857,7 +15888,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     vendorId: string
@@ -15987,6 +16018,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -15996,7 +16028,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
@@ -16014,6 +16046,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -16023,7 +16056,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
@@ -16138,6 +16171,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -16147,7 +16181,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     vendor: VendorCreateNestedOneWithoutItemsInput
@@ -16166,6 +16200,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -16175,7 +16210,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     vendorId: string
@@ -16264,6 +16299,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -16273,7 +16309,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
@@ -16291,6 +16327,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -16300,7 +16337,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
@@ -16411,6 +16448,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -16420,7 +16458,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
@@ -16439,6 +16477,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -16448,7 +16487,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     vendorId: string
@@ -16611,6 +16650,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -16620,7 +16660,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
@@ -16638,6 +16678,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -16647,7 +16688,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
@@ -16891,7 +16932,7 @@ export namespace Prisma {
   export type ReviewCreateManyUserInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     itemId?: string | null
@@ -17038,7 +17079,7 @@ export namespace Prisma {
   export type ReviewCreateManyVendorInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewer: string
@@ -17055,6 +17096,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -17064,7 +17106,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     categoryId?: string | null
@@ -17121,6 +17163,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -17130,7 +17173,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
@@ -17148,6 +17191,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -17157,7 +17201,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17175,6 +17219,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -17184,7 +17229,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17243,7 +17288,7 @@ export namespace Prisma {
   export type ReviewCreateManyItemInput = {
     id?: string
     comment: string
-    rating: number
+    rating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewer: string
@@ -17361,6 +17406,7 @@ export namespace Prisma {
     category: $Enums.Category
     pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
+    status?: string | null
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
     locations?: ItemCreatelocationsInput | string[]
@@ -17370,7 +17416,7 @@ export namespace Prisma {
     prices?: ItemCreatepricesInput | string[]
     experience?: string | null
     careerHighlight?: string | null
-    education?: ItemCreateeducationInput | string[]
+    education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     vendorId: string
@@ -17385,6 +17431,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -17394,7 +17441,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
@@ -17412,6 +17459,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -17421,7 +17469,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
@@ -17439,6 +17487,7 @@ export namespace Prisma {
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
     pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
     locations?: ItemUpdatelocationsInput | string[]
@@ -17448,7 +17497,7 @@ export namespace Prisma {
     prices?: ItemUpdatepricesInput | string[]
     experience?: NullableStringFieldUpdateOperationsInput | string | null
     careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
-    education?: ItemUpdateeducationInput | string[]
+    education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string

@@ -6,6 +6,13 @@ import { validate } from "class-validator";
 import { ClassConstructor, plainToInstance } from "class-transformer";
 
 export default async function ValidateDto<T extends Object> (dtoClass: ClassConstructor<T>, plainObject: object) {
+
+    if(!plainObject){
+        throw new HttpException(
+            StatusCodes.BAD_REQUEST,
+            "No input detected"
+        )
+    }
     
     const dtoInstance = plainToInstance(dtoClass, plainObject);
     const errors = await validate(dtoInstance);

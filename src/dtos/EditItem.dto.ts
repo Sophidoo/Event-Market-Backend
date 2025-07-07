@@ -12,15 +12,12 @@ export class EditRentalsDto{
     @IsString()
     @IsNotEmpty()
     description: string;
-    @IsArray()
-    @IsNotEmpty()
-    images: string[];
     @IsNumber()
     price: number;
     @IsEnum(BookingType)
     bookingType: BookingType;
     @IsString()
-    categoryType: CategoryType;
+    categoryType: string;
     @IsArray()
     terms: string[];
     @IsArray()
@@ -40,13 +37,11 @@ export class EditServicesDto{
     category: Category;
     @IsString()
     description: string;
-    @IsArray()
-    images: string[];
     @IsNumber()
     minPrice: number;
     @IsEnum(BookingType)
     bookingType: BookingType;
-    categoryType: CategoryType;
+    categoryType: string;
     @IsString()
     experience: string;
     @IsString()
@@ -70,14 +65,12 @@ export class EditPackageDto{
     category: Category;
     @IsString()
     description: string;
-    @IsArray()
-    images: string[];
     @IsNumber()
     price: number;
     @IsEnum(BookingType)
     bookingType: BookingType;
     @IsNotEmpty()
-    categoryType: CategoryType;
+    categoryType: string;
     @IsArray()
     offers: string[];
     @IsArray()

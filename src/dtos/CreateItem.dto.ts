@@ -11,9 +11,6 @@ export class CreateRentalsDto{
     @IsString()
     @IsNotEmpty()
     description: string;
-    @IsArray()
-    @IsNotEmpty()
-    images: string[];
     @IsNumber()
     price: number;
     @IsEnum(BookingType)
@@ -24,8 +21,9 @@ export class CreateRentalsDto{
     terms: string[];
     @IsArray()
     locations: string[];
-    @IsBoolean()
-    isAvailable: boolean;
+
+    @IsNotEmpty()
+    isAvailable: string;
     @IsEnum(PricingUnit)
     pricingUnit: PricingUnit;
 }
@@ -56,8 +54,9 @@ export class CreateServicesDto{
     prices: string[];
     @IsArray()
     locations: string[];
-    @IsBoolean()
-    isAvailable: boolean;
+
+    @IsNotEmpty()
+    isAvailable: string;
 }
 
 export class CreatePackageDto{
@@ -79,6 +78,7 @@ export class CreatePackageDto{
     offers: string[];
     @IsArray()
     locations: string[];
-    @IsBoolean()
-    isAvailable: boolean;
+
+    @IsNotEmpty()
+    isAvailable: string;
 }

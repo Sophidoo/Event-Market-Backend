@@ -3,6 +3,7 @@ import { IRoute } from "../interface/route.interface";
 import UserController from "../controller/user.controller";
 import authMiddleware from "../middleware/auth.middleware";
 import { uploadMiddleware } from "../middleware/upload.middleware";
+import isAdminMiddleWare from "../middleware/isAdmin.middleware";
 
 
 export default class UserRoutes implements IRoute{
@@ -16,7 +17,7 @@ export default class UserRoutes implements IRoute{
     }
 
     private initializeRoutes(){
-        this.router.get(`${this.path}/users/:page/:pageSize`, authMiddleware, this.controller.fetchUsers)
+        this.router.get(`${this.path}/users/:page/:pageSize`, authMiddleware, isAdminMiddleWare, this.controller.fetchUsers)
         this.router.post(`${this.path}/register`, this.controller.register)
         this.router.post(`${this.path}/login`, this.controller.login)
         this.router.get(`${this.path}/get-user/:id`, this.controller.getUniqueUser)

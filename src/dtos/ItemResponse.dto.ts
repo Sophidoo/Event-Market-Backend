@@ -2,24 +2,27 @@ import { BookingType, Category, CategoryType, PricingUnit } from "../../generate
 
 
 export class ItemResponseDto{
+    id: string
     title: string;
     category: Category;
     description: string;
     images: string[];
-    price: number;
+    price: number | null;
     bookingType: BookingType;
-    quantity: number
-    categoryType: string;
+    quantity: number | null
+    categoryType: string | undefined;
     terms: string[];
     locations: string[];
     isAvailable: boolean;
-    pricingUnit: PricingUnit;
-    minPrice: string;
-    experience: string;
-    careerHighlight: string;
-    education: string
+    pricingUnit: PricingUnit | null;
+    minPrice: number | null;
+    experience: string | null;
+    careerHighlight: string | null;
+    education: string | null;
     offers: string[];
     prices: string[];
-    nextAvailableDate: Date;
+    nextAvailableDate: Date | null;
     createdAt: Date;
+    averageRating : number | null;
+    reviewCount : number | 0
 }

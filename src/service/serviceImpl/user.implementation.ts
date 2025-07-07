@@ -362,7 +362,7 @@ export default class UserServiceImpl implements UserService{
         })
         if (!user) {
             throw new HttpException(
-                StatusCodes.BAD_REQUEST,
+                StatusCodes.NOT_FOUND,
                 "Account does not exist"
             );
         }
