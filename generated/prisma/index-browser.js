@@ -153,6 +153,7 @@ exports.Prisma.ItemScalarFieldEnum = {
   title: 'title',
   description: 'description',
   price: 'price',
+  quantity: 'quantity',
   minPrice: 'minPrice',
   category: 'category',
   pricingUnit: 'pricingUnit',

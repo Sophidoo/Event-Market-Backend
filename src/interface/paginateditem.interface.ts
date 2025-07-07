@@ -1,7 +1,7 @@
-import { UserResponseDto } from "../dtos/userResponse.dto";
+import { ItemResponseDto } from "../dtos/ItemResponse.dto";
 
-export interface IPaginatedUsersResponse {
-  data: UserResponseDto[];
+export interface IPaginatedItemResponse {
+  data: ItemResponseDto[];
   meta: {
     total: number;
     page: number;

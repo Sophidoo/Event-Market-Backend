@@ -4191,11 +4191,13 @@ export namespace Prisma {
 
   export type ItemAvgAggregateOutputType = {
     price: number | null
+    quantity: number | null
     minPrice: number | null
   }
 
   export type ItemSumAggregateOutputType = {
     price: number | null
+    quantity: number | null
     minPrice: number | null
   }
 
@@ -4204,6 +4206,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     price: number | null
+    quantity: number | null
     minPrice: number | null
     category: $Enums.Category | null
     pricingUnit: $Enums.PricingUnit | null
@@ -4211,6 +4214,7 @@ export namespace Prisma {
     nextAvailableDate: Date | null
     bookingType: $Enums.BookingType | null
     experience: string | null
+    careerHighlight: string | null
     createdAt: Date | null
     updatedAt: Date | null
     vendorId: string | null
@@ -4222,6 +4226,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     price: number | null
+    quantity: number | null
     minPrice: number | null
     category: $Enums.Category | null
     pricingUnit: $Enums.PricingUnit | null
@@ -4229,6 +4234,7 @@ export namespace Prisma {
     nextAvailableDate: Date | null
     bookingType: $Enums.BookingType | null
     experience: string | null
+    careerHighlight: string | null
     createdAt: Date | null
     updatedAt: Date | null
     vendorId: string | null
@@ -4240,6 +4246,7 @@ export namespace Prisma {
     title: number
     description: number
     price: number
+    quantity: number
     minPrice: number
     category: number
     pricingUnit: number
@@ -4264,11 +4271,13 @@ export namespace Prisma {
 
   export type ItemAvgAggregateInputType = {
     price?: true
+    quantity?: true
     minPrice?: true
   }
 
   export type ItemSumAggregateInputType = {
     price?: true
+    quantity?: true
     minPrice?: true
   }
 
@@ -4277,6 +4286,7 @@ export namespace Prisma {
     title?: true
     description?: true
     price?: true
+    quantity?: true
     minPrice?: true
     category?: true
     pricingUnit?: true
@@ -4284,6 +4294,7 @@ export namespace Prisma {
     nextAvailableDate?: true
     bookingType?: true
     experience?: true
+    careerHighlight?: true
     createdAt?: true
     updatedAt?: true
     vendorId?: true
@@ -4295,6 +4306,7 @@ export namespace Prisma {
     title?: true
     description?: true
     price?: true
+    quantity?: true
     minPrice?: true
     category?: true
     pricingUnit?: true
@@ -4302,6 +4314,7 @@ export namespace Prisma {
     nextAvailableDate?: true
     bookingType?: true
     experience?: true
+    careerHighlight?: true
     createdAt?: true
     updatedAt?: true
     vendorId?: true
@@ -4313,6 +4326,7 @@ export namespace Prisma {
     title?: true
     description?: true
     price?: true
+    quantity?: true
     minPrice?: true
     category?: true
     pricingUnit?: true
@@ -4424,10 +4438,11 @@ export namespace Prisma {
     id: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price: number | null
+    quantity: number | null
+    minPrice: number | null
     category: $Enums.Category
-    pricingUnit: $Enums.PricingUnit
+    pricingUnit: $Enums.PricingUnit | null
     isAvailable: boolean
     nextAvailableDate: Date | null
     images: string[]
@@ -4436,11 +4451,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers: string[]
     prices: string[]
-    experience: string
-    careerHighlight: string[]
+    experience: string | null
+    careerHighlight: string | null
     education: string[]
     createdAt: Date
-    updatedAt: Date
+    updatedAt: Date | null
     vendorId: string
     categoryId: string | null
     _count: ItemCountAggregateOutputType | null
@@ -4469,6 +4484,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     price?: boolean
+    quantity?: boolean
     minPrice?: boolean
     category?: boolean
     pricingUnit?: boolean
@@ -4502,6 +4518,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     price?: boolean
+    quantity?: boolean
     minPrice?: boolean
     category?: boolean
     pricingUnit?: boolean
@@ -4522,7 +4539,7 @@ export namespace Prisma {
     categoryId?: boolean
   }
 
-  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "minPrice" | "category" | "pricingUnit" | "isAvailable" | "nextAvailableDate" | "images" | "locations" | "terms" | "bookingType" | "offers" | "prices" | "experience" | "careerHighlight" | "education" | "createdAt" | "updatedAt" | "vendorId" | "categoryId", ExtArgs["result"]["item"]>
+  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "quantity" | "minPrice" | "category" | "pricingUnit" | "isAvailable" | "nextAvailableDate" | "images" | "locations" | "terms" | "bookingType" | "offers" | "prices" | "experience" | "careerHighlight" | "education" | "createdAt" | "updatedAt" | "vendorId" | "categoryId", ExtArgs["result"]["item"]>
   export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     savedBy?: boolean | Item$savedByArgs<ExtArgs>
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
@@ -4545,10 +4562,11 @@ export namespace Prisma {
       id: string
       title: string
       description: string
-      price: number
-      minPrice: number
+      price: number | null
+      quantity: number | null
+      minPrice: number | null
       category: $Enums.Category
-      pricingUnit: $Enums.PricingUnit
+      pricingUnit: $Enums.PricingUnit | null
       isAvailable: boolean
       nextAvailableDate: Date | null
       images: string[]
@@ -4557,11 +4575,11 @@ export namespace Prisma {
       bookingType: $Enums.BookingType
       offers: string[]
       prices: string[]
-      experience: string
-      careerHighlight: string[]
+      experience: string | null
+      careerHighlight: string | null
       education: string[]
       createdAt: Date
-      updatedAt: Date
+      updatedAt: Date | null
       vendorId: string
       categoryId: string | null
     }, ExtArgs["result"]["item"]>
@@ -4965,6 +4983,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Item", 'String'>
     readonly description: FieldRef<"Item", 'String'>
     readonly price: FieldRef<"Item", 'Float'>
+    readonly quantity: FieldRef<"Item", 'Int'>
     readonly minPrice: FieldRef<"Item", 'Float'>
     readonly category: FieldRef<"Item", 'Category'>
     readonly pricingUnit: FieldRef<"Item", 'PricingUnit'>
@@ -4977,7 +4996,7 @@ export namespace Prisma {
     readonly offers: FieldRef<"Item", 'String[]'>
     readonly prices: FieldRef<"Item", 'String[]'>
     readonly experience: FieldRef<"Item", 'String'>
-    readonly careerHighlight: FieldRef<"Item", 'String[]'>
+    readonly careerHighlight: FieldRef<"Item", 'String'>
     readonly education: FieldRef<"Item", 'String[]'>
     readonly createdAt: FieldRef<"Item", 'DateTime'>
     readonly updatedAt: FieldRef<"Item", 'DateTime'>
@@ -5593,7 +5612,7 @@ export namespace Prisma {
     id: string
     name: string
     createdAt: Date
-    updatedAt: Date
+    updatedAt: Date | null
     _count: CategoryTypeCountAggregateOutputType | null
     _min: CategoryTypeMinAggregateOutputType | null
     _max: CategoryTypeMaxAggregateOutputType | null
@@ -5646,7 +5665,7 @@ export namespace Prisma {
       id: string
       name: string
       createdAt: Date
-      updatedAt: Date
+      updatedAt: Date | null
     }, ExtArgs["result"]["categoryType"]>
     composites: {}
   }
@@ -10820,6 +10839,7 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     price: 'price',
+    quantity: 'quantity',
     minPrice: 'minPrice',
     category: 'category',
     pricingUnit: 'pricingUnit',
@@ -10997,6 +11017,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Category'
    */
   export type EnumCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Category'>
@@ -11077,20 +11111,6 @@ export namespace Prisma {
    * Reference to a field of type 'PaymentStatus[]'
    */
   export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
   /**
    * Deep Input Types
@@ -11332,10 +11352,11 @@ export namespace Prisma {
     id?: StringFilter<"Item"> | string
     title?: StringFilter<"Item"> | string
     description?: StringFilter<"Item"> | string
-    price?: FloatFilter<"Item"> | number
-    minPrice?: FloatFilter<"Item"> | number
+    price?: FloatNullableFilter<"Item"> | number | null
+    quantity?: IntNullableFilter<"Item"> | number | null
+    minPrice?: FloatNullableFilter<"Item"> | number | null
     category?: EnumCategoryFilter<"Item"> | $Enums.Category
-    pricingUnit?: EnumPricingUnitFilter<"Item"> | $Enums.PricingUnit
+    pricingUnit?: EnumPricingUnitNullableFilter<"Item"> | $Enums.PricingUnit | null
     isAvailable?: BoolFilter<"Item"> | boolean
     nextAvailableDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     images?: StringNullableListFilter<"Item">
@@ -11344,11 +11365,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFilter<"Item"> | $Enums.BookingType
     offers?: StringNullableListFilter<"Item">
     prices?: StringNullableListFilter<"Item">
-    experience?: StringFilter<"Item"> | string
-    careerHighlight?: StringNullableListFilter<"Item">
+    experience?: StringNullableFilter<"Item"> | string | null
+    careerHighlight?: StringNullableFilter<"Item"> | string | null
     education?: StringNullableListFilter<"Item">
     createdAt?: DateTimeFilter<"Item"> | Date | string
-    updatedAt?: DateTimeFilter<"Item"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Item"> | Date | string | null
     vendorId?: StringFilter<"Item"> | string
     categoryId?: StringNullableFilter<"Item"> | string | null
     savedBy?: SavedItemListRelationFilter
@@ -11363,6 +11384,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    quantity?: SortOrder
     minPrice?: SortOrder
     category?: SortOrder
     pricingUnit?: SortOrder
@@ -11395,10 +11417,11 @@ export namespace Prisma {
     NOT?: ItemWhereInput | ItemWhereInput[]
     title?: StringFilter<"Item"> | string
     description?: StringFilter<"Item"> | string
-    price?: FloatFilter<"Item"> | number
-    minPrice?: FloatFilter<"Item"> | number
+    price?: FloatNullableFilter<"Item"> | number | null
+    quantity?: IntNullableFilter<"Item"> | number | null
+    minPrice?: FloatNullableFilter<"Item"> | number | null
     category?: EnumCategoryFilter<"Item"> | $Enums.Category
-    pricingUnit?: EnumPricingUnitFilter<"Item"> | $Enums.PricingUnit
+    pricingUnit?: EnumPricingUnitNullableFilter<"Item"> | $Enums.PricingUnit | null
     isAvailable?: BoolFilter<"Item"> | boolean
     nextAvailableDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     images?: StringNullableListFilter<"Item">
@@ -11407,11 +11430,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFilter<"Item"> | $Enums.BookingType
     offers?: StringNullableListFilter<"Item">
     prices?: StringNullableListFilter<"Item">
-    experience?: StringFilter<"Item"> | string
-    careerHighlight?: StringNullableListFilter<"Item">
+    experience?: StringNullableFilter<"Item"> | string | null
+    careerHighlight?: StringNullableFilter<"Item"> | string | null
     education?: StringNullableListFilter<"Item">
     createdAt?: DateTimeFilter<"Item"> | Date | string
-    updatedAt?: DateTimeFilter<"Item"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Item"> | Date | string | null
     vendorId?: StringFilter<"Item"> | string
     categoryId?: StringNullableFilter<"Item"> | string | null
     savedBy?: SavedItemListRelationFilter
@@ -11426,6 +11449,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    quantity?: SortOrder
     minPrice?: SortOrder
     category?: SortOrder
     pricingUnit?: SortOrder
@@ -11458,10 +11482,11 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Item"> | string
     title?: StringWithAggregatesFilter<"Item"> | string
     description?: StringWithAggregatesFilter<"Item"> | string
-    price?: FloatWithAggregatesFilter<"Item"> | number
-    minPrice?: FloatWithAggregatesFilter<"Item"> | number
+    price?: FloatNullableWithAggregatesFilter<"Item"> | number | null
+    quantity?: IntNullableWithAggregatesFilter<"Item"> | number | null
+    minPrice?: FloatNullableWithAggregatesFilter<"Item"> | number | null
     category?: EnumCategoryWithAggregatesFilter<"Item"> | $Enums.Category
-    pricingUnit?: EnumPricingUnitWithAggregatesFilter<"Item"> | $Enums.PricingUnit
+    pricingUnit?: EnumPricingUnitNullableWithAggregatesFilter<"Item"> | $Enums.PricingUnit | null
     isAvailable?: BoolWithAggregatesFilter<"Item"> | boolean
     nextAvailableDate?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
     images?: StringNullableListFilter<"Item">
@@ -11470,11 +11495,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeWithAggregatesFilter<"Item"> | $Enums.BookingType
     offers?: StringNullableListFilter<"Item">
     prices?: StringNullableListFilter<"Item">
-    experience?: StringWithAggregatesFilter<"Item"> | string
-    careerHighlight?: StringNullableListFilter<"Item">
+    experience?: StringNullableWithAggregatesFilter<"Item"> | string | null
+    careerHighlight?: StringNullableWithAggregatesFilter<"Item"> | string | null
     education?: StringNullableListFilter<"Item">
     createdAt?: DateTimeWithAggregatesFilter<"Item"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Item"> | Date | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
     vendorId?: StringWithAggregatesFilter<"Item"> | string
     categoryId?: StringNullableWithAggregatesFilter<"Item"> | string | null
   }
@@ -11486,7 +11511,7 @@ export namespace Prisma {
     id?: StringFilter<"CategoryType"> | string
     name?: StringFilter<"CategoryType"> | string
     createdAt?: DateTimeFilter<"CategoryType"> | Date | string
-    updatedAt?: DateTimeFilter<"CategoryType"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"CategoryType"> | Date | string | null
     items?: ItemListRelationFilter
   }
 
@@ -11500,14 +11525,14 @@ export namespace Prisma {
 
   export type CategoryTypeWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     AND?: CategoryTypeWhereInput | CategoryTypeWhereInput[]
     OR?: CategoryTypeWhereInput[]
     NOT?: CategoryTypeWhereInput | CategoryTypeWhereInput[]
-    name?: StringFilter<"CategoryType"> | string
     createdAt?: DateTimeFilter<"CategoryType"> | Date | string
-    updatedAt?: DateTimeFilter<"CategoryType"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"CategoryType"> | Date | string | null
     items?: ItemListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type CategoryTypeOrderByWithAggregationInput = {
     id?: SortOrder
@@ -11526,7 +11551,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"CategoryType"> | string
     name?: StringWithAggregatesFilter<"CategoryType"> | string
     createdAt?: DateTimeWithAggregatesFilter<"CategoryType"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"CategoryType"> | Date | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter<"CategoryType"> | Date | string | null
   }
 
   export type ReviewWhereInput = {
@@ -12124,10 +12149,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -12136,11 +12162,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
     vendor: VendorCreateNestedOneWithoutItemsInput
     categoryType?: CategoryTypeCreateNestedOneWithoutItemsInput
@@ -12152,10 +12178,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -12164,11 +12191,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     vendorId: string
     categoryId?: string | null
     savedBy?: SavedItemUncheckedCreateNestedManyWithoutItemInput
@@ -12179,10 +12206,11 @@ export namespace Prisma {
   export type ItemUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -12191,11 +12219,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
     categoryType?: CategoryTypeUpdateOneWithoutItemsNestedInput
@@ -12206,10 +12234,11 @@ export namespace Prisma {
   export type ItemUncheckedUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -12218,11 +12247,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     savedBy?: SavedItemUncheckedUpdateManyWithoutItemNestedInput
@@ -12234,10 +12263,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -12246,11 +12276,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     vendorId: string
     categoryId?: string | null
   }
@@ -12258,10 +12288,11 @@ export namespace Prisma {
   export type ItemUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -12270,20 +12301,21 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ItemUncheckedUpdateManyInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -12292,11 +12324,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -12305,7 +12337,7 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     items?: ItemCreateNestedManyWithoutCategoryTypeInput
   }
 
@@ -12313,21 +12345,21 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     items?: ItemUncheckedCreateNestedManyWithoutCategoryTypeInput
   }
 
   export type CategoryTypeUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: ItemUpdateManyWithoutCategoryTypeNestedInput
   }
 
   export type CategoryTypeUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: ItemUncheckedUpdateManyWithoutCategoryTypeNestedInput
   }
 
@@ -12335,19 +12367,19 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type CategoryTypeUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CategoryTypeUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ReviewCreateInput = {
@@ -13009,15 +13041,16 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
   }
 
   export type EnumCategoryFilter<$PrismaModel = never> = {
@@ -13027,11 +13060,12 @@ export namespace Prisma {
     not?: NestedEnumCategoryFilter<$PrismaModel> | $Enums.Category
   }
 
-  export type EnumPricingUnitFilter<$PrismaModel = never> = {
-    equals?: $Enums.PricingUnit | EnumPricingUnitFieldRefInput<$PrismaModel>
-    in?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel>
-    not?: NestedEnumPricingUnitFilter<$PrismaModel> | $Enums.PricingUnit
+  export type EnumPricingUnitNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PricingUnit | EnumPricingUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPricingUnitNullableFilter<$PrismaModel> | $Enums.PricingUnit | null
+    isSet?: boolean
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -13064,6 +13098,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    quantity?: SortOrder
     minPrice?: SortOrder
     category?: SortOrder
     pricingUnit?: SortOrder
@@ -13086,6 +13121,7 @@ export namespace Prisma {
 
   export type ItemAvgOrderByAggregateInput = {
     price?: SortOrder
+    quantity?: SortOrder
     minPrice?: SortOrder
   }
 
@@ -13094,6 +13130,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    quantity?: SortOrder
     minPrice?: SortOrder
     category?: SortOrder
     pricingUnit?: SortOrder
@@ -13101,6 +13138,7 @@ export namespace Prisma {
     nextAvailableDate?: SortOrder
     bookingType?: SortOrder
     experience?: SortOrder
+    careerHighlight?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     vendorId?: SortOrder
@@ -13112,6 +13150,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    quantity?: SortOrder
     minPrice?: SortOrder
     category?: SortOrder
     pricingUnit?: SortOrder
@@ -13119,6 +13158,7 @@ export namespace Prisma {
     nextAvailableDate?: SortOrder
     bookingType?: SortOrder
     experience?: SortOrder
+    careerHighlight?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     vendorId?: SortOrder
@@ -13127,23 +13167,25 @@ export namespace Prisma {
 
   export type ItemSumOrderByAggregateInput = {
     price?: SortOrder
+    quantity?: SortOrder
     minPrice?: SortOrder
   }
 
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type EnumCategoryWithAggregatesFilter<$PrismaModel = never> = {
@@ -13156,14 +13198,15 @@ export namespace Prisma {
     _max?: NestedEnumCategoryFilter<$PrismaModel>
   }
 
-  export type EnumPricingUnitWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PricingUnit | EnumPricingUnitFieldRefInput<$PrismaModel>
-    in?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel>
-    not?: NestedEnumPricingUnitWithAggregatesFilter<$PrismaModel> | $Enums.PricingUnit
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPricingUnitFilter<$PrismaModel>
-    _max?: NestedEnumPricingUnitFilter<$PrismaModel>
+  export type EnumPricingUnitNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PricingUnit | EnumPricingUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPricingUnitNullableWithAggregatesFilter<$PrismaModel> | $Enums.PricingUnit | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPricingUnitNullableFilter<$PrismaModel>
+    _max?: NestedEnumPricingUnitNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type EnumBookingTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -13195,6 +13238,17 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type ItemNullableScalarRelationFilter = {
@@ -13241,6 +13295,22 @@ export namespace Prisma {
 
   export type ReviewSumOrderByAggregateInput = {
     rating?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type ItemScalarRelationFilter = {
@@ -13860,10 +13930,6 @@ export namespace Prisma {
     set: string[]
   }
 
-  export type ItemCreatecareerHighlightInput = {
-    set: string[]
-  }
-
   export type ItemCreateeducationInput = {
     set: string[]
   }
@@ -13922,20 +13988,22 @@ export namespace Prisma {
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+    unset?: boolean
   }
 
   export type EnumCategoryFieldUpdateOperationsInput = {
     set?: $Enums.Category
   }
 
-  export type EnumPricingUnitFieldUpdateOperationsInput = {
-    set?: $Enums.PricingUnit
+  export type NullableEnumPricingUnitFieldUpdateOperationsInput = {
+    set?: $Enums.PricingUnit | null
+    unset?: boolean
   }
 
   export type ItemUpdateimagesInput = {
@@ -13963,11 +14031,6 @@ export namespace Prisma {
   }
 
   export type ItemUpdatepricesInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type ItemUpdatecareerHighlightInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -14137,6 +14200,14 @@ export namespace Prisma {
     create?: XOR<VendorCreateWithoutReviewsInput, VendorUncheckedCreateWithoutReviewsInput>
     connectOrCreate?: VendorCreateOrConnectWithoutReviewsInput
     connect?: VendorWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
@@ -14518,6 +14589,76 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedEnumCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.Category | EnumCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.Category[] | ListEnumCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Category[] | ListEnumCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryFilter<$PrismaModel> | $Enums.Category
+  }
+
+  export type NestedEnumPricingUnitNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PricingUnit | EnumPricingUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPricingUnitNullableFilter<$PrismaModel> | $Enums.PricingUnit | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumBookingTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BookingType | EnumBookingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BookingType[] | ListEnumBookingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BookingType[] | ListEnumBookingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBookingTypeFilter<$PrismaModel> | $Enums.BookingType
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedEnumCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Category | EnumCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.Category[] | ListEnumCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Category[] | ListEnumCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryWithAggregatesFilter<$PrismaModel> | $Enums.Category
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCategoryFilter<$PrismaModel>
+    _max?: NestedEnumCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPricingUnitNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PricingUnit | EnumPricingUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPricingUnitNullableWithAggregatesFilter<$PrismaModel> | $Enums.PricingUnit | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPricingUnitNullableFilter<$PrismaModel>
+    _max?: NestedEnumPricingUnitNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedEnumBookingTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BookingType | EnumBookingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BookingType[] | ListEnumBookingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BookingType[] | ListEnumBookingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBookingTypeWithAggregatesFilter<$PrismaModel> | $Enums.BookingType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBookingTypeFilter<$PrismaModel>
+    _max?: NestedEnumBookingTypeFilter<$PrismaModel>
+  }
+
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -14527,27 +14668,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedEnumCategoryFilter<$PrismaModel = never> = {
-    equals?: $Enums.Category | EnumCategoryFieldRefInput<$PrismaModel>
-    in?: $Enums.Category[] | ListEnumCategoryFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Category[] | ListEnumCategoryFieldRefInput<$PrismaModel>
-    not?: NestedEnumCategoryFilter<$PrismaModel> | $Enums.Category
-  }
-
-  export type NestedEnumPricingUnitFilter<$PrismaModel = never> = {
-    equals?: $Enums.PricingUnit | EnumPricingUnitFieldRefInput<$PrismaModel>
-    in?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel>
-    not?: NestedEnumPricingUnitFilter<$PrismaModel> | $Enums.PricingUnit
-  }
-
-  export type NestedEnumBookingTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.BookingType | EnumBookingTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.BookingType[] | ListEnumBookingTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BookingType[] | ListEnumBookingTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumBookingTypeFilter<$PrismaModel> | $Enums.BookingType
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -14564,36 +14684,6 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
-  }
-
-  export type NestedEnumCategoryWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Category | EnumCategoryFieldRefInput<$PrismaModel>
-    in?: $Enums.Category[] | ListEnumCategoryFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Category[] | ListEnumCategoryFieldRefInput<$PrismaModel>
-    not?: NestedEnumCategoryWithAggregatesFilter<$PrismaModel> | $Enums.Category
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCategoryFilter<$PrismaModel>
-    _max?: NestedEnumCategoryFilter<$PrismaModel>
-  }
-
-  export type NestedEnumPricingUnitWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PricingUnit | EnumPricingUnitFieldRefInput<$PrismaModel>
-    in?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PricingUnit[] | ListEnumPricingUnitFieldRefInput<$PrismaModel>
-    not?: NestedEnumPricingUnitWithAggregatesFilter<$PrismaModel> | $Enums.PricingUnit
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPricingUnitFilter<$PrismaModel>
-    _max?: NestedEnumPricingUnitFilter<$PrismaModel>
-  }
-
-  export type NestedEnumBookingTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BookingType | EnumBookingTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.BookingType[] | ListEnumBookingTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BookingType[] | ListEnumBookingTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumBookingTypeWithAggregatesFilter<$PrismaModel> | $Enums.BookingType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBookingTypeFilter<$PrismaModel>
-    _max?: NestedEnumBookingTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumBookingStatusNullableFilter<$PrismaModel = never> = {
@@ -15087,10 +15177,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -15099,11 +15190,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
     categoryType?: CategoryTypeCreateNestedOneWithoutItemsInput
     reviews?: ReviewCreateNestedManyWithoutItemInput
@@ -15114,10 +15205,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -15126,11 +15218,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     categoryId?: string | null
     savedBy?: SavedItemUncheckedCreateNestedManyWithoutItemInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutItemInput
@@ -15281,10 +15373,11 @@ export namespace Prisma {
     id?: StringFilter<"Item"> | string
     title?: StringFilter<"Item"> | string
     description?: StringFilter<"Item"> | string
-    price?: FloatFilter<"Item"> | number
-    minPrice?: FloatFilter<"Item"> | number
+    price?: FloatNullableFilter<"Item"> | number | null
+    quantity?: IntNullableFilter<"Item"> | number | null
+    minPrice?: FloatNullableFilter<"Item"> | number | null
     category?: EnumCategoryFilter<"Item"> | $Enums.Category
-    pricingUnit?: EnumPricingUnitFilter<"Item"> | $Enums.PricingUnit
+    pricingUnit?: EnumPricingUnitNullableFilter<"Item"> | $Enums.PricingUnit | null
     isAvailable?: BoolFilter<"Item"> | boolean
     nextAvailableDate?: DateTimeNullableFilter<"Item"> | Date | string | null
     images?: StringNullableListFilter<"Item">
@@ -15293,11 +15386,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFilter<"Item"> | $Enums.BookingType
     offers?: StringNullableListFilter<"Item">
     prices?: StringNullableListFilter<"Item">
-    experience?: StringFilter<"Item"> | string
-    careerHighlight?: StringNullableListFilter<"Item">
+    experience?: StringNullableFilter<"Item"> | string | null
+    careerHighlight?: StringNullableFilter<"Item"> | string | null
     education?: StringNullableListFilter<"Item">
     createdAt?: DateTimeFilter<"Item"> | Date | string
-    updatedAt?: DateTimeFilter<"Item"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Item"> | Date | string | null
     vendorId?: StringFilter<"Item"> | string
     categoryId?: StringNullableFilter<"Item"> | string | null
   }
@@ -15384,14 +15477,14 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type CategoryTypeUncheckedCreateWithoutItemsInput = {
     id?: string
     name: string
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type CategoryTypeCreateOrConnectWithoutItemsInput = {
@@ -15544,13 +15637,13 @@ export namespace Prisma {
   export type CategoryTypeUpdateWithoutItemsInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CategoryTypeUncheckedUpdateWithoutItemsInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ReviewUpsertWithWhereUniqueWithoutItemInput = {
@@ -15589,10 +15682,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -15601,11 +15695,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
     vendor: VendorCreateNestedOneWithoutItemsInput
     reviews?: ReviewCreateNestedManyWithoutItemInput
@@ -15616,10 +15710,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -15628,11 +15723,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     vendorId: string
     savedBy?: SavedItemUncheckedCreateNestedManyWithoutItemInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutItemInput
@@ -15719,10 +15814,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -15731,11 +15827,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
     vendor: VendorCreateNestedOneWithoutItemsInput
     categoryType?: CategoryTypeCreateNestedOneWithoutItemsInput
@@ -15746,10 +15842,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -15758,11 +15855,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     vendorId: string
     categoryId?: string | null
     savedBy?: SavedItemUncheckedCreateNestedManyWithoutItemInput
@@ -15884,10 +15981,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutReviewsInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -15896,11 +15994,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
     categoryType?: CategoryTypeUpdateOneWithoutItemsNestedInput
@@ -15910,10 +16008,11 @@ export namespace Prisma {
   export type ItemUncheckedUpdateWithoutReviewsInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -15922,11 +16021,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     savedBy?: SavedItemUncheckedUpdateManyWithoutItemNestedInput
@@ -16033,10 +16132,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -16045,11 +16145,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     vendor: VendorCreateNestedOneWithoutItemsInput
     categoryType?: CategoryTypeCreateNestedOneWithoutItemsInput
     reviews?: ReviewCreateNestedManyWithoutItemInput
@@ -16060,10 +16160,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -16072,11 +16173,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     vendorId: string
     categoryId?: string | null
     reviews?: ReviewUncheckedCreateNestedManyWithoutItemInput
@@ -16157,10 +16258,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutSavedByInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -16169,11 +16271,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
     categoryType?: CategoryTypeUpdateOneWithoutItemsNestedInput
     reviews?: ReviewUpdateManyWithoutItemNestedInput
@@ -16183,10 +16285,11 @@ export namespace Prisma {
   export type ItemUncheckedUpdateWithoutSavedByInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -16195,11 +16298,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     reviews?: ReviewUncheckedUpdateManyWithoutItemNestedInput
@@ -16302,10 +16405,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -16314,11 +16418,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
     vendor: VendorCreateNestedOneWithoutItemsInput
     categoryType?: CategoryTypeCreateNestedOneWithoutItemsInput
@@ -16329,10 +16433,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -16341,11 +16446,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     vendorId: string
     categoryId?: string | null
     savedBy?: SavedItemUncheckedCreateNestedManyWithoutItemInput
@@ -16500,10 +16605,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutBookingsInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -16512,11 +16618,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
     categoryType?: CategoryTypeUpdateOneWithoutItemsNestedInput
@@ -16526,10 +16632,11 @@ export namespace Prisma {
   export type ItemUncheckedUpdateWithoutBookingsInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -16538,11 +16645,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     savedBy?: SavedItemUncheckedUpdateManyWithoutItemNestedInput
@@ -16942,10 +17049,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -16954,11 +17062,11 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     categoryId?: string | null
   }
 
@@ -17007,10 +17115,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutVendorInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -17019,11 +17128,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
     categoryType?: CategoryTypeUpdateOneWithoutItemsNestedInput
     reviews?: ReviewUpdateManyWithoutItemNestedInput
@@ -17033,10 +17142,11 @@ export namespace Prisma {
   export type ItemUncheckedUpdateWithoutVendorInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -17045,11 +17155,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     savedBy?: SavedItemUncheckedUpdateManyWithoutItemNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutItemNestedInput
@@ -17059,10 +17169,11 @@ export namespace Prisma {
   export type ItemUncheckedUpdateManyWithoutVendorInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -17071,11 +17182,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -17244,10 +17355,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    price: number
-    minPrice: number
+    price?: number | null
+    quantity?: number | null
+    minPrice?: number | null
     category: $Enums.Category
-    pricingUnit?: $Enums.PricingUnit
+    pricingUnit?: $Enums.PricingUnit | null
     isAvailable?: boolean
     nextAvailableDate?: Date | string | null
     images?: ItemCreateimagesInput | string[]
@@ -17256,21 +17368,22 @@ export namespace Prisma {
     bookingType: $Enums.BookingType
     offers?: ItemCreateoffersInput | string[]
     prices?: ItemCreatepricesInput | string[]
-    experience: string
-    careerHighlight?: ItemCreatecareerHighlightInput | string[]
+    experience?: string | null
+    careerHighlight?: string | null
     education?: ItemCreateeducationInput | string[]
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     vendorId: string
   }
 
   export type ItemUpdateWithoutCategoryTypeInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -17279,11 +17392,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
     reviews?: ReviewUpdateManyWithoutItemNestedInput
@@ -17293,10 +17406,11 @@ export namespace Prisma {
   export type ItemUncheckedUpdateWithoutCategoryTypeInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -17305,11 +17419,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
     savedBy?: SavedItemUncheckedUpdateManyWithoutItemNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutItemNestedInput
@@ -17319,10 +17433,11 @@ export namespace Prisma {
   export type ItemUncheckedUpdateManyWithoutCategoryTypeInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: FloatFieldUpdateOperationsInput | number
-    minPrice?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-    pricingUnit?: EnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit
+    pricingUnit?: NullableEnumPricingUnitFieldUpdateOperationsInput | $Enums.PricingUnit | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     nextAvailableDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     images?: ItemUpdateimagesInput | string[]
@@ -17331,11 +17446,11 @@ export namespace Prisma {
     bookingType?: EnumBookingTypeFieldUpdateOperationsInput | $Enums.BookingType
     offers?: ItemUpdateoffersInput | string[]
     prices?: ItemUpdatepricesInput | string[]
-    experience?: StringFieldUpdateOperationsInput | string
-    careerHighlight?: ItemUpdatecareerHighlightInput | string[]
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    careerHighlight?: NullableStringFieldUpdateOperationsInput | string | null
     education?: ItemUpdateeducationInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vendorId?: StringFieldUpdateOperationsInput | string
   }
 

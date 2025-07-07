@@ -18,6 +18,10 @@ import { EditUserAddressDto, EditUserDto, EditUserPasswordDto } from "../../dtos
 import cloudinary from "../../config/cloudinary.config";
 import fs from 'fs';
 import path from 'path';
+import { validate } from "class-validator";
+import { formatValidationErrors } from "../../utils/FormatValiation";
+import { logger } from "../../config/logger.config";
+import ValidateDto from "../../utils/ValidateDto";
 
 
 
@@ -43,8 +47,12 @@ export default class UserServiceImpl implements UserService{
         return await bcrypt.hash(password, salt)
     }
 
+    
+
     async register(dto: CreateUserDto): Promise<string> {
 
+        await ValidateDto(CreateUserDto, dto);
+        
         if (!dto.email || !dto.password) {
             throw new HttpException(
                 StatusCodes.BAD_REQUEST,
@@ -254,6 +262,7 @@ export default class UserServiceImpl implements UserService{
     }
 
     async forgotPassword(email:string, dto: ForgotPasswordDto): Promise<string>{
+        await ValidateDto(ForgotPasswordDto, dto);
          const user = await prisma.user.findUnique({
             where: { email: email }
         });
@@ -338,6 +347,7 @@ export default class UserServiceImpl implements UserService{
 
 
     async login(dto: LoginDto): Promise<{user : UserResponseDto, token: string, message: string}> {
+        await ValidateDto(LoginDto, dto);
         if (!dto.email || !dto.password) {
             throw new HttpException(
                 StatusCodes.BAD_REQUEST,
@@ -549,6 +559,7 @@ export default class UserServiceImpl implements UserService{
 
 
     async updateUserDetails (authUser: {id: string}, dto: EditUserDto) : Promise<string>{
+        await ValidateDto(EditUserDto, dto);
 
         const user = await prisma.user.findUnique({
             where: {
@@ -580,6 +591,7 @@ export default class UserServiceImpl implements UserService{
 
 
     async updateUserAddress (authUser: {id: string}, dto: EditUserAddressDto) : Promise<string>{
+        await ValidateDto(EditUserAddressDto, dto);
 
         const user = await prisma.user.findUnique({
             where: {
@@ -612,6 +624,7 @@ export default class UserServiceImpl implements UserService{
 
     async updateUserPassword (authUser: {id: string}, dto: EditUserPasswordDto) : Promise<string>{
 
+        await ValidateDto(EditUserPasswordDto, dto);
         const user = await prisma.user.findUnique({
             where: {
                 id: authUser.id
