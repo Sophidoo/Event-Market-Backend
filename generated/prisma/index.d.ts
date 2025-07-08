@@ -4193,12 +4193,14 @@ export namespace Prisma {
     price: number | null
     quantity: number | null
     minPrice: number | null
+    avgRating: number | null
   }
 
   export type ItemSumAggregateOutputType = {
     price: number | null
     quantity: number | null
     minPrice: number | null
+    avgRating: number | null
   }
 
   export type ItemMinAggregateOutputType = {
@@ -4219,6 +4221,7 @@ export namespace Prisma {
     education: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    avgRating: number | null
     vendorId: string | null
     categoryId: string | null
   }
@@ -4241,6 +4244,7 @@ export namespace Prisma {
     education: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    avgRating: number | null
     vendorId: string | null
     categoryId: string | null
   }
@@ -4268,6 +4272,7 @@ export namespace Prisma {
     education: number
     createdAt: number
     updatedAt: number
+    avgRating: number
     vendorId: number
     categoryId: number
     _all: number
@@ -4278,12 +4283,14 @@ export namespace Prisma {
     price?: true
     quantity?: true
     minPrice?: true
+    avgRating?: true
   }
 
   export type ItemSumAggregateInputType = {
     price?: true
     quantity?: true
     minPrice?: true
+    avgRating?: true
   }
 
   export type ItemMinAggregateInputType = {
@@ -4304,6 +4311,7 @@ export namespace Prisma {
     education?: true
     createdAt?: true
     updatedAt?: true
+    avgRating?: true
     vendorId?: true
     categoryId?: true
   }
@@ -4326,6 +4334,7 @@ export namespace Prisma {
     education?: true
     createdAt?: true
     updatedAt?: true
+    avgRating?: true
     vendorId?: true
     categoryId?: true
   }
@@ -4353,6 +4362,7 @@ export namespace Prisma {
     education?: true
     createdAt?: true
     updatedAt?: true
+    avgRating?: true
     vendorId?: true
     categoryId?: true
     _all?: true
@@ -4467,6 +4477,7 @@ export namespace Prisma {
     education: string | null
     createdAt: Date
     updatedAt: Date | null
+    avgRating: number
     vendorId: string
     categoryId: string | null
     _count: ItemCountAggregateOutputType | null
@@ -4513,6 +4524,7 @@ export namespace Prisma {
     education?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    avgRating?: boolean
     vendorId?: boolean
     categoryId?: boolean
     savedBy?: boolean | Item$savedByArgs<ExtArgs>
@@ -4548,11 +4560,12 @@ export namespace Prisma {
     education?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    avgRating?: boolean
     vendorId?: boolean
     categoryId?: boolean
   }
 
-  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "quantity" | "minPrice" | "category" | "pricingUnit" | "isAvailable" | "status" | "nextAvailableDate" | "images" | "locations" | "terms" | "bookingType" | "offers" | "prices" | "experience" | "careerHighlight" | "education" | "createdAt" | "updatedAt" | "vendorId" | "categoryId", ExtArgs["result"]["item"]>
+  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "quantity" | "minPrice" | "category" | "pricingUnit" | "isAvailable" | "status" | "nextAvailableDate" | "images" | "locations" | "terms" | "bookingType" | "offers" | "prices" | "experience" | "careerHighlight" | "education" | "createdAt" | "updatedAt" | "avgRating" | "vendorId" | "categoryId", ExtArgs["result"]["item"]>
   export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     savedBy?: boolean | Item$savedByArgs<ExtArgs>
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
@@ -4594,6 +4607,7 @@ export namespace Prisma {
       education: string | null
       createdAt: Date
       updatedAt: Date | null
+      avgRating: number
       vendorId: string
       categoryId: string | null
     }, ExtArgs["result"]["item"]>
@@ -5015,6 +5029,7 @@ export namespace Prisma {
     readonly education: FieldRef<"Item", 'String'>
     readonly createdAt: FieldRef<"Item", 'DateTime'>
     readonly updatedAt: FieldRef<"Item", 'DateTime'>
+    readonly avgRating: FieldRef<"Item", 'Float'>
     readonly vendorId: FieldRef<"Item", 'String'>
     readonly categoryId: FieldRef<"Item", 'String'>
   }
@@ -10872,6 +10887,7 @@ export namespace Prisma {
     education: 'education',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    avgRating: 'avgRating',
     vendorId: 'vendorId',
     categoryId: 'categoryId'
   };
@@ -11387,6 +11403,7 @@ export namespace Prisma {
     education?: StringNullableFilter<"Item"> | string | null
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Item"> | Date | string | null
+    avgRating?: FloatFilter<"Item"> | number
     vendorId?: StringFilter<"Item"> | string
     categoryId?: StringNullableFilter<"Item"> | string | null
     savedBy?: SavedItemListRelationFilter
@@ -11419,6 +11436,7 @@ export namespace Prisma {
     education?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    avgRating?: SortOrder
     vendorId?: SortOrder
     categoryId?: SortOrder
     savedBy?: SavedItemOrderByRelationAggregateInput
@@ -11454,6 +11472,7 @@ export namespace Prisma {
     education?: StringNullableFilter<"Item"> | string | null
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Item"> | Date | string | null
+    avgRating?: FloatFilter<"Item"> | number
     vendorId?: StringFilter<"Item"> | string
     categoryId?: StringNullableFilter<"Item"> | string | null
     savedBy?: SavedItemListRelationFilter
@@ -11486,6 +11505,7 @@ export namespace Prisma {
     education?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    avgRating?: SortOrder
     vendorId?: SortOrder
     categoryId?: SortOrder
     _count?: ItemCountOrderByAggregateInput
@@ -11521,6 +11541,7 @@ export namespace Prisma {
     education?: StringNullableWithAggregatesFilter<"Item"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Item"> | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
+    avgRating?: FloatWithAggregatesFilter<"Item"> | number
     vendorId?: StringWithAggregatesFilter<"Item"> | string
     categoryId?: StringNullableWithAggregatesFilter<"Item"> | string | null
   }
@@ -12189,6 +12210,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
     vendor: VendorCreateNestedOneWithoutItemsInput
     categoryType?: CategoryTypeCreateNestedOneWithoutItemsInput
@@ -12219,6 +12241,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     vendorId: string
     categoryId?: string | null
     savedBy?: SavedItemUncheckedCreateNestedManyWithoutItemInput
@@ -12248,6 +12271,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
     categoryType?: CategoryTypeUpdateOneWithoutItemsNestedInput
@@ -12277,6 +12301,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     vendorId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     savedBy?: SavedItemUncheckedUpdateManyWithoutItemNestedInput
@@ -12307,6 +12332,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     vendorId: string
     categoryId?: string | null
   }
@@ -12333,6 +12359,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ItemUncheckedUpdateManyInput = {
@@ -12357,6 +12384,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     vendorId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -13111,6 +13139,17 @@ export namespace Prisma {
     not?: NestedEnumBookingTypeFilter<$PrismaModel> | $Enums.BookingType
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type VendorScalarRelationFilter = {
     is?: VendorWhereInput
     isNot?: VendorWhereInput
@@ -13144,6 +13183,7 @@ export namespace Prisma {
     education?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    avgRating?: SortOrder
     vendorId?: SortOrder
     categoryId?: SortOrder
   }
@@ -13152,6 +13192,7 @@ export namespace Prisma {
     price?: SortOrder
     quantity?: SortOrder
     minPrice?: SortOrder
+    avgRating?: SortOrder
   }
 
   export type ItemMaxOrderByAggregateInput = {
@@ -13172,6 +13213,7 @@ export namespace Prisma {
     education?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    avgRating?: SortOrder
     vendorId?: SortOrder
     categoryId?: SortOrder
   }
@@ -13194,6 +13236,7 @@ export namespace Prisma {
     education?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    avgRating?: SortOrder
     vendorId?: SortOrder
     categoryId?: SortOrder
   }
@@ -13202,6 +13245,7 @@ export namespace Prisma {
     price?: SortOrder
     quantity?: SortOrder
     minPrice?: SortOrder
+    avgRating?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13252,6 +13296,22 @@ export namespace Prisma {
     _max?: NestedEnumBookingTypeFilter<$PrismaModel>
   }
 
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type CategoryTypeCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -13271,17 +13331,6 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type ItemNullableScalarRelationFilter = {
@@ -13328,22 +13377,6 @@ export namespace Prisma {
 
   export type ReviewSumOrderByAggregateInput = {
     rating?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type ItemScalarRelationFilter = {
@@ -14064,6 +14097,14 @@ export namespace Prisma {
     push?: string | string[]
   }
 
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type SavedItemUpdateManyWithoutItemNestedInput = {
     create?: XOR<SavedItemCreateWithoutItemInput, SavedItemUncheckedCreateWithoutItemInput> | SavedItemCreateWithoutItemInput[] | SavedItemUncheckedCreateWithoutItemInput[]
     connectOrCreate?: SavedItemCreateOrConnectWithoutItemInput | SavedItemCreateOrConnectWithoutItemInput[]
@@ -14224,14 +14265,6 @@ export namespace Prisma {
     create?: XOR<VendorCreateWithoutReviewsInput, VendorUncheckedCreateWithoutReviewsInput>
     connectOrCreate?: VendorCreateOrConnectWithoutReviewsInput
     connect?: VendorWhereUniqueInput
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
@@ -14635,6 +14668,17 @@ export namespace Prisma {
     not?: NestedEnumBookingTypeFilter<$PrismaModel> | $Enums.BookingType
   }
 
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -14681,17 +14725,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBookingTypeFilter<$PrismaModel>
     _max?: NestedEnumBookingTypeFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -15220,6 +15253,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
     categoryType?: CategoryTypeCreateNestedOneWithoutItemsInput
     reviews?: ReviewCreateNestedManyWithoutItemInput
@@ -15249,6 +15283,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     categoryId?: string | null
     savedBy?: SavedItemUncheckedCreateNestedManyWithoutItemInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutItemInput
@@ -15418,6 +15453,7 @@ export namespace Prisma {
     education?: StringNullableFilter<"Item"> | string | null
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Item"> | Date | string | null
+    avgRating?: FloatFilter<"Item"> | number
     vendorId?: StringFilter<"Item"> | string
     categoryId?: StringNullableFilter<"Item"> | string | null
   }
@@ -15728,6 +15764,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
     vendor: VendorCreateNestedOneWithoutItemsInput
     reviews?: ReviewCreateNestedManyWithoutItemInput
@@ -15757,6 +15794,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     vendorId: string
     savedBy?: SavedItemUncheckedCreateNestedManyWithoutItemInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutItemInput
@@ -15862,6 +15900,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
     vendor: VendorCreateNestedOneWithoutItemsInput
     categoryType?: CategoryTypeCreateNestedOneWithoutItemsInput
@@ -15891,6 +15930,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     vendorId: string
     categoryId?: string | null
     savedBy?: SavedItemUncheckedCreateNestedManyWithoutItemInput
@@ -16031,6 +16071,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
     categoryType?: CategoryTypeUpdateOneWithoutItemsNestedInput
@@ -16059,6 +16100,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     vendorId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     savedBy?: SavedItemUncheckedUpdateManyWithoutItemNestedInput
@@ -16184,6 +16226,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     vendor: VendorCreateNestedOneWithoutItemsInput
     categoryType?: CategoryTypeCreateNestedOneWithoutItemsInput
     reviews?: ReviewCreateNestedManyWithoutItemInput
@@ -16213,6 +16256,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     vendorId: string
     categoryId?: string | null
     reviews?: ReviewUncheckedCreateNestedManyWithoutItemInput
@@ -16312,6 +16356,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
     categoryType?: CategoryTypeUpdateOneWithoutItemsNestedInput
     reviews?: ReviewUpdateManyWithoutItemNestedInput
@@ -16340,6 +16385,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     vendorId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     reviews?: ReviewUncheckedUpdateManyWithoutItemNestedInput
@@ -16461,6 +16507,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     savedBy?: SavedItemCreateNestedManyWithoutItemInput
     vendor: VendorCreateNestedOneWithoutItemsInput
     categoryType?: CategoryTypeCreateNestedOneWithoutItemsInput
@@ -16490,6 +16537,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     vendorId: string
     categoryId?: string | null
     savedBy?: SavedItemUncheckedCreateNestedManyWithoutItemInput
@@ -16663,6 +16711,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
     categoryType?: CategoryTypeUpdateOneWithoutItemsNestedInput
@@ -16691,6 +16740,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     vendorId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     savedBy?: SavedItemUncheckedUpdateManyWithoutItemNestedInput
@@ -17109,6 +17159,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     categoryId?: string | null
   }
 
@@ -17176,6 +17227,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
     categoryType?: CategoryTypeUpdateOneWithoutItemsNestedInput
     reviews?: ReviewUpdateManyWithoutItemNestedInput
@@ -17204,6 +17256,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     savedBy?: SavedItemUncheckedUpdateManyWithoutItemNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutItemNestedInput
@@ -17232,6 +17285,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -17419,6 +17473,7 @@ export namespace Prisma {
     education?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    avgRating?: number
     vendorId: string
   }
 
@@ -17444,6 +17499,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     savedBy?: SavedItemUpdateManyWithoutItemNestedInput
     vendor?: VendorUpdateOneRequiredWithoutItemsNestedInput
     reviews?: ReviewUpdateManyWithoutItemNestedInput
@@ -17472,6 +17528,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     vendorId?: StringFieldUpdateOperationsInput | string
     savedBy?: SavedItemUncheckedUpdateManyWithoutItemNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutItemNestedInput
@@ -17500,6 +17557,7 @@ export namespace Prisma {
     education?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avgRating?: FloatFieldUpdateOperationsInput | number
     vendorId?: StringFieldUpdateOperationsInput | string
   }
 

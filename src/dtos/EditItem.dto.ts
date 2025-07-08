@@ -26,6 +26,8 @@ export class EditRentalsDto{
     isAvailable: boolean;
     @IsEnum(PricingUnit)
     pricingUnit: PricingUnit;
+    @IsArray()
+    imagesToDelete : string[];
 }
 
 export class EditServicesDto{
@@ -56,6 +58,8 @@ export class EditServicesDto{
     locations: string[];
     @IsBoolean()
     isAvailable: boolean;
+    @IsArray()
+    imagesToDelete : string[];
 }
 
 export class EditPackageDto{
@@ -77,4 +81,6 @@ export class EditPackageDto{
     locations: string[];
     @IsBoolean()
     isAvailable: boolean;
+    @IsArray()
+    imagesToDelete : string[];
 }

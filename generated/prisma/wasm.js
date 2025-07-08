@@ -171,6 +171,7 @@ exports.Prisma.ItemScalarFieldEnum = {
   education: 'education',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  avgRating: 'avgRating',
   vendorId: 'vendorId',
   categoryId: 'categoryId'
 };

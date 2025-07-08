@@ -109,6 +109,29 @@ export default class ItemController{
     }
     
 
+    getVendorItems = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+            try{
+                if (!req.vendor) {
+                throw new HttpException(
+                    StatusCodes.UNAUTHORIZED,
+                    "Please Login First"
+                );
+            }
+            const {page, pageSize} = req.params
+            const {category} = req.query
+            const categoryEnum = category as Category | null;
+            const item = await this.itemService.getVendorItems(+page, +pageSize, categoryEnum, req.vendor.id)
+            res.status(StatusCodes.OK).json(item)
+        }catch(err){
+            next(err);
+        }
+    }
+    
+
     getRentalList = async (
         req: Request,
         res: Response,
@@ -158,9 +181,17 @@ export default class ItemController{
         res: Response,
         next: NextFunction
     ) => {
-        try{
+            try{
+                if (!req.vendor) {
+                throw new HttpException(
+                    StatusCodes.UNAUTHORIZED,
+                    "Please Login First"
+                );
+            }
+            
             const {id} = req.params
-            const item = await this.itemService.editRentals(id, req.body)
+            const files = req.files as  Express.Multer.File[]
+            const item = await this.itemService.editRentals(id, req.body, req.vendor?.id, files)
             res.status(StatusCodes.OK).json(item)
         }catch(err){
             next(err);
@@ -172,9 +203,16 @@ export default class ItemController{
         res: Response,
         next: NextFunction
     ) => {
-        try{
+            try{
+                if (!req.vendor) {
+                throw new HttpException(
+                    StatusCodes.UNAUTHORIZED,
+                    "Please Login First"
+                );
+            }
             const {id} = req.params
-            const item = await this.itemService.editService(id, req.body)
+            const files = req.files as  Express.Multer.File[]
+            const item = await this.itemService.editService(id, req.body, req.vendor?.id, files)
             res.status(StatusCodes.OK).json(item)
         }catch(err){
             next(err);
@@ -186,9 +224,16 @@ export default class ItemController{
         res: Response,
         next: NextFunction
     ) => {
-        try{
+            try{
+                if (!req.vendor) {
+                throw new HttpException(
+                    StatusCodes.UNAUTHORIZED,
+                    "Please Login First"
+                );
+            }
             const {id} = req.params
-            const item = await this.itemService.editPackages(id, req.body)
+            const files = req.files as  Express.Multer.File[]
+            const item = await this.itemService.editPackages(id, req.body, req.vendor?.id, files)
             res.status(StatusCodes.OK).json(item)
         }catch(err){
             next(err);
@@ -217,6 +262,83 @@ export default class ItemController{
         try{
             const {id} = req.params
             const item = await this.itemService.changeItemStatus(id, req.body)
+            res.status(StatusCodes.OK).json(item)
+        }catch(err){
+            next(err);
+        }
+    }
+
+    getMostBookedRentals = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            const {page, pageSize} = req.params
+            const item = await this.itemService.getMostBookedRentals(+page, +pageSize)
+            res.status(StatusCodes.OK).json(item)
+        }catch(err){
+            next(err);
+        }
+    }
+
+    getMostBookedServices = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            const {page, pageSize} = req.params
+            const item = await this.itemService.getMostBookedService(+page, +pageSize)
+            res.status(StatusCodes.OK).json(item)
+        }catch(err){
+            next(err);
+        }
+    }
+
+    getMostBookedPackages = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            const {page, pageSize} = req.params
+            const item = await this.itemService.getMostBookedPackages(+page, +pageSize)
+            res.status(StatusCodes.OK).json(item)
+        }catch(err){
+            next(err);
+        }
+    }
+
+    getHighestRatedList = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            const {page, pageSize} = req.params
+            const item = await this.itemService.getHighestRatedList(+page, +pageSize)
+            res.status(StatusCodes.OK).json(item)
+        }catch(err){
+            next(err);
+        }
+    }
+
+    importItemsWithCSV = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            if (!req.vendor) {
+                throw new HttpException(StatusCodes.UNAUTHORIZED, "Not authenticated");
+            }
+
+            if (!req.file) {
+                throw new HttpException(StatusCodes.BAD_REQUEST, "No file uploaded");
+            }
+
+            const item = await this.itemService.importItemsFromCSV(req.file.path, req.vendor.id)
             res.status(StatusCodes.OK).json(item)
         }catch(err){
             next(err);

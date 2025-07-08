@@ -23,6 +23,5 @@ export class ItemResponseDto{
     prices: string[];
     nextAvailableDate: Date | null;
     createdAt: Date;
-    averageRating : number | null;
-    reviewCount : number | 0
+    avgRating : number | null;
 }
