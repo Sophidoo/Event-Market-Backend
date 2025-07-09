@@ -356,7 +356,7 @@ export default class ItemServiceImpl implements ItemService{
         const skip = (page - 1) * pageSize;
 
         const where: any = {
-            category: "PACKAGES",
+            category: "RENTALS",
             AND: []
         };
 
@@ -412,6 +412,7 @@ export default class ItemServiceImpl implements ItemService{
             skip,
             take: pageSize,
             orderBy: {createdAt : "desc"},
+            where,
             include: {
                 _count: true,
                 categoryType: {
@@ -426,9 +427,7 @@ export default class ItemServiceImpl implements ItemService{
                 },
                 vendor: true
             },
-            where: {
-                category: "RENTALS"
-            }
+            
         })
 
         const itemsWithRatings = items.map(item => ({
@@ -465,7 +464,7 @@ export default class ItemServiceImpl implements ItemService{
         const skip = (page - 1) * pageSize;
 
         const where: any = {
-            category: "PACKAGES",
+            category: "SERVICES",
             AND: []
         };
 
@@ -521,6 +520,7 @@ export default class ItemServiceImpl implements ItemService{
             skip,
             take: pageSize,
             orderBy: {createdAt : "desc"},
+            where,
             include: {
                 _count: true,
                 categoryType: {
@@ -534,9 +534,6 @@ export default class ItemServiceImpl implements ItemService{
                     }
                 },
                 vendor: true
-            },
-            where: {
-                category: "SERVICES"
             }
         })
 
@@ -632,6 +629,7 @@ export default class ItemServiceImpl implements ItemService{
             skip,
             take: pageSize,
             orderBy: {createdAt : "desc"},
+            where,
             include: {
                 _count: true,
                 categoryType: {
@@ -1233,8 +1231,11 @@ export default class ItemServiceImpl implements ItemService{
     }
 
 
-    async getCategoryTypes() : Promise<{name: string}[]>{
+    async getCategoryTypes(category: Category | null) : Promise<{name: string}[]>{
         const categories = await prisma.categoryType.findMany({
+            where: {
+                category
+            },
             select: {
                 name: true
             }

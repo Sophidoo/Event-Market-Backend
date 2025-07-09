@@ -379,9 +379,11 @@ export default class ItemController{
         next: NextFunction
     ) => {
         try{
+            const {category} = req.query;
             
-
-            const item = await this.itemService.getCategoryTypes()
+            const categoryEnum = category as Category | null;
+            
+            const item = await this.itemService.getCategoryTypes(categoryEnum)
             res.status(StatusCodes.OK).json(item)
         }catch(err){
             next(err);

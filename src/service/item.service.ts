@@ -27,5 +27,5 @@ export default interface ItemService{
 
     importItemsFromCSV(filePath: string, userId: string) : Promise<string>
 
-    getCategoryTypes() : Promise<{name: string}[]>
+    getCategoryTypes(category: Category | null) : Promise<{name: string}[]>
 }
