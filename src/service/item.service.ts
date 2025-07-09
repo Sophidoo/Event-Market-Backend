@@ -12,9 +12,9 @@ export default interface ItemService{
     getItem(id: string) : Promise<ItemResponseDto>
     getItemsList(page: number, pageSize: number, category: Category | null)  : Promise<IPaginatedItemResponse>
     getVendorItems(page: number, pageSize: number, category: Category | null, id: string)  : Promise<IPaginatedItemResponse>
-    getRentalList(page: number, pageSize: number) : Promise<IPaginatedItemResponse>
-    getServiceList(page: number, pageSize: number) : Promise<IPaginatedItemResponse>
-    getPackageList(page: number, pageSize: number) : Promise<IPaginatedItemResponse>
+    getRentalList(page: number, pageSize: number, categoryType: string, startDate: string, endDate: string, location: string) : Promise<IPaginatedItemResponse>
+    getServiceList(page: number, pageSize: number, categoryType: string, startDate: string, endDate: string, location: string) : Promise<IPaginatedItemResponse>
+    getPackageList(page: number, pageSize: number, categoryType: string, startDate: string, endDate: string, location: string) : Promise<IPaginatedItemResponse>
     editRentals(id: string, dto: EditRentalsDto, vendorId: string, newImages: Express.Multer.File[]) : Promise<string>
     editService(id: string, dto: EditServicesDto, vendorId: string, newImages: Express.Multer.File[]) : Promise<string>
     editPackages(id: string, dto: EditPackageDto, vendorId: string, newImages: Express.Multer.File[]) : Promise<string>
@@ -26,4 +26,6 @@ export default interface ItemService{
     getHighestRatedList(page: number, pageSize: number) : Promise<IPaginatedItemResponse>
 
     importItemsFromCSV(filePath: string, userId: string) : Promise<string>
+
+    getCategoryTypes() : Promise<{name: string}[]>
 }

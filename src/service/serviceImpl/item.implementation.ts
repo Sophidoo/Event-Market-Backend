@@ -190,7 +190,8 @@ export default class ItemServiceImpl implements ItemService{
                         name: true
                     }
                 },
-                _count: true
+                _count: true,
+                vendor: true
             }
         })
 
@@ -224,7 +225,8 @@ export default class ItemServiceImpl implements ItemService{
             prices: item.prices,
             nextAvailableDate: item.nextAvailableDate,
             createdAt: item.createdAt,
-            avgRating: item.avgRating
+            avgRating: item.avgRating,
+            vendor: item.vendor
         }
 
         return ItemResponse
@@ -257,7 +259,8 @@ export default class ItemServiceImpl implements ItemService{
                     select: {
                     rating: true
                     }
-                }
+                },
+                vendor: true
             },
             where: category ? {category} : {}
         })
@@ -339,7 +342,7 @@ export default class ItemServiceImpl implements ItemService{
     }
 
 
-    async getRentalList(page: number, pageSize: number): Promise<IPaginatedItemResponse> {
+    async getRentalList(page: number, pageSize: number,categoryType: string, startDate: string, endDate: string, location: string): Promise<IPaginatedItemResponse> {
         if (page < 1) throw new HttpException(StatusCodes.NOT_FOUND, "Page must be greater than 0");
         if (pageSize < 1 || pageSize > 30) throw new HttpException(StatusCodes.NOT_FOUND, "Page size muct be between 1 and 30");
 
@@ -360,7 +363,8 @@ export default class ItemServiceImpl implements ItemService{
                     select: {
                     rating: true
                     }
-                }
+                },
+                vendor: true
             },
             where: {
                 category: "RENTALS"
@@ -384,7 +388,7 @@ export default class ItemServiceImpl implements ItemService{
         };
     }
 
-    async getServiceList(page: number, pageSize: number): Promise<IPaginatedItemResponse> {
+    async getServiceList(page: number, pageSize: number,categoryType: string, startDate: string, endDate: string, location: string): Promise<IPaginatedItemResponse> {
         if (page < 1) throw new HttpException(StatusCodes.NOT_FOUND, "Page must be greater than 0");
         if (pageSize < 1 || pageSize > 30) throw new HttpException(StatusCodes.NOT_FOUND, "Page size muct be between 1 and 30");
 
@@ -405,7 +409,8 @@ export default class ItemServiceImpl implements ItemService{
                     select: {
                     rating: true
                     }
-                }
+                },
+                vendor: true
             },
             where: {
                 category: "SERVICES"
@@ -430,7 +435,7 @@ export default class ItemServiceImpl implements ItemService{
     }
 
 
-    async getPackageList(page: number, pageSize: number): Promise<IPaginatedItemResponse> {
+    async getPackageList(page: number, pageSize: number,categoryType: string, startDate: string, endDate: string, location: string): Promise<IPaginatedItemResponse> {
         if (page < 1) throw new HttpException(StatusCodes.NOT_FOUND, "Page must be greater than 0");
         if (pageSize < 1 || pageSize > 30) throw new HttpException(StatusCodes.NOT_FOUND, "Page size muct be between 1 and 30");
 
@@ -451,7 +456,8 @@ export default class ItemServiceImpl implements ItemService{
                     select: {
                     rating: true
                     }
-                }
+                },
+                vendor: true
             },
             where: {
                 category: "PACKAGES"
@@ -1039,5 +1045,13 @@ export default class ItemServiceImpl implements ItemService{
     }
 
 
-    
+    async getCategoryTypes() : Promise<{name: string}[]>{
+        const categories = await prisma.categoryType.findMany({
+            select: {
+                name: true
+            }
+        })
+
+        return categories
+    }
 }

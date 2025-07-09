@@ -1,4 +1,4 @@
-import { BookingType, Category, CategoryType, PricingUnit } from "../../generated/prisma";
+import { BookingType, Category, CategoryType, PricingUnit, Vendor } from "../../generated/prisma";
 
 
 export class ItemResponseDto{
@@ -24,4 +24,5 @@ export class ItemResponseDto{
     nextAvailableDate: Date | null;
     createdAt: Date;
     avgRating : number | null;
+    vendor: Vendor
 }

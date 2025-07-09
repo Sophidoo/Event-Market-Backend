@@ -49,6 +49,10 @@ export default class ItemRoutes implements IRoute{
 
        this.router.get(`${this.path}/booked-rentals/:page/:pageSize`, this.controller.getMostBookedRentals);
 
+       this.router.get(`${this.path}/category-types`, this.controller.getCategoriesTypes);
+
+       this.router.get(`${this.path}/booked-rentals/:page/:pageSize`, this.controller.getMostBookedRentals);
+
        this.router.get(`${this.path}/booked-services/:page/:pageSize`, this.controller.getMostBookedServices);
 
        this.router.get(`${this.path}/booked-packages/:page/:pageSize`, this.controller.getMostBookedPackages);

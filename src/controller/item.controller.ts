@@ -139,7 +139,16 @@ export default class ItemController{
     ) => {
         try{
             const {page, pageSize} = req.params
-            const item = await this.itemService.getRentalList(+page, +pageSize)
+            const {categoryType, startDate, endDate, location} = req.query;
+
+            const validatedParams = {
+                categoryType: typeof categoryType === 'string' ? categoryType : "",
+                startDate: typeof startDate === 'string' ? startDate : "",
+                endDate: typeof endDate === 'string' ? endDate : "",
+                location: typeof location === 'string' ? location : ""
+            };
+            
+            const item = await this.itemService.getRentalList(+page, +pageSize, validatedParams.categoryType, validatedParams.startDate, validatedParams.endDate, validatedParams.location)
             res.status(StatusCodes.OK).json(item)
         }catch(err){
             next(err);
@@ -154,7 +163,16 @@ export default class ItemController{
     ) => {
         try{
             const {page, pageSize} = req.params
-            const item = await this.itemService.getServiceList(+page, +pageSize)
+            const {categoryType, startDate, endDate, location} = req.query;
+
+            const validatedParams = {
+                categoryType: typeof categoryType === 'string' ? categoryType : "",
+                startDate: typeof startDate === 'string' ? startDate : "",
+                endDate: typeof endDate === 'string' ? endDate : "",
+                location: typeof location === 'string' ? location : ""
+            };
+            
+            const item = await this.itemService.getServiceList(+page, +pageSize, validatedParams.categoryType, validatedParams.startDate, validatedParams.endDate, validatedParams.location)
             res.status(StatusCodes.OK).json(item)
         }catch(err){
             next(err);
@@ -168,7 +186,16 @@ export default class ItemController{
     ) => {
         try{
             const {page, pageSize} = req.params
-            const item = await this.itemService.getPackageList(+page, +pageSize)
+            const {categoryType, startDate, endDate, location} = req.query;
+
+            const validatedParams = {
+                categoryType: typeof categoryType === 'string' ? categoryType : "",
+                startDate: typeof startDate === 'string' ? startDate : "",
+                endDate: typeof endDate === 'string' ? endDate : "",
+                location: typeof location === 'string' ? location : ""
+            };
+
+            const item = await this.itemService.getPackageList(+page, +pageSize, validatedParams.categoryType, validatedParams.startDate, validatedParams.endDate, validatedParams.location)
             res.status(StatusCodes.OK).json(item)
         }catch(err){
             next(err);
@@ -339,6 +366,22 @@ export default class ItemController{
             }
 
             const item = await this.itemService.importItemsFromCSV(req.file.path, req.vendor.id)
+            res.status(StatusCodes.OK).json(item)
+        }catch(err){
+            next(err);
+        }
+    }
+
+    
+    getCategoriesTypes = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            
+
+            const item = await this.itemService.getCategoryTypes()
             res.status(StatusCodes.OK).json(item)
         }catch(err){
             next(err);
