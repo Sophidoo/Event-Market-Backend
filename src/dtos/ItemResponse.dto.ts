@@ -21,7 +21,6 @@ export class ItemResponseDto{
     education: string | null;
     offers: string[];
     prices: string[];
-    nextAvailableDate: Date | null;
     createdAt: Date;
     avgRating : number | null;
     vendor: Vendor

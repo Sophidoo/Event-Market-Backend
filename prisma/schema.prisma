@@ -122,7 +122,6 @@ model Item {
   pricingUnit       PricingUnit? @default(DAY)
   isAvailable       Boolean      @default(true) @map("is_available")
   status String?
-  nextAvailableDate DateTime?    @map("next_available_date")
   images            String[]     @default([])
   locations         String[]     @default([])
   terms             String[]     @default([])

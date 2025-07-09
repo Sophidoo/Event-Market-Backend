@@ -112,29 +112,28 @@ model Vendor {
 }
 
 model Item {
-  id                String       @id @default(auto()) @map("_id") @db.ObjectId
-  title             String
-  description       String
-  price             Float?
-  quantity          Int?
-  minPrice          Float?
-  category          Category
-  pricingUnit       PricingUnit? @default(DAY)
-  isAvailable       Boolean      @default(true) @map("is_available")
-  status            String?
-  nextAvailableDate DateTime?    @map("next_available_date")
-  images            String[]     @default([])
-  locations         String[]     @default([])
-  terms             String[]     @default([])
-  bookingType       BookingType
-  offers            String[]     @default([])
-  prices            String[]     @default([])
-  experience        String?
-  careerHighlight   String?
-  education         String?
-  createdAt         DateTime     @default(now()) @map("created_at")
-  updatedAt         DateTime?    @updatedAt @map("updated_at")
-  avgRating         Float        @default(0.0)
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  description     String
+  price           Float?
+  quantity        Int?
+  minPrice        Float?
+  category        Category
+  pricingUnit     PricingUnit? @default(DAY)
+  isAvailable     Boolean      @default(true) @map("is_available")
+  status          String?
+  images          String[]     @default([])
+  locations       String[]     @default([])
+  terms           String[]     @default([])
+  bookingType     BookingType
+  offers          String[]     @default([])
+  prices          String[]     @default([])
+  experience      String?
+  careerHighlight String?
+  education       String?
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime?    @updatedAt @map("updated_at")
+  avgRating       Float        @default(0.0)
 
   // Relationships
   savedBy      SavedItem[]

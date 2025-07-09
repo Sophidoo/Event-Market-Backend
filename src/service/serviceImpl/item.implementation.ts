@@ -44,7 +44,7 @@ export default class ItemServiceImpl implements ItemService{
         if(!categoryType){
             categoryType = await prisma.categoryType.create({
                 data: {
-                    name: dto.categoryType
+                    name: dto.categoryType.toUpperCase()
                 }
             })
         }
@@ -223,7 +223,6 @@ export default class ItemServiceImpl implements ItemService{
             education: item.education,
             offers: item.offers,
             prices: item.prices,
-            nextAvailableDate: item.nextAvailableDate,
             createdAt: item.createdAt,
             avgRating: item.avgRating,
             vendor: item.vendor
@@ -346,7 +345,68 @@ export default class ItemServiceImpl implements ItemService{
         if (page < 1) throw new HttpException(StatusCodes.NOT_FOUND, "Page must be greater than 0");
         if (pageSize < 1 || pageSize > 30) throw new HttpException(StatusCodes.NOT_FOUND, "Page size muct be between 1 and 30");
 
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            if (start >= end) {
+                throw new HttpException(StatusCodes.BAD_REQUEST, "End date must be after start date");
+            }
+        }
+        
         const skip = (page - 1) * pageSize;
+
+        const where: any = {
+            category: "PACKAGES",
+            AND: []
+        };
+
+
+        if (categoryType) {
+            where.AND.push({
+                categoryType: {
+                    name: {
+                        equals: categoryType,
+                        mode: 'insensitive' // Case-insensitive comparison
+                    }
+                }
+            });
+        }
+
+        if (location) {
+            where.AND.push({
+                locations: {
+                    has: location // Checks if the location exists in the locations array
+                }
+            });
+        }
+
+        if (startDate && endDate) {
+            where.AND.push({
+                NOT: {
+                    bookings: {
+                        some: {
+                            OR: [
+                                // Booking starts during the requested period
+                                {
+                                    startDate: { lte: new Date(endDate) },
+                                    endDate: { gte: new Date(startDate) }
+                                },
+                                // Booking ends during the requested period
+                                {
+                                    startDate: { lte: new Date(endDate) },
+                                    endDate: { gte: new Date(startDate) }
+                                },
+                                // Booking encompasses the requested period
+                                {
+                                    startDate: { lte: new Date(startDate) },
+                                    endDate: { gte: new Date(endDate) }
+                                }
+                            ]
+                        }
+                    }
+                }
+            });
+        }
 
         const items = await prisma.item.findMany({
             skip,
@@ -377,10 +437,12 @@ export default class ItemServiceImpl implements ItemService{
             reviewCount: item.reviews.length
         }));
 
+        const total = await prisma.item.count({ where });
+
         return {
             data: plainToInstance(ItemResponseDto, itemsWithRatings),
             meta: {
-                total: items.length,
+                total: total,
                 page,
                 pageSize,
                 totalPages: Math.ceil(items.length / pageSize)
@@ -392,7 +454,68 @@ export default class ItemServiceImpl implements ItemService{
         if (page < 1) throw new HttpException(StatusCodes.NOT_FOUND, "Page must be greater than 0");
         if (pageSize < 1 || pageSize > 30) throw new HttpException(StatusCodes.NOT_FOUND, "Page size muct be between 1 and 30");
 
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            if (start >= end) {
+                throw new HttpException(StatusCodes.BAD_REQUEST, "End date must be after start date");
+            }
+        }
+        
         const skip = (page - 1) * pageSize;
+
+        const where: any = {
+            category: "PACKAGES",
+            AND: []
+        };
+
+
+        if (categoryType) {
+            where.AND.push({
+                categoryType: {
+                    name: {
+                        equals: categoryType,
+                        mode: 'insensitive' // Case-insensitive comparison
+                    }
+                }
+            });
+        }
+
+        if (location) {
+            where.AND.push({
+                locations: {
+                    has: location // Checks if the location exists in the locations array
+                }
+            });
+        }
+
+        if (startDate && endDate) {
+            where.AND.push({
+                NOT: {
+                    bookings: {
+                        some: {
+                            OR: [
+                                // Booking starts during the requested period
+                                {
+                                    startDate: { lte: new Date(endDate) },
+                                    endDate: { gte: new Date(startDate) }
+                                },
+                                // Booking ends during the requested period
+                                {
+                                    startDate: { lte: new Date(endDate) },
+                                    endDate: { gte: new Date(startDate) }
+                                },
+                                // Booking encompasses the requested period
+                                {
+                                    startDate: { lte: new Date(startDate) },
+                                    endDate: { gte: new Date(endDate) }
+                                }
+                            ]
+                        }
+                    }
+                }
+            });
+        }
 
         const items = await prisma.item.findMany({
             skip,
@@ -417,6 +540,8 @@ export default class ItemServiceImpl implements ItemService{
             }
         })
 
+        const total = await prisma.item.count({ where });
+
         const itemsWithRatings = items.map(item => ({
             ...item,
             averageRating: this.calculateAverageRating(item.reviews),
@@ -426,7 +551,7 @@ export default class ItemServiceImpl implements ItemService{
         return {
             data: plainToInstance(ItemResponseDto, itemsWithRatings),
             meta: {
-                total: items.length,
+                total: total,
                 page,
                 pageSize,
                 totalPages: Math.ceil(items.length / pageSize)
@@ -439,7 +564,69 @@ export default class ItemServiceImpl implements ItemService{
         if (page < 1) throw new HttpException(StatusCodes.NOT_FOUND, "Page must be greater than 0");
         if (pageSize < 1 || pageSize > 30) throw new HttpException(StatusCodes.NOT_FOUND, "Page size muct be between 1 and 30");
 
+        
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            if (start >= end) {
+                throw new HttpException(StatusCodes.BAD_REQUEST, "End date must be after start date");
+            }
+        }
+        
         const skip = (page - 1) * pageSize;
+
+        const where: any = {
+            category: "PACKAGES",
+            AND: []
+        };
+
+
+        if (categoryType) {
+            where.AND.push({
+                categoryType: {
+                    name: {
+                        equals: categoryType,
+                        mode: 'insensitive' // Case-insensitive comparison
+                    }
+                }
+            });
+        }
+
+        if (location) {
+            where.AND.push({
+                locations: {
+                    has: location // Checks if the location exists in the locations array
+                }
+            });
+        }
+
+        if (startDate && endDate) {
+            where.AND.push({
+                NOT: {
+                    bookings: {
+                        some: {
+                            OR: [
+                                // Booking starts during the requested period
+                                {
+                                    startDate: { lte: new Date(endDate) },
+                                    endDate: { gte: new Date(startDate) }
+                                },
+                                // Booking ends during the requested period
+                                {
+                                    startDate: { lte: new Date(endDate) },
+                                    endDate: { gte: new Date(startDate) }
+                                },
+                                // Booking encompasses the requested period
+                                {
+                                    startDate: { lte: new Date(startDate) },
+                                    endDate: { gte: new Date(endDate) }
+                                }
+                            ]
+                        }
+                    }
+                }
+            });
+        }
 
         const items = await prisma.item.findMany({
             skip,
@@ -452,17 +639,18 @@ export default class ItemServiceImpl implements ItemService{
                         name: true
                     }
                 },
+                bookings: true,
                 reviews: {
                     select: {
                     rating: true
                     }
                 },
                 vendor: true
-            },
-            where: {
-                category: "PACKAGES"
             }
         })
+
+        
+        const total = await prisma.item.count({ where });
 
         const itemsWithRatings = items.map(item => ({
             ...item,
@@ -473,7 +661,7 @@ export default class ItemServiceImpl implements ItemService{
         return {
             data: plainToInstance(ItemResponseDto, itemsWithRatings),
             meta: {
-                total: items.length,
+                total: total,
                 page,
                 pageSize,
                 totalPages: Math.ceil(items.length / pageSize)
@@ -1021,7 +1209,7 @@ export default class ItemServiceImpl implements ItemService{
             categoryType: {
                 connectOrCreate: {
                     where: { name: csvItem.categorytype },
-                    create: { name: csvItem.categorytype }
+                    create: { name: csvItem.categorytype.toUpperCase() }
                 }
             },
             pricingUnit: csvItem.pricingunit ? (csvItem.pricingunit.toUpperCase() as PricingUnit) : "DAY" ,
