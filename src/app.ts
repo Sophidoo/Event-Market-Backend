@@ -35,7 +35,7 @@ export default class App {
     this.app.use(express.json());
     this.app.use(cors<express.Request>());
     this.app.use(cors({
-      origin: 'https://event-market.onrender.com',
+      origin: 'http://localhost:5173',
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
       credentials: true // If you need to send cookies
