@@ -34,6 +34,12 @@ export default class App {
   private initializeMiddlewares(): void {
     this.app.use(express.json());
     this.app.use(cors<express.Request>());
+    this.app.use(cors({
+      origin: 'https://event-market.onrender.com',
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true // If you need to send cookies
+    }));
     this.app.use(express.urlencoded({ extended: true }));
   }
 
