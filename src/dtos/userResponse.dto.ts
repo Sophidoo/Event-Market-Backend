@@ -11,6 +11,7 @@ export class UserResponseDto{
     role : string
     
     verified : boolean
+    suspended : boolean
 
     address: string | null
 
@@ -19,6 +20,9 @@ export class UserResponseDto{
     state : string | null
 
     country : string | null
+
+    profile: string | null
+
 
     createdAt : Date
 }

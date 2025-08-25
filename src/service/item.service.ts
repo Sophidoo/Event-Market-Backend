@@ -10,7 +10,8 @@ export default interface ItemService{
     createServices(dto: CreateServicesDto, files: Express.Multer.File[], id: string) : Promise<string>
     createPackages(dto: CreatePackageDto, files: Express.Multer.File[], id: string) : Promise<string>
     getItem(id: string) : Promise<ItemResponseDto>
-    getItemsList(page: number, pageSize: number, category: Category | null)  : Promise<IPaginatedItemResponse>
+    getItemStats(id: string) : Promise<{ rentals: number; services: number; packages: number; }>
+    getItemsList(page: number, pageSize: number, category: Category | null, id: string)  : Promise<IPaginatedItemResponse>
     getVendorItems(page: number, pageSize: number, category: Category | null, id: string)  : Promise<IPaginatedItemResponse>
     getRentalList(page: number, pageSize: number, categoryType: string, startDate: string, endDate: string, location: string) : Promise<IPaginatedItemResponse>
     getServiceList(page: number, pageSize: number, categoryType: string, startDate: string, endDate: string, location: string) : Promise<IPaginatedItemResponse>

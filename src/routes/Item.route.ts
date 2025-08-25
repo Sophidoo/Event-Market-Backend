@@ -27,7 +27,7 @@ export default class ItemRoutes implements IRoute{
 
        this.router.get(`${this.path}/details/:id`, this.controller.getItem);
 
-       this.router.get(`${this.path}/:page/:pageSize`, this.controller.getItemList);
+       this.router.get(`${this.path}/:page/:pageSize`, authMiddleware, this.controller.getItemList);
 
        this.router.get(`${this.path}/:page/:pageSize`, authMiddleware, isVendorMiddleWare, this.controller.getVendorItems);
 
@@ -60,6 +60,8 @@ export default class ItemRoutes implements IRoute{
        this.router.get(`${this.path}/highest-rated/:page/:pageSize`, this.controller.getHighestRatedList);
 
        this.router.post(`${this.path}/csv`, authMiddleware, isVendorMiddleWare, csvUploadMiddleware, this.controller.importItemsWithCSV);
+
+       this.router.get(`${this.path}/stats`, authMiddleware, this.controller.getItemStats);
        
     }
 

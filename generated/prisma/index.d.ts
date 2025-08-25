@@ -1776,6 +1776,7 @@ export namespace Prisma {
     password: string | null
     role: $Enums.Role | null
     verified: boolean | null
+    suspended: boolean | null
     address: string | null
     city: string | null
     state: string | null
@@ -1795,6 +1796,7 @@ export namespace Prisma {
     password: string | null
     role: $Enums.Role | null
     verified: boolean | null
+    suspended: boolean | null
     address: string | null
     city: string | null
     state: string | null
@@ -1814,6 +1816,7 @@ export namespace Prisma {
     password: number
     role: number
     verified: number
+    suspended: number
     address: number
     city: number
     state: number
@@ -1835,6 +1838,7 @@ export namespace Prisma {
     password?: true
     role?: true
     verified?: true
+    suspended?: true
     address?: true
     city?: true
     state?: true
@@ -1854,6 +1858,7 @@ export namespace Prisma {
     password?: true
     role?: true
     verified?: true
+    suspended?: true
     address?: true
     city?: true
     state?: true
@@ -1873,6 +1878,7 @@ export namespace Prisma {
     password?: true
     role?: true
     verified?: true
+    suspended?: true
     address?: true
     city?: true
     state?: true
@@ -1965,6 +1971,7 @@ export namespace Prisma {
     password: string
     role: $Enums.Role
     verified: boolean
+    suspended: boolean
     address: string | null
     city: string | null
     state: string | null
@@ -2001,6 +2008,7 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     verified?: boolean
+    suspended?: boolean
     address?: boolean
     city?: boolean
     state?: boolean
@@ -2028,6 +2036,7 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     verified?: boolean
+    suspended?: boolean
     address?: boolean
     city?: boolean
     state?: boolean
@@ -2038,7 +2047,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "profile" | "email" | "phone" | "password" | "role" | "verified" | "address" | "city" | "state" | "token" | "tokenExpires" | "country" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "profile" | "email" | "phone" | "password" | "role" | "verified" | "suspended" | "address" | "city" | "state" | "token" | "tokenExpires" | "country" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
@@ -2066,6 +2075,7 @@ export namespace Prisma {
       password: string
       role: $Enums.Role
       verified: boolean
+      suspended: boolean
       address: string | null
       city: string | null
       state: string | null
@@ -2479,6 +2489,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly verified: FieldRef<"User", 'Boolean'>
+    readonly suspended: FieldRef<"User", 'Boolean'>
     readonly address: FieldRef<"User", 'String'>
     readonly city: FieldRef<"User", 'String'>
     readonly state: FieldRef<"User", 'String'>
@@ -10832,6 +10843,7 @@ export namespace Prisma {
     password: 'password',
     role: 'role',
     verified: 'verified',
+    suspended: 'suspended',
     address: 'address',
     city: 'city',
     state: 'state',
@@ -11161,6 +11173,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     verified?: BoolFilter<"User"> | boolean
+    suspended?: BoolFilter<"User"> | boolean
     address?: StringNullableFilter<"User"> | string | null
     city?: StringNullableFilter<"User"> | string | null
     state?: StringNullableFilter<"User"> | string | null
@@ -11185,6 +11198,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     verified?: SortOrder
+    suspended?: SortOrder
     address?: SortOrder
     city?: SortOrder
     state?: SortOrder
@@ -11212,6 +11226,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     verified?: BoolFilter<"User"> | boolean
+    suspended?: BoolFilter<"User"> | boolean
     address?: StringNullableFilter<"User"> | string | null
     city?: StringNullableFilter<"User"> | string | null
     state?: StringNullableFilter<"User"> | string | null
@@ -11236,6 +11251,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     verified?: SortOrder
+    suspended?: SortOrder
     address?: SortOrder
     city?: SortOrder
     state?: SortOrder
@@ -11261,6 +11277,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     verified?: BoolWithAggregatesFilter<"User"> | boolean
+    suspended?: BoolWithAggregatesFilter<"User"> | boolean
     address?: StringNullableWithAggregatesFilter<"User"> | string | null
     city?: StringNullableWithAggregatesFilter<"User"> | string | null
     state?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -11928,6 +11945,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -11952,6 +11970,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -11975,6 +11994,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11998,6 +12018,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12022,6 +12043,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -12040,6 +12062,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12058,6 +12081,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12865,6 +12889,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     verified?: SortOrder
+    suspended?: SortOrder
     address?: SortOrder
     city?: SortOrder
     state?: SortOrder
@@ -12884,6 +12909,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     verified?: SortOrder
+    suspended?: SortOrder
     address?: SortOrder
     city?: SortOrder
     state?: SortOrder
@@ -12903,6 +12929,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     verified?: SortOrder
+    suspended?: SortOrder
     address?: SortOrder
     city?: SortOrder
     state?: SortOrder
@@ -15202,6 +15229,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -15225,6 +15253,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -15400,6 +15429,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15422,6 +15452,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15877,6 +15908,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -15900,6 +15932,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -16042,6 +16075,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16064,6 +16098,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16199,6 +16234,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -16222,6 +16258,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -16323,6 +16360,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16345,6 +16383,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16435,6 +16474,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -16458,6 +16498,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -16629,6 +16670,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16651,6 +16693,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16819,6 +16862,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -16842,6 +16886,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    suspended?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -16917,6 +16962,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16939,6 +16985,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null

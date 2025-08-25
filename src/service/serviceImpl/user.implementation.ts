@@ -22,6 +22,7 @@ import { validate } from "class-validator";
 import { formatValidationErrors } from "../../utils/FormatValiation";
 import { logger } from "../../config/logger.config";
 import ValidateDto from "../../utils/ValidateDto";
+import { profile } from "console";
 
 
 
@@ -388,7 +389,9 @@ export default class UserServiceImpl implements UserService{
             city: user.city,
             state: user.state,
             country: user.country,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            profile: user.profile,
+            suspended: user.suspended
         }
 
         const token = this.signJwt(user.id);
@@ -459,7 +462,9 @@ export default class UserServiceImpl implements UserService{
                 state: true,
                 country: true,
                 createdAt: true,
-                updatedAt: true
+                updatedAt: true,
+                profile: true,
+                suspended: true
             }
         })
         
@@ -481,7 +486,10 @@ export default class UserServiceImpl implements UserService{
             city: user.city,
             state: user.state,
             country: user.country,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            profile: user.profile,
+            suspended: user.suspended
+
         }
 
         return userResponse
@@ -506,7 +514,9 @@ export default class UserServiceImpl implements UserService{
                 country: true,
                 createdAt: true,
                 updatedAt: true,
-                vendorProfile: true
+                vendorProfile: true,
+                profile: true,
+                suspended: true
             }
         })
         
@@ -528,7 +538,9 @@ export default class UserServiceImpl implements UserService{
             city: user.city,
             state: user.state,
             country: user.country,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            profile: user.profile,
+            suspended: user.suspended
         }
 
         const vendorResponse : VendorResponseDto = {
@@ -587,6 +599,61 @@ export default class UserServiceImpl implements UserService{
         })
 
         return "Personal Information updated successfully"
+    }
+
+
+    async suspendUser (authUser: {id: string}) : Promise<string>{
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id: authUser.id
+            }
+        })
+
+        if(!user){
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "User does not exist"
+            )
+        }
+
+        await prisma.user.update({
+            where: {
+                id: authUser.id
+            },
+            data: {
+                suspended: true
+            }
+        })
+
+        return "User has been suspended"
+    }
+
+    async liftSuspension (authUser: {id: string}) : Promise<string>{
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id: authUser.id
+            }
+        })
+
+        if(!user){
+            throw new HttpException(
+                StatusCodes.BAD_REQUEST,
+                "User does not exist"
+            )
+        }
+
+        await prisma.user.update({
+            where: {
+                id: authUser.id
+            },
+            data: {
+                suspended: false
+            }
+        })
+
+        return "User suspension has been lifted"
     }
 
 
@@ -701,6 +768,8 @@ export default class UserServiceImpl implements UserService{
       throw error;
     }
   }
+
+
 
 
   

@@ -98,10 +98,16 @@ export default class ItemController{
         next: NextFunction
     ) => {
         try{
+            if (!req.authUser) {
+                throw new HttpException(
+                    StatusCodes.UNAUTHORIZED,
+                    "Please Login First"
+                );
+            }
             const {page, pageSize} = req.params
             const {category} = req.query
             const categoryEnum = category as Category | null;
-            const item = await this.itemService.getItemsList(+page, +pageSize, categoryEnum)
+            const item = await this.itemService.getItemsList(+page, +pageSize, categoryEnum, req.authUser.id)
             res.status(StatusCodes.OK).json(item)
         }catch(err){
             next(err);
@@ -367,6 +373,22 @@ export default class ItemController{
 
             const item = await this.itemService.importItemsFromCSV(req.file.path, req.vendor.id)
             res.status(StatusCodes.OK).json(item)
+        }catch(err){
+            next(err);
+        }
+    }
+
+    getItemStats = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{    
+            if (!req.authUser) {
+                throw new HttpException(StatusCodes.UNAUTHORIZED, "Not authenticated");
+            }
+            const item = await this.itemService.getItemStats(req.authUser.id)
+            res.status(StatusCodes.OK).json(item);
         }catch(err){
             next(err);
         }

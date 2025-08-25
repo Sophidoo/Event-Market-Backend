@@ -150,6 +150,46 @@ export default class UserController{
         }
     }
 
+    suspendUser = async(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            if (!req.authUser) {
+                throw new HttpException(
+                    StatusCodes.UNAUTHORIZED,
+                    "Please Login First"
+                );
+            }
+
+            const user = await this.userService.suspendUser(req.authUser);
+            res.status(StatusCodes.OK).json(user)
+        }catch(err){
+            next(err)
+        }
+    }
+
+    liftSuspension = async(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            if (!req.authUser) {
+                throw new HttpException(
+                    StatusCodes.UNAUTHORIZED,
+                    "Please Login First"
+                );
+            }
+
+            const user = await this.userService.liftSuspension(req.authUser);
+            res.status(StatusCodes.OK).json(user)
+        }catch(err){
+            next(err)
+        }
+    }
+
     updateUserAddress = async(
         req: Request,
         res: Response,

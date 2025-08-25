@@ -25,6 +25,8 @@ export default class UserRoutes implements IRoute{
         this.router.get(`${this.path}/token/:email`, this.controller.sendToken)
         this.router.post(`${this.path}/forgot-password/:email`, this.controller.forgotPassword)
         this.router.patch(`${this.path}/user`, authMiddleware, this.controller.updateUserDetails)
+        this.router.patch(`${this.path}/suspend`, authMiddleware, this.controller.suspendUser)
+        this.router.patch(`${this.path}/liftSuspension`, authMiddleware, this.controller.liftSuspension)
         this.router.patch(`${this.path}/address`, authMiddleware, this.controller.updateUserAddress)
         this.router.patch(`${this.path}/reset-password`, authMiddleware, this.controller.updateUserPassword)
         this.router.patch(`${this.path}/upload`, authMiddleware, uploadMiddleware, this.controller.updateProfile)

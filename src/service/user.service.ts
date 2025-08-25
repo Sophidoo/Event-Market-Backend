@@ -20,4 +20,6 @@ export default interface UserService{
     updateUserAddress(authUser: { id: string }, dto: EditUserAddressDto) : Promise<string>
     updateUserPassword(authUser: { id: string }, dto: EditUserPasswordDto) : Promise<string>
     updateProfile(userId: string, file: Express.Multer.File) : Promise<string>
+    suspendUser(authUser: {id: string}) : Promise<string>
+    liftSuspension(authUser: {id: string}) : Promise<string>
 }

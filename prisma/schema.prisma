@@ -73,6 +73,7 @@ model User {
   password     String
   role         Role      @default(USER)
   verified     Boolean   @default(false)
+  suspended    Boolean   @default(false)
   address      String?
   city         String?
   state        String?

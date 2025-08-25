@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsPhoneNumber, IsString, MinLength } from "class-validator";
+import { IsEmail, IsEnum, IsOptional, IsPhoneNumber, IsString, MinLength } from "class-validator";
 import { Role } from "../../generated/prisma";
 
 
@@ -18,7 +18,7 @@ export class EditUserDto{
 }
 
 export class EditUserAddressDto{
-    @IsString()
+    @IsOptional()
     address : string;
 
     @IsString()

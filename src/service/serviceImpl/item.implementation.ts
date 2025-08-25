@@ -37,14 +37,14 @@ export default class ItemServiceImpl implements ItemService{
 
         let categoryType = await prisma.categoryType.findUnique({
             where: {
-                name: dto.categoryType
+                name: dto.categoryType.toUpperCase().trim()
             }
         })
 
         if(!categoryType){
             categoryType = await prisma.categoryType.create({
                 data: {
-                    name: dto.categoryType.toUpperCase()
+                    name: dto.categoryType.toUpperCase().trim()
                 }
             })
         }
@@ -90,14 +90,14 @@ export default class ItemServiceImpl implements ItemService{
 
         let categoryType = await prisma.categoryType.findUnique({
             where: {
-                name: dto.categoryType
+                name: dto.categoryType.toUpperCase().trim()
             }
         })
 
         if(!categoryType){
             categoryType = await prisma.categoryType.create({
                 data: {
-                    name: dto.categoryType
+                    name: dto.categoryType.toUpperCase().trim()
                 }
             })
         }
@@ -148,14 +148,14 @@ export default class ItemServiceImpl implements ItemService{
 
         let categoryType = await prisma.categoryType.findUnique({
             where: {
-                name: dto.categoryType
+                name: dto.categoryType.toUpperCase().trim()
             }
         })
 
         if(!categoryType){
             categoryType = await prisma.categoryType.create({
                 data: {
-                    name: dto.categoryType
+                    name: dto.categoryType.toUpperCase().trim()
                 }
             })
         }
@@ -231,55 +231,134 @@ export default class ItemServiceImpl implements ItemService{
         return ItemResponse
     }
 
+    async getItemStats(id: string) : Promise<{ rentals: number; services: number; packages: number; }> {
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id
+            }
+        })
+
+        if(!user){
+            throw new HttpException(
+                StatusCodes.NOT_FOUND,
+                "Item not found"
+            )
+        }
+        let rentalsCount = 0
+        let servicesCount = 0
+        let packagesCount = 0   
+        if(user.role === "ADMIN"){
+            rentalsCount = await prisma.item.count({
+                where: {
+                    category: "RENTALS"
+                }
+            })
+
+            servicesCount = await prisma.item.count({
+                where: {
+                    category: "SERVICES"
+                }
+            })
+
+            packagesCount = await prisma.item.count({
+                where: {
+                    category: "PACKAGES"
+                }
+            })
+
+            return {
+                rentals: rentalsCount,
+                services: servicesCount,
+                packages: packagesCount
+            }
+            
+        }
+        rentalsCount = await prisma.item.count({
+            where: {
+                category: "RENTALS", 
+                vendorId: id
+            }
+        })
+
+        servicesCount = await prisma.item.count({
+            where: {
+                category: "SERVICES",
+                vendorId: id
+            }
+        })
+
+        packagesCount = await prisma.item.count({
+            where: {
+                category: "PACKAGES",
+                vendorId: id
+            }
+        })
+
+        return {
+            rentals: rentalsCount,
+            services: servicesCount,
+            packages: packagesCount
+        }
+    }
+
     calculateAverageRating(reviews: { rating: number }[]): number | null {
         if (!reviews.length) return 0;
         const sum = reviews.reduce((total, review) => total + review.rating, 0);
         return parseFloat((sum / reviews.length).toFixed(1)); // Rounds to 1 decimal place
     }
 
-    async getItemsList(page: number, pageSize: number, category: Category | null): Promise<IPaginatedItemResponse> {
-        if (page < 1) throw new HttpException(StatusCodes.NOT_FOUND, "Page must be greater than 0");
-        if (pageSize < 1 || pageSize > 30) throw new HttpException(StatusCodes.NOT_FOUND, "Page size muct be between 1 and 30");
+    async getItemsList(page: number, pageSize: number, category: Category | null, id: string): Promise<IPaginatedItemResponse> {
+        if (page < 1) throw new HttpException(StatusCodes.BAD_REQUEST, "Page must be greater than 0");
+        if (pageSize < 1 || pageSize > 30) throw new HttpException(StatusCodes.BAD_REQUEST, "Page size must be between 1 and 30");
+
+        const user = await prisma.user.findUnique({
+            where: { id },
+        });
+
+        if (!user) {
+            throw new HttpException(StatusCodes.NOT_FOUND, "user not found");
+        }
 
         const skip = (page - 1) * pageSize;
+        let where: any = {};
+
+        if (user.role !== "ADMIN") {
+            where = { vendorId: id, ...(category ? { category } : {}) };
+        } else if (category) {
+            where = { category };
+        }
+
+        const totalItems = await prisma.item.count({ where });
 
         const items = await prisma.item.findMany({
             skip,
             take: pageSize,
-            orderBy: {createdAt : "desc"},
+            orderBy: { createdAt: "desc" },
             include: {
                 _count: true,
-                categoryType: {
-                    select: {
-                        name: true
-                    }
-                },
-                reviews: {
-                    select: {
-                    rating: true
-                    }
-                },
-                vendor: true
+                categoryType: { select: { name: true } },
+                reviews: { select: { rating: true } },
+                vendor: true,
             },
-            where: category ? {category} : {}
-        })
+            where,
+        });
 
         const itemsWithRatings = items.map(item => ({
             ...item,
             averageRating: this.calculateAverageRating(item.reviews),
-            reviewCount: item.reviews.length
+            reviewCount: item.reviews.length,
         }));
 
         return {
             data: plainToInstance(ItemResponseDto, itemsWithRatings),
             meta: {
-                total: items.length,
+                total: totalItems,
                 page,
                 pageSize,
-                totalPages: Math.ceil(items.length / pageSize)
-            }
+                totalPages: Math.ceil(totalItems / pageSize),
+            },
         };
-        
     }
 
 
