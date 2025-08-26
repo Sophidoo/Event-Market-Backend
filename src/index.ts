@@ -1,6 +1,7 @@
 import App from "./app"
 import BookingRoutes from "./routes/booking.route"
 import ItemRoutes from "./routes/Item.route"
+import TransactionRoutes from "./routes/transaction.route"
 import UserRoutes from "./routes/user.routes"
 import dotenv from "dotenv"
 
@@ -9,7 +10,8 @@ dotenv.config()
 const app = new App([
     new UserRoutes(),
     new ItemRoutes(),
-    new BookingRoutes()
+    new BookingRoutes(),
+    new TransactionRoutes()
 ])
 
 app.listen()

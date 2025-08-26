@@ -45,6 +45,8 @@ export default class TransactionController{
                 throw new HttpException(StatusCodes.UNAUTHORIZED, "Invalid Paystack signature");
             }
 
+            console.log(payload)
+
             if (payload.event === "charge.success") {
                 const { data } = payload;
                 const { reference, amount, status, paid_at, metadata } = data;
