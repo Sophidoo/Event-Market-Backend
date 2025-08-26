@@ -118,7 +118,8 @@ export type BookingType = (typeof BookingType)[keyof typeof BookingType]
 export const BookingStatus: {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
-  COMPLETED: 'COMPLETED'
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
 };
 
 export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
@@ -8806,7 +8807,7 @@ export namespace Prisma {
     updatedAt: Date
     bookedBy: string
     vendorId: string
-    itemId: string | null
+    itemId: string
     _count: BookingCountAggregateOutputType | null
     _avg: BookingAvgAggregateOutputType | null
     _sum: BookingSumAggregateOutputType | null
@@ -8844,7 +8845,7 @@ export namespace Prisma {
     itemId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
-    item?: boolean | Booking$itemArgs<ExtArgs>
+    item?: boolean | ItemDefaultArgs<ExtArgs>
     payment?: boolean | Booking$paymentArgs<ExtArgs>
   }, ExtArgs["result"]["booking"]>
 
@@ -8870,7 +8871,7 @@ export namespace Prisma {
   export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
-    item?: boolean | Booking$itemArgs<ExtArgs>
+    item?: boolean | ItemDefaultArgs<ExtArgs>
     payment?: boolean | Booking$paymentArgs<ExtArgs>
   }
 
@@ -8879,7 +8880,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       vendor: Prisma.$VendorPayload<ExtArgs>
-      item: Prisma.$ItemPayload<ExtArgs> | null
+      item: Prisma.$ItemPayload<ExtArgs>
       payment: Prisma.$PaymentPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -8895,7 +8896,7 @@ export namespace Prisma {
       updatedAt: Date
       bookedBy: string
       vendorId: string
-      itemId: string | null
+      itemId: string
     }, ExtArgs["result"]["booking"]>
     composites: {}
   }
@@ -9261,7 +9262,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     vendor<T extends VendorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorDefaultArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    item<T extends Booking$itemArgs<ExtArgs> = {}>(args?: Subset<T, Booking$itemArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    item<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     payment<T extends Booking$paymentArgs<ExtArgs> = {}>(args?: Subset<T, Booking$paymentArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9672,25 +9673,6 @@ export namespace Prisma {
      * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
      */
     options?: InputJsonValue
-  }
-
-  /**
-   * Booking.item
-   */
-  export type Booking$itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Item
-     */
-    select?: ItemSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Item
-     */
-    omit?: ItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ItemInclude<ExtArgs> | null
-    where?: ItemWhereInput
   }
 
   /**
@@ -11773,10 +11755,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Booking"> | Date | string
     bookedBy?: StringFilter<"Booking"> | string
     vendorId?: StringFilter<"Booking"> | string
-    itemId?: StringNullableFilter<"Booking"> | string | null
+    itemId?: StringFilter<"Booking"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
-    item?: XOR<ItemNullableScalarRelationFilter, ItemWhereInput> | null
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
   }
 
@@ -11816,10 +11798,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Booking"> | Date | string
     bookedBy?: StringFilter<"Booking"> | string
     vendorId?: StringFilter<"Booking"> | string
-    itemId?: StringNullableFilter<"Booking"> | string | null
+    itemId?: StringFilter<"Booking"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
-    item?: XOR<ItemNullableScalarRelationFilter, ItemWhereInput> | null
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
   }, "id">
 
@@ -11860,7 +11842,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
     bookedBy?: StringWithAggregatesFilter<"Booking"> | string
     vendorId?: StringWithAggregatesFilter<"Booking"> | string
-    itemId?: StringNullableWithAggregatesFilter<"Booking"> | string | null
+    itemId?: StringWithAggregatesFilter<"Booking"> | string
   }
 
   export type PaymentWhereInput = {
@@ -12605,7 +12587,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
     vendor: VendorCreateNestedOneWithoutBookingsInput
-    item?: ItemCreateNestedOneWithoutBookingsInput
+    item: ItemCreateNestedOneWithoutBookingsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
   }
 
@@ -12622,7 +12604,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     bookedBy: string
     vendorId: string
-    itemId?: string | null
+    itemId: string
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
   }
 
@@ -12638,7 +12620,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     vendor?: VendorUpdateOneRequiredWithoutBookingsNestedInput
-    item?: ItemUpdateOneWithoutBookingsNestedInput
+    item?: ItemUpdateOneRequiredWithoutBookingsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
   }
 
@@ -12654,7 +12636,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookedBy?: StringFieldUpdateOperationsInput | string
     vendorId?: StringFieldUpdateOperationsInput | string
-    itemId?: NullableStringFieldUpdateOperationsInput | string | null
+    itemId?: StringFieldUpdateOperationsInput | string
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
   }
 
@@ -12671,7 +12653,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     bookedBy: string
     vendorId: string
-    itemId?: string | null
+    itemId: string
   }
 
   export type BookingUpdateManyMutationInput = {
@@ -12698,7 +12680,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookedBy?: StringFieldUpdateOperationsInput | string
     vendorId?: StringFieldUpdateOperationsInput | string
-    itemId?: NullableStringFieldUpdateOperationsInput | string | null
+    itemId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PaymentCreateInput = {
@@ -14462,12 +14444,10 @@ export namespace Prisma {
     update?: XOR<XOR<VendorUpdateToOneWithWhereWithoutBookingsInput, VendorUpdateWithoutBookingsInput>, VendorUncheckedUpdateWithoutBookingsInput>
   }
 
-  export type ItemUpdateOneWithoutBookingsNestedInput = {
+  export type ItemUpdateOneRequiredWithoutBookingsNestedInput = {
     create?: XOR<ItemCreateWithoutBookingsInput, ItemUncheckedCreateWithoutBookingsInput>
     connectOrCreate?: ItemCreateOrConnectWithoutBookingsInput
     upsert?: ItemUpsertWithoutBookingsInput
-    disconnect?: boolean
-    delete?: ItemWhereInput | boolean
     connect?: ItemWhereUniqueInput
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutBookingsInput, ItemUpdateWithoutBookingsInput>, ItemUncheckedUpdateWithoutBookingsInput>
   }
@@ -14926,7 +14906,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     vendor: VendorCreateNestedOneWithoutBookingsInput
-    item?: ItemCreateNestedOneWithoutBookingsInput
+    item: ItemCreateNestedOneWithoutBookingsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
   }
 
@@ -14942,7 +14922,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     vendorId: string
-    itemId?: string | null
+    itemId: string
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
   }
 
@@ -15113,7 +15093,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Booking"> | Date | string
     bookedBy?: StringFilter<"Booking"> | string
     vendorId?: StringFilter<"Booking"> | string
-    itemId?: StringNullableFilter<"Booking"> | string | null
+    itemId?: StringFilter<"Booking"> | string
   }
 
   export type ReviewUpsertWithWhereUniqueWithoutUserInput = {
@@ -15411,7 +15391,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
-    item?: ItemCreateNestedOneWithoutBookingsInput
+    item: ItemCreateNestedOneWithoutBookingsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
   }
 
@@ -15427,7 +15407,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     bookedBy: string
-    itemId?: string | null
+    itemId: string
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
   }
 
@@ -16953,7 +16933,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
     vendor: VendorCreateNestedOneWithoutBookingsInput
-    item?: ItemCreateNestedOneWithoutBookingsInput
+    item: ItemCreateNestedOneWithoutBookingsInput
   }
 
   export type BookingUncheckedCreateWithoutPaymentInput = {
@@ -16969,7 +16949,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     bookedBy: string
     vendorId: string
-    itemId?: string | null
+    itemId: string
   }
 
   export type BookingCreateOrConnectWithoutPaymentInput = {
@@ -17057,7 +17037,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     vendor?: VendorUpdateOneRequiredWithoutBookingsNestedInput
-    item?: ItemUpdateOneWithoutBookingsNestedInput
+    item?: ItemUpdateOneRequiredWithoutBookingsNestedInput
   }
 
   export type BookingUncheckedUpdateWithoutPaymentInput = {
@@ -17072,7 +17052,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookedBy?: StringFieldUpdateOperationsInput | string
     vendorId?: StringFieldUpdateOperationsInput | string
-    itemId?: NullableStringFieldUpdateOperationsInput | string | null
+    itemId?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingCreateManyUserInput = {
@@ -17087,7 +17067,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     vendorId: string
-    itemId?: string | null
+    itemId: string
   }
 
   export type ReviewCreateManyUserInput = {
@@ -17130,7 +17110,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneRequiredWithoutBookingsNestedInput
-    item?: ItemUpdateOneWithoutBookingsNestedInput
+    item?: ItemUpdateOneRequiredWithoutBookingsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
   }
 
@@ -17145,7 +17125,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: StringFieldUpdateOperationsInput | string
-    itemId?: NullableStringFieldUpdateOperationsInput | string | null
+    itemId?: StringFieldUpdateOperationsInput | string
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
   }
 
@@ -17160,7 +17140,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: StringFieldUpdateOperationsInput | string
-    itemId?: NullableStringFieldUpdateOperationsInput | string | null
+    itemId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ReviewUpdateWithoutUserInput = {
@@ -17289,7 +17269,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     bookedBy: string
-    itemId?: string | null
+    itemId: string
   }
 
   export type ReviewUpdateWithoutVendorInput = {
@@ -17411,7 +17391,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
-    item?: ItemUpdateOneWithoutBookingsNestedInput
+    item?: ItemUpdateOneRequiredWithoutBookingsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
   }
 
@@ -17426,7 +17406,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookedBy?: StringFieldUpdateOperationsInput | string
-    itemId?: NullableStringFieldUpdateOperationsInput | string | null
+    itemId?: StringFieldUpdateOperationsInput | string
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
   }
 
@@ -17441,7 +17421,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookedBy?: StringFieldUpdateOperationsInput | string
-    itemId?: NullableStringFieldUpdateOperationsInput | string | null
+    itemId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SavedItemCreateManyItemInput = {

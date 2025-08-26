@@ -269,7 +269,8 @@ exports.BookingType = exports.$Enums.BookingType = {
 exports.BookingStatus = exports.$Enums.BookingStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
-  COMPLETED: 'COMPLETED'
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
 };
 
 exports.BookingRequest = exports.$Enums.BookingRequest = {

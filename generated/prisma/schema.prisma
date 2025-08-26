@@ -57,6 +57,7 @@ enum BookingStatus {
   PENDING
   APPROVED
   COMPLETED
+  CANCELLED
 }
 
 enum BookingRequest {
@@ -199,20 +200,21 @@ model Booking {
   bookedBy      String          @db.ObjectId
   vendor        Vendor          @relation("VendorBookings", fields: [vendorId], references: [id])
   vendorId      String          @db.ObjectId
-  item          Item?           @relation("ItemBookings", fields: [itemId], references: [id])
-  itemId        String?         @db.ObjectId
+  item          Item            @relation("ItemBookings", fields: [itemId], references: [id])
+  itemId        String          @db.ObjectId
   payment       Payment?        @relation("BookingPayment")
 }
 
 model Payment {
-  id         String        @id @default(auto()) @map("_id") @db.ObjectId
-  paidAmount Float         @map("paid_amount")
-  debit      Float
-  credit     Float
-  reason     String
-  status     PaymentStatus @default(PENDING)
-  createdAt  DateTime      @default(now()) @map("created_at")
-  updatedAt  DateTime      @updatedAt @map("updated_at")
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  transactionId String
+  paidAmount    Float         @map("paid_amount")
+  debit         Float
+  credit        Float
+  reason        String
+  status        PaymentStatus @default(PENDING)
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
 
   // Relationships
   user      User     @relation("UserPayments", fields: [userId], references: [id])

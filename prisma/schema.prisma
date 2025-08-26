@@ -57,6 +57,7 @@ enum BookingStatus {
   PENDING
   APPROVED
   COMPLETED
+  CANCELLED
 }
 
 enum BookingRequest {
@@ -199,8 +200,8 @@ model Booking {
   bookedBy      String          @db.ObjectId
   vendor        Vendor          @relation("VendorBookings", fields: [vendorId], references: [id])
   vendorId      String          @db.ObjectId
-  item          Item?           @relation("ItemBookings", fields: [itemId], references: [id])
-  itemId        String?         @db.ObjectId
+  item          Item           @relation("ItemBookings", fields: [itemId], references: [id])
+  itemId        String         @db.ObjectId
   payment       Payment?        @relation("BookingPayment")
 }
 

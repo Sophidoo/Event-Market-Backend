@@ -75,4 +75,63 @@ export default class TransactionController{
             next(err)
         }
     }
+
+
+
+    fetchUserTransaction = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            if (!req.authUser) {
+                throw new HttpException(
+                    StatusCodes.UNAUTHORIZED,
+                    "Please Login First"
+                );
+            }
+            const {page, pageSize} = req.params
+
+            const tnx = await this.transactionService.fetchUserTransactions(+page, +pageSize, req.authUser.id)
+            res.status(StatusCodes.OK).json(tnx)
+        }catch(err){
+            next(err)
+        }
+    }
+
+
+    fetchAllTransaction = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            const {page, pageSize} = req.params
+
+            const tnx = await this.transactionService.fetchAllTransactions(+page, +pageSize)
+            res.status(StatusCodes.OK).json(tnx)
+        }catch(err){
+            next(err)
+        }
+    }
+
+    downloadTransaction = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try{
+            if (!req.authUser) {
+                throw new HttpException(
+                    StatusCodes.UNAUTHORIZED,
+                    "Please Login First"
+                );
+            }
+            const tnx = await this.transactionService.downloadTransaction(req.authUser.id)
+            res.status(StatusCodes.OK).json(tnx)
+        }catch(err){
+            next(err)
+        }
+    }
+
 }
