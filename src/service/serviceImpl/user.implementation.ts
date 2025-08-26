@@ -428,7 +428,9 @@ export default class UserServiceImpl implements UserService{
                     city: true,
                     state: true,
                     country: true,
-                    createdAt: true
+                    createdAt: true,
+                    profile: true,
+                    suspended: true
                 }
             }),
             prisma.user.count()

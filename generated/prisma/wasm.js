@@ -220,6 +220,7 @@ exports.Prisma.BookingScalarFieldEnum = {
 
 exports.Prisma.PaymentScalarFieldEnum = {
   id: 'id',
+  transactionId: 'transactionId',
   paidAmount: 'paidAmount',
   debit: 'debit',
   credit: 'credit',

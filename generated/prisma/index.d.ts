@@ -9757,6 +9757,7 @@ export namespace Prisma {
 
   export type PaymentMinAggregateOutputType = {
     id: string | null
+    transactionId: string | null
     paidAmount: number | null
     debit: number | null
     credit: number | null
@@ -9770,6 +9771,7 @@ export namespace Prisma {
 
   export type PaymentMaxAggregateOutputType = {
     id: string | null
+    transactionId: string | null
     paidAmount: number | null
     debit: number | null
     credit: number | null
@@ -9783,6 +9785,7 @@ export namespace Prisma {
 
   export type PaymentCountAggregateOutputType = {
     id: number
+    transactionId: number
     paidAmount: number
     debit: number
     credit: number
@@ -9810,6 +9813,7 @@ export namespace Prisma {
 
   export type PaymentMinAggregateInputType = {
     id?: true
+    transactionId?: true
     paidAmount?: true
     debit?: true
     credit?: true
@@ -9823,6 +9827,7 @@ export namespace Prisma {
 
   export type PaymentMaxAggregateInputType = {
     id?: true
+    transactionId?: true
     paidAmount?: true
     debit?: true
     credit?: true
@@ -9836,6 +9841,7 @@ export namespace Prisma {
 
   export type PaymentCountAggregateInputType = {
     id?: true
+    transactionId?: true
     paidAmount?: true
     debit?: true
     credit?: true
@@ -9936,6 +9942,7 @@ export namespace Prisma {
 
   export type PaymentGroupByOutputType = {
     id: string
+    transactionId: string
     paidAmount: number
     debit: number
     credit: number
@@ -9968,6 +9975,7 @@ export namespace Prisma {
 
   export type PaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    transactionId?: boolean
     paidAmount?: boolean
     debit?: boolean
     credit?: boolean
@@ -9985,6 +9993,7 @@ export namespace Prisma {
 
   export type PaymentSelectScalar = {
     id?: boolean
+    transactionId?: boolean
     paidAmount?: boolean
     debit?: boolean
     credit?: boolean
@@ -9996,7 +10005,7 @@ export namespace Prisma {
     bookingId?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "paidAmount" | "debit" | "credit" | "reason" | "status" | "createdAt" | "updatedAt" | "userId" | "bookingId", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "paidAmount" | "debit" | "credit" | "reason" | "status" | "createdAt" | "updatedAt" | "userId" | "bookingId", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     booking?: boolean | Payment$bookingArgs<ExtArgs>
@@ -10010,6 +10019,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      transactionId: string
       paidAmount: number
       debit: number
       credit: number
@@ -10414,6 +10424,7 @@ export namespace Prisma {
    */
   interface PaymentFieldRefs {
     readonly id: FieldRef<"Payment", 'String'>
+    readonly transactionId: FieldRef<"Payment", 'String'>
     readonly paidAmount: FieldRef<"Payment", 'Float'>
     readonly debit: FieldRef<"Payment", 'Float'>
     readonly credit: FieldRef<"Payment", 'Float'>
@@ -10962,6 +10973,7 @@ export namespace Prisma {
 
   export const PaymentScalarFieldEnum: {
     id: 'id',
+    transactionId: 'transactionId',
     paidAmount: 'paidAmount',
     debit: 'debit',
     credit: 'credit',
@@ -11856,6 +11868,7 @@ export namespace Prisma {
     OR?: PaymentWhereInput[]
     NOT?: PaymentWhereInput | PaymentWhereInput[]
     id?: StringFilter<"Payment"> | string
+    transactionId?: StringFilter<"Payment"> | string
     paidAmount?: FloatFilter<"Payment"> | number
     debit?: FloatFilter<"Payment"> | number
     credit?: FloatFilter<"Payment"> | number
@@ -11871,6 +11884,7 @@ export namespace Prisma {
 
   export type PaymentOrderByWithRelationInput = {
     id?: SortOrder
+    transactionId?: SortOrder
     paidAmount?: SortOrder
     debit?: SortOrder
     credit?: SortOrder
@@ -11890,6 +11904,7 @@ export namespace Prisma {
     AND?: PaymentWhereInput | PaymentWhereInput[]
     OR?: PaymentWhereInput[]
     NOT?: PaymentWhereInput | PaymentWhereInput[]
+    transactionId?: StringFilter<"Payment"> | string
     paidAmount?: FloatFilter<"Payment"> | number
     debit?: FloatFilter<"Payment"> | number
     credit?: FloatFilter<"Payment"> | number
@@ -11904,6 +11919,7 @@ export namespace Prisma {
 
   export type PaymentOrderByWithAggregationInput = {
     id?: SortOrder
+    transactionId?: SortOrder
     paidAmount?: SortOrder
     debit?: SortOrder
     credit?: SortOrder
@@ -11925,6 +11941,7 @@ export namespace Prisma {
     OR?: PaymentScalarWhereWithAggregatesInput[]
     NOT?: PaymentScalarWhereWithAggregatesInput | PaymentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Payment"> | string
+    transactionId?: StringWithAggregatesFilter<"Payment"> | string
     paidAmount?: FloatWithAggregatesFilter<"Payment"> | number
     debit?: FloatWithAggregatesFilter<"Payment"> | number
     credit?: FloatWithAggregatesFilter<"Payment"> | number
@@ -12686,6 +12703,7 @@ export namespace Prisma {
 
   export type PaymentCreateInput = {
     id?: string
+    transactionId: string
     paidAmount: number
     debit: number
     credit: number
@@ -12699,6 +12717,7 @@ export namespace Prisma {
 
   export type PaymentUncheckedCreateInput = {
     id?: string
+    transactionId: string
     paidAmount: number
     debit: number
     credit: number
@@ -12711,6 +12730,7 @@ export namespace Prisma {
   }
 
   export type PaymentUpdateInput = {
+    transactionId?: StringFieldUpdateOperationsInput | string
     paidAmount?: FloatFieldUpdateOperationsInput | number
     debit?: FloatFieldUpdateOperationsInput | number
     credit?: FloatFieldUpdateOperationsInput | number
@@ -12723,6 +12743,7 @@ export namespace Prisma {
   }
 
   export type PaymentUncheckedUpdateInput = {
+    transactionId?: StringFieldUpdateOperationsInput | string
     paidAmount?: FloatFieldUpdateOperationsInput | number
     debit?: FloatFieldUpdateOperationsInput | number
     credit?: FloatFieldUpdateOperationsInput | number
@@ -12736,6 +12757,7 @@ export namespace Prisma {
 
   export type PaymentCreateManyInput = {
     id?: string
+    transactionId: string
     paidAmount: number
     debit: number
     credit: number
@@ -12748,6 +12770,7 @@ export namespace Prisma {
   }
 
   export type PaymentUpdateManyMutationInput = {
+    transactionId?: StringFieldUpdateOperationsInput | string
     paidAmount?: FloatFieldUpdateOperationsInput | number
     debit?: FloatFieldUpdateOperationsInput | number
     credit?: FloatFieldUpdateOperationsInput | number
@@ -12758,6 +12781,7 @@ export namespace Prisma {
   }
 
   export type PaymentUncheckedUpdateManyInput = {
+    transactionId?: StringFieldUpdateOperationsInput | string
     paidAmount?: FloatFieldUpdateOperationsInput | number
     debit?: FloatFieldUpdateOperationsInput | number
     credit?: FloatFieldUpdateOperationsInput | number
@@ -13588,6 +13612,7 @@ export namespace Prisma {
 
   export type PaymentCountOrderByAggregateInput = {
     id?: SortOrder
+    transactionId?: SortOrder
     paidAmount?: SortOrder
     debit?: SortOrder
     credit?: SortOrder
@@ -13607,6 +13632,7 @@ export namespace Prisma {
 
   export type PaymentMaxOrderByAggregateInput = {
     id?: SortOrder
+    transactionId?: SortOrder
     paidAmount?: SortOrder
     debit?: SortOrder
     credit?: SortOrder
@@ -13620,6 +13646,7 @@ export namespace Prisma {
 
   export type PaymentMinOrderByAggregateInput = {
     id?: SortOrder
+    transactionId?: SortOrder
     paidAmount?: SortOrder
     debit?: SortOrder
     credit?: SortOrder
@@ -14959,6 +14986,7 @@ export namespace Prisma {
 
   export type PaymentCreateWithoutUserInput = {
     id?: string
+    transactionId: string
     paidAmount: number
     debit: number
     credit: number
@@ -14971,6 +14999,7 @@ export namespace Prisma {
 
   export type PaymentUncheckedCreateWithoutUserInput = {
     id?: string
+    transactionId: string
     paidAmount: number
     debit: number
     credit: number
@@ -15138,6 +15167,7 @@ export namespace Prisma {
     OR?: PaymentScalarWhereInput[]
     NOT?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
     id?: StringFilter<"Payment"> | string
+    transactionId?: StringFilter<"Payment"> | string
     paidAmount?: FloatFilter<"Payment"> | number
     debit?: FloatFilter<"Payment"> | number
     credit?: FloatFilter<"Payment"> | number
@@ -16624,6 +16654,7 @@ export namespace Prisma {
 
   export type PaymentCreateWithoutBookingInput = {
     id?: string
+    transactionId: string
     paidAmount: number
     debit: number
     credit: number
@@ -16636,6 +16667,7 @@ export namespace Prisma {
 
   export type PaymentUncheckedCreateWithoutBookingInput = {
     id?: string
+    transactionId: string
     paidAmount: number
     debit: number
     credit: number
@@ -16832,6 +16864,7 @@ export namespace Prisma {
   }
 
   export type PaymentUpdateWithoutBookingInput = {
+    transactionId?: StringFieldUpdateOperationsInput | string
     paidAmount?: FloatFieldUpdateOperationsInput | number
     debit?: FloatFieldUpdateOperationsInput | number
     credit?: FloatFieldUpdateOperationsInput | number
@@ -16843,6 +16876,7 @@ export namespace Prisma {
   }
 
   export type PaymentUncheckedUpdateWithoutBookingInput = {
+    transactionId?: StringFieldUpdateOperationsInput | string
     paidAmount?: FloatFieldUpdateOperationsInput | number
     debit?: FloatFieldUpdateOperationsInput | number
     credit?: FloatFieldUpdateOperationsInput | number
@@ -17068,6 +17102,7 @@ export namespace Prisma {
 
   export type PaymentCreateManyUserInput = {
     id?: string
+    transactionId: string
     paidAmount: number
     debit: number
     credit: number
@@ -17156,6 +17191,7 @@ export namespace Prisma {
   }
 
   export type PaymentUpdateWithoutUserInput = {
+    transactionId?: StringFieldUpdateOperationsInput | string
     paidAmount?: FloatFieldUpdateOperationsInput | number
     debit?: FloatFieldUpdateOperationsInput | number
     credit?: FloatFieldUpdateOperationsInput | number
@@ -17167,6 +17203,7 @@ export namespace Prisma {
   }
 
   export type PaymentUncheckedUpdateWithoutUserInput = {
+    transactionId?: StringFieldUpdateOperationsInput | string
     paidAmount?: FloatFieldUpdateOperationsInput | number
     debit?: FloatFieldUpdateOperationsInput | number
     credit?: FloatFieldUpdateOperationsInput | number
@@ -17178,6 +17215,7 @@ export namespace Prisma {
   }
 
   export type PaymentUncheckedUpdateManyWithoutUserInput = {
+    transactionId?: StringFieldUpdateOperationsInput | string
     paidAmount?: FloatFieldUpdateOperationsInput | number
     debit?: FloatFieldUpdateOperationsInput | number
     credit?: FloatFieldUpdateOperationsInput | number

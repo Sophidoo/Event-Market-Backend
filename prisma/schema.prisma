@@ -206,6 +206,7 @@ model Booking {
 
 model Payment {
   id         String        @id @default(auto()) @map("_id") @db.ObjectId
+  transactionId String
   paidAmount Float         @map("paid_amount")
   debit      Float
   credit     Float
