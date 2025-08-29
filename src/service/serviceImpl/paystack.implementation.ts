@@ -17,7 +17,7 @@ export default class PaystackServiceImpl implements PaystackService {
         "https://api.paystack.co/transaction/initialize",
         {
           email: dto.email,
-          amount: dto.amount * 100, // Paystack expects amount in kobo
+          amount: Math.round(dto.amount * 100), // Paystack expects amount in kobo
           metadata: {
             bookingId: dto.bookingId,
             type: dto.type,
@@ -30,9 +30,10 @@ export default class PaystackServiceImpl implements PaystackService {
           },
         }
       );
-
-      return response.data.data.authorization_url;
+      console.log(response)
+      return response.data;
     } catch (error) {
+        console.log(error)
       throw new HttpException(
         StatusCodes.INTERNAL_SERVER_ERROR,
         "Paystack payment initialization failed"

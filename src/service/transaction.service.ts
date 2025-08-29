@@ -3,7 +3,7 @@ import { IPaginatedTransactionResponse } from "../interface/paginationtransactio
 
 
 export default interface TransactionService{
-    createTransaction(dto: CreateTransactionDto) : Promise<string>
+    createTransaction(reference: string) : Promise<{message: string, data: object}>
     downloadTransaction(userId: string) : Promise<string>
     fetchUserTransactions(page: number, pageSize: number, userId: string) : Promise<IPaginatedTransactionResponse>
     fetchAllTransactions(page: number, pageSize: number,) : Promise<IPaginatedTransactionResponse>

@@ -8,6 +8,7 @@ import * as csv from "csv-stringify/sync";
 import ValidateDto from "../../utils/ValidateDto";
 import { IPaginatedTransactionResponse } from "../../interface/paginationtransaction.interface";
 import { TransactionResponseDto } from "../../dtos/transactionResponse.dto";
+import { PaymentStatus } from "../../../generated/prisma";
 
 export default class TransactionServiceImpl implements TransactionService {
   async fetchUserTransactions(page: number, pageSize: number, userId: string): Promise<IPaginatedTransactionResponse> {
@@ -101,24 +102,7 @@ export default class TransactionServiceImpl implements TransactionService {
         }
       }
   }
-  async createTransaction(dto: CreateTransactionDto): Promise<string> {
-    await ValidateDto(CreateTransactionDto, dto);
-
-    const transaction = await prisma.payment.create({
-      data: {
-        transactionId: dto.paymentId,
-        paidAmount: dto.amount,
-        debit: dto.amount < 0 ? Math.abs(dto.amount) : 0,
-        credit: dto.amount > 0 ? dto.amount : 0,
-        reason: dto.reason,
-        status: dto.status,
-        user: { connect: { id: dto.userId } },
-        booking: dto.bookingId ? { connect: { id: dto.bookingId } } : undefined,
-      },
-    });
-
-    return `Transaction ${transaction.id} created`;
-  }
+ 
 
   async downloadTransaction(userId: string): Promise<string> {
     const transactions = await prisma.payment.findMany({
@@ -138,6 +122,84 @@ export default class TransactionServiceImpl implements TransactionService {
     return csvData;
   }
 
+  async createTransaction(reference: string): Promise<{ message: string; data: object }> {
+    if (!reference) {
+      throw new HttpException(StatusCodes.BAD_REQUEST, "Reference is required");
+    }
+
+    const secret = process.env.PAYSTACK_SECRET_KEY;
+    if (!secret) {
+      throw new HttpException(StatusCodes.INTERNAL_SERVER_ERROR, "Paystack secret key not configured");
+    }
+
+    // Verify transaction with Paystack
+    const verifyResponse = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${secret}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const verifyData = await verifyResponse.json();
+
+    if (!verifyData.status || verifyData.data.status !== "success") {
+      throw new HttpException(StatusCodes.BAD_REQUEST, `Payment verification failed: ${verifyData.message || "Unknown error"}`);
+    }
+
+    const { amount, reference: ref, metadata } = verifyData.data;
+
+    if (!metadata?.bookingId || !metadata?.userId) {
+      throw new HttpException(StatusCodes.BAD_REQUEST, "Missing bookingId or userId in transaction metadata");
+    }
+
+    // Check if the booking exists
+    const booking = await prisma.booking.findUnique({
+      where: { id: metadata.bookingId },
+    });
+
+    if (!booking) {
+      throw new HttpException(StatusCodes.NOT_FOUND, "Booking not found");
+    }
+
+    // Check for existing transaction to avoid duplicates
+    const existingTransaction = await prisma.payment.findUnique({
+      where: { bookingId: metadata.bookingId },
+    });
+
+    let payment;
+    const paymentData = {
+      transactionId: ref,
+      paidAmount: amount / 100, // Convert from kobo to naira (or your currency)
+      status: PaymentStatus.COMPLETED,
+      debit: 0, // Adjust based on your business logic
+      credit: amount / 100,
+      reason: "Payment for booking",
+      userId: metadata.userId,
+      bookingId: metadata.bookingId,
+    };
+
+    if (existingTransaction) {
+      // Update existing transaction
+      payment = await prisma.payment.update({
+        where: { bookingId: metadata.bookingId },
+        data: paymentData,
+      });
+    } else {
+      // Create new transaction
+      payment = await prisma.payment.create({
+        data: paymentData,
+      });
+    }
+
+    // Update booking payment status
+    await prisma.booking.update({
+      where: { id: metadata.bookingId },
+      data: { paymentStatus: PaymentStatus.COMPLETED },
+    });
+
+    return { message: "Payment successful and booking updated", data: verifyData };
+  }
 
 
 }

@@ -190,7 +190,7 @@ model Booking {
   endDate       DateTime        @map("end_date")
   address       String?
   status        BookingStatus?
-  request       BookingRequest?
+  request       BookingRequest? 
   totalPrice    Float           @map("total_price")
   paymentStatus PaymentStatus?  @default(PENDING) @map("payment_status")
   createdAt     DateTime        @default(now()) @map("created_at")
@@ -207,7 +207,7 @@ model Booking {
 
 model Payment {
   id         String        @id @default(auto()) @map("_id") @db.ObjectId
-  transactionId String
+  transactionId String @unique
   paidAmount Float         @map("paid_amount")
   debit      Float
   credit     Float

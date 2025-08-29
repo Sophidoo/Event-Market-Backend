@@ -11882,11 +11882,11 @@ export namespace Prisma {
 
   export type PaymentWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    transactionId?: string
     bookingId?: string
     AND?: PaymentWhereInput | PaymentWhereInput[]
     OR?: PaymentWhereInput[]
     NOT?: PaymentWhereInput | PaymentWhereInput[]
-    transactionId?: StringFilter<"Payment"> | string
     paidAmount?: FloatFilter<"Payment"> | number
     debit?: FloatFilter<"Payment"> | number
     credit?: FloatFilter<"Payment"> | number
@@ -11897,7 +11897,7 @@ export namespace Prisma {
     userId?: StringFilter<"Payment"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     booking?: XOR<BookingNullableScalarRelationFilter, BookingWhereInput> | null
-  }, "id" | "bookingId">
+  }, "id" | "transactionId" | "bookingId">
 
   export type PaymentOrderByWithAggregationInput = {
     id?: SortOrder

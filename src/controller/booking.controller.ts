@@ -3,6 +3,7 @@ import BookingService from "../service/booking.service";
 import BookingServiceImpl from "../service/serviceImpl/booking.implementation";
 import HttpException from "../utils/exception";
 import { StatusCodes } from "http-status-codes";
+import { Category } from "../../generated/prisma";
 
 
 export default class BookingController{
@@ -45,9 +46,9 @@ export default class BookingController{
                 );
             }
 
-            const {page, pageSize} = req.params
+            const {page, pageSize, category} = req.params
 
-            const booking = await this.bookingService.fetchUserBooking(+page, +pageSize, req.authUser.id);
+            const booking = await this.bookingService.fetchUserBooking(+page, +pageSize, req.authUser.id, category);
             res.status(StatusCodes.OK).json(booking)
         }catch(err){
             next(err);
@@ -67,9 +68,9 @@ export default class BookingController{
                 );
             }
 
-            const {page, pageSize} = req.params
+            const {page, pageSize, category} = req.params
 
-            const booking = await this.bookingService.fetchVendorBooking(+page, +pageSize, req.vendor.id);
+            const booking = await this.bookingService.fetchVendorBooking(+page, +pageSize, req.vendor.id, category);
             res.status(StatusCodes.OK).json(booking)
         }catch(err){
             next(err);
@@ -83,9 +84,9 @@ export default class BookingController{
     ) => {
         try{
 
-            const {page, pageSize} = req.params
+            const {page, pageSize, category} = req.params
 
-            const booking = await this.bookingService.fetchAllBooking(+page, +pageSize);
+            const booking = await this.bookingService.fetchAllBooking(+page, +pageSize, category);
             res.status(StatusCodes.OK).json(booking)
         }catch(err){
             next(err);
@@ -106,9 +107,9 @@ export default class BookingController{
                 );
             }
 
-            const {page, pageSize} = req.params
-
-            const booking = await this.bookingService.fetchBookingsGroup(+page, +pageSize, req.authUser.id);
+            const {page, pageSize, category} = req.params
+            const categoryEnum = category as Category
+            const booking = await this.bookingService.fetchBookingsGroup(+page, +pageSize, req.authUser.id, categoryEnum);
             res.status(StatusCodes.OK).json(booking)
         }catch(err){
             next(err);

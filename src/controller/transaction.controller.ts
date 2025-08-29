@@ -5,6 +5,7 @@ import HttpException from "../utils/exception";
 import { StatusCodes } from "http-status-codes";
 import prisma from "../lib/prisma";
 import crypto from "crypto";
+import { ref } from "process";
 
 
 
@@ -15,62 +16,27 @@ export default class TransactionController{
         this.transactionService = transactionService;
     }
 
-    createTransaction = async (
+    verifyTransaction = async (
         req: Request,
         res: Response,
         next: NextFunction
     ) => {
         try{
-            const payload = req.body;
-            const signature = req.headers["x-paystack-signature"] as string;
-
-            if (!signature) {
-                throw new HttpException(StatusCodes.BAD_REQUEST, "Missing Paystack signature");
-            }
-
-            // Verify webhook signature
-            const secret = process.env.PAYSTACK_SECRET_KEY;
-            if(!secret){
+            if(!req.authUser){
                 throw new HttpException(
-                    StatusCodes.BAD_REQUEST,
-                    "Secret not provided"
+                    StatusCodes.UNAUTHORIZED,
+                    "Please Login first"
                 )
             }
-            const hash = crypto
-                .createHmac("sha512", secret)
-                .update(JSON.stringify(payload))
-                .digest("hex");
 
-            if (hash !== signature) {
-                throw new HttpException(StatusCodes.UNAUTHORIZED, "Invalid Paystack signature");
-            }
+            const reference = req.query.reference as string;
+            console.log(reference)
 
-            console.log(payload)
+            const tnx = await this.transactionService.createTransaction(reference)
+            
 
-            if (payload.event === "charge.success") {
-                const { data } = payload;
-                const { reference, amount, status, paid_at, metadata } = data;
-
-                // Create transaction
-                await this.transactionService.createTransaction({
-                paymentId: `${reference}`,
-                amount: amount / 100, // Convert from kobo to naira
-                status: status === "success" ? "COMPLETED" : "FAILED",
-                debit: 4000,
-                credit: 44444445,
-                reason: "Payment for booking",
-                userId: "user_12345", // Fetch from metadata or auth (implement auth middleware if needed)
-                bookingId: metadata.bookingId,
-                });
-
-                // Update booking payment status (optional, depending on your flow)
-                await prisma.booking.update({
-                where: { id: metadata.bookingId },
-                data: { paymentStatus: "COMPLETED" },
-                });
-
-                res.status(StatusCodes.OK).json({ message: "Webhook processed successfully" });
-            }
+            res.status(StatusCodes.OK).json(tnx);
+            
         }catch(err){
             next(err)
         }

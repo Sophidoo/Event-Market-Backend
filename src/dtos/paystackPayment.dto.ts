@@ -1,7 +1,6 @@
 import { IsEmail, IsNumber, IsString } from "class-validator";
 
 export class PaystackPaymentDto {
-  @IsNumber()
   amount: number;
 
   @IsEmail()

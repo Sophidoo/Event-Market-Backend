@@ -1,6 +1,6 @@
 
 import { StatusCodes } from "http-status-codes";
-import { BookingStatus, BookingRequest, PaymentStatus, BookingType } from "../../../generated/prisma";
+import { BookingStatus, BookingRequest, PaymentStatus, BookingType, Category } from "../../../generated/prisma";
 import prisma from "../../lib/prisma";
 import HttpException from "../../utils/exception";
 import { sendEmail } from "../../utils/email";
@@ -18,71 +18,58 @@ export default class BookingServiceImpl implements BookingService {
   private paystackService = new PaystackServiceImpl();
   private transactionService = new TransactionServiceImpl();
 
-  async createBooking(dto: CreateBookingDto, userId: string): Promise<string> {
-    await ValidateDto(CreateBookingDto, dto);
+ async createBooking(dto: CreateBookingDto, userId: string): Promise<{ bookingId: string, message: string }> {
+  await ValidateDto(CreateBookingDto, dto);
 
-    const item = await prisma.item.findUnique({
-      where: { id: dto.itemId },
-      include: { vendor: true },
-    });
+  const item = await prisma.item.findUnique({
+    where: { id: dto.itemId },
+    include: { vendor: true },
+  });
 
-    const user = await prisma.user.findUnique({where: {id: userId}})
+  const user = await prisma.user.findUnique({ where: { id: userId } });
 
-    if(!user){
-        throw new HttpException(
-            StatusCodes.NOT_FOUND,
-            "User not found"
-        )
-    }
-
-    if (!item) {
-      throw new HttpException(StatusCodes.NOT_FOUND, "Item not found");
-    }
-
-    // Check availability (simplified; add date overlap check if needed)
-    if (!item.isAvailable) {
-      throw new HttpException(StatusCodes.BAD_REQUEST, "Item is not available");
-    }
-
-    const booking = await prisma.booking.create({
-      data: {
-        startDate: new Date(dto.startDate),
-        endDate: new Date(dto.endDate),
-        address: dto.address,
-        status: BookingStatus.PENDING,
-        request: item.bookingType === BookingType.REQUEST ? BookingRequest.PENDING : BookingRequest.APPROVED,
-        totalPrice: dto.totalPrice,
-        paymentStatus: PaymentStatus.PENDING,
-        user: { connect: { id: userId } },
-        vendor: { connect: { id: item.vendorId } },
-        item: { connect: { id: dto.itemId } },
-      },
-    });
-
-    const depositAmount = dto.totalPrice * 0.05;
-    const fullAmount = dto.totalPrice + depositAmount;
-
-    if (item.bookingType === BookingType.INSTANT) {
-      // Initiate full payment + deposit
-      const paymentUrl = await this.paystackService.payWithPaystack({
-        amount: fullAmount,
-        email: user.email, // Fetch from user
-        bookingId: booking.id,
-        type: "full",
-      });
-      return `Booking created. Proceed to payment: ${paymentUrl}`;
-    } else {
-      // Send email to vendor for approval
-      await sendEmail({
-        to: item.vendor.contactEmail || "sophieokosodo@gmail.com",
-        subject: "Booking Request Approval",
-        html: `A new booking request for ${item.title}. Approve within 24 hours.`,
-      });
-      return "Booking request sent to vendor for approval.";
-    }   
+  if (!user) {
+    throw new HttpException(StatusCodes.NOT_FOUND, "User not found");
   }
 
-  async fetchUserBooking(page: number, pageSize: number, id: string): Promise<IPaginatedBookingResponse> {
+  if (!item) {
+    throw new HttpException(StatusCodes.NOT_FOUND, "Item not found");
+  }
+
+  // Check availability (add date overlap logic if needed)
+  if (!item.isAvailable) {
+    throw new HttpException(StatusCodes.BAD_REQUEST, "Item is not available");
+  }
+
+  const booking = await prisma.booking.create({
+    data: {
+      startDate: new Date(dto.startDate),
+      endDate: new Date(dto.endDate),
+      address: dto.address,
+      status: BookingStatus.PENDING,
+      request: item.bookingType === BookingType.REQUEST ? BookingRequest.PENDING : BookingRequest.APPROVED,
+      totalPrice: dto.totalPrice,  // Includes deposit, as calculated by frontend
+      paymentStatus: PaymentStatus.PENDING,
+      user: { connect: { id: userId } },
+      vendor: { connect: { id: item.vendorId } },
+      item: { connect: { id: dto.itemId } },
+    },
+  });
+
+  if (item.bookingType === BookingType.INSTANT) {
+    return { bookingId: booking.id, message: "Booking created. Proceed to payment." };
+  } else {
+    // Send email to vendor for approval
+    await sendEmail({
+      to: item.vendor.contactEmail || "sophieokosodo@gmail.com",
+      subject: "Booking Request Approval",
+      html: `A new booking request for ${item.title}. Approve within 24 hours.`,
+    });
+    return { bookingId: booking.id, message: "Booking request sent to vendor for approval." };
+  }
+}
+
+  async fetchUserBooking(page: number, pageSize: number, id: string, category: Category): Promise<IPaginatedBookingResponse> {
     const skip = (page - 1) * pageSize;
     const user = await prisma.user.findUnique({where: {id}})
 
@@ -97,7 +84,8 @@ export default class BookingServiceImpl implements BookingService {
       skip,
       take: pageSize,
       where: {
-        user: user
+        user: user,
+        item: {category}
       },
       include: { item: true, user: true, vendor: true, payment: true },
       orderBy: { createdAt: "desc" },
@@ -132,7 +120,7 @@ export default class BookingServiceImpl implements BookingService {
         },
     };
   }
-  async fetchVendorBooking(page: number, pageSize: number, id: string): Promise<IPaginatedBookingResponse> {
+  async fetchVendorBooking(page: number, pageSize: number, id: string, category: Category): Promise<IPaginatedBookingResponse> {
     const skip = (page - 1) * pageSize;
     const vendor = await prisma.vendor.findUnique({where: {id}})
 
@@ -147,7 +135,8 @@ export default class BookingServiceImpl implements BookingService {
       skip,
       take: pageSize,
       where: {
-        vendor: vendor
+        vendor: {id},
+        item: {category}
       },
       include: { item: true, user: true, vendor: true, payment: true },
       orderBy: { createdAt: "desc" },
@@ -182,12 +171,15 @@ export default class BookingServiceImpl implements BookingService {
         },
     };
   }
-  async fetchAllBooking(page: number, pageSize: number): Promise<IPaginatedBookingResponse> {
+  async fetchAllBooking(page: number, pageSize: number, category: Category): Promise<IPaginatedBookingResponse> {
     const skip = (page - 1) * pageSize;
 
     const bookings = await prisma.booking.findMany({
       skip,
       take: pageSize,
+      where: {
+        item: {category}
+      },
       include: { item: true, user: true, vendor: true, payment: true },
       orderBy: { createdAt: "desc" },
     });
@@ -222,18 +214,33 @@ export default class BookingServiceImpl implements BookingService {
     };
   }
 
-  async fetchBookingsGroup(page: number, pageSize: number, userId: string): Promise<IPaginatedBookingGroupResponse> {
+  async fetchBookingsGroup(page: number, pageSize: number, userId: string, category: Category): Promise<IPaginatedBookingGroupResponse> {
   const skip = (page - 1) * pageSize;
-  const groupSize = 5; // Number of groups per page
+  // const groupSize = 2; // Number of groups per page
 
   // Fetch all bookings for the user
-  const bookings = await prisma.booking.findMany({
-    where: {
-      user: { id: userId },
-    },
-    include: { item: true, user: true, vendor: true, payment: true },
-    orderBy: { createdAt: "asc" }, // Sort bookings by createdAt ascending
-  });
+  let bookings;
+
+  if(category){
+      bookings = await prisma.booking.findMany({
+        where: {
+          user: { id: userId },
+          item: {category}
+        },
+        include: { item: true, user: true, vendor: true, payment: true },
+        orderBy: { createdAt: "asc" }, 
+      });
+  }else{
+    bookings = await prisma.booking.findMany({
+      where: {
+        user: { id: userId },
+        
+      },
+      include: { item: true, user: true, vendor: true, payment: true },
+      orderBy: { createdAt: "asc" }, 
+    });
+  }
+  console.log(bookings  )
 
   if (!bookings.length) {
     return {
@@ -241,7 +248,7 @@ export default class BookingServiceImpl implements BookingService {
       meta: {
         total: 0,
         page,
-        pageSize: groupSize,
+        pageSize,
         totalPages: 0,
       },
     };
@@ -278,10 +285,10 @@ export default class BookingServiceImpl implements BookingService {
   // Convert grouped object to an array of groups and sort by date
   const groupArray = Object.entries(grouped)
     .map(([date, bookings]) => ({ date, bookings }))
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   // Paginate the groups
-  const paginatedGroups = groupArray.slice(skip, skip + groupSize);
+  const paginatedGroups = groupArray.slice(skip, skip + pageSize);
   const totalGroups = groupArray.length;
 
   // Convert back to object format for response
@@ -295,8 +302,8 @@ export default class BookingServiceImpl implements BookingService {
     meta: {
       total: totalGroups,
       page,
-      pageSize: groupSize,
-      totalPages: Math.ceil(totalGroups / groupSize),
+      pageSize,
+      totalPages: Math.ceil(totalGroups / pageSize),
     },
   };
 }
@@ -363,7 +370,7 @@ export default class BookingServiceImpl implements BookingService {
 
     await prisma.booking.update({
         where: {
-            id: userId
+            id: bookingId
         },
         data: {
             status: BookingStatus.CANCELLED
