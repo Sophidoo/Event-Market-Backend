@@ -19,6 +19,7 @@ export default class BookingRoutes implements IRoute{
 
     private initializeRoutes(){
         this.router.post(`${this.path}/create`, authMiddleware, this.controller.createBooking);
+        this.router.get(`${this.path}/details/:id`, authMiddleware, this.controller.fetchBookingDetails);
         this.router.get(`${this.path}/user/:page/:pageSize/:category`, authMiddleware, this.controller.fetchUserBooking)
         this.router.get(`${this.path}/group/:page/:pageSize/:category`, authMiddleware, this.controller.fetchBookingsGroup)
         this.router.get(`${this.path}/vendor/:page/:pageSize/:category`, authMiddleware, isVendorMiddleWare, this.controller.fetchVendorBooking)

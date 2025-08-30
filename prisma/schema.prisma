@@ -166,10 +166,10 @@ model Review {
   // Relationships
   user      User     @relation("UserReviews", fields: [reviewer], references: [id])
   reviewer  String   @db.ObjectId
-  item      Item?    @relation("ItemReviews", fields: [itemId], references: [id])
-  itemId    String?  @db.ObjectId
-  vendor    Vendor?  @relation("VendorReviews", fields: [vendorId], references: [id])
-  vendorId  String?  @db.ObjectId
+  item      Item    @relation("ItemReviews", fields: [itemId], references: [id])
+  itemId    String  @db.ObjectId
+  vendor    Vendor  @relation("VendorReviews", fields: [vendorId], references: [id])
+  vendorId  String  @db.ObjectId
 }
 
 model SavedItem {

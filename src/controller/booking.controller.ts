@@ -202,7 +202,23 @@ export default class BookingController{
                 );
             }
 
-            const booking = await this.bookingService.downloadBooking();
+            const booking = await this.bookingService.downloadBooking(req.authUser.id);
+            res.status(StatusCodes.OK).json(booking)
+        }catch(err){
+            next(err);
+        }
+    }
+    
+    fetchBookingDetails = async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        try{
+
+            const {id} = req.params;
+
+            const booking = await this.bookingService.fetchBookingDetails(id);
             res.status(StatusCodes.OK).json(booking)
         }catch(err){
             next(err);

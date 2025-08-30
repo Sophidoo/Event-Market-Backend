@@ -15,6 +15,40 @@ import { BookingResponseDto } from "../../dtos/bookingResponse.dto";
 import { IPaginatedBookingGroupResponse } from "../../interface/paginatedbookinggroup.interface";
 
 export default class BookingServiceImpl implements BookingService {
+  async fetchBookingDetails(id: string): Promise<BookingResponseDto> {
+    const booking = await prisma.booking.findUnique({
+      where: {
+        id
+      },
+      include: {vendor: true, payment: true, item: true, user: true}
+    })
+
+    if(!booking){
+      throw new HttpException(
+        StatusCodes.NOT_FOUND,
+        "Booking not found"
+      )
+    }
+
+    const mappedBooking : BookingResponseDto = {
+      id: booking.id,
+      address: booking.address,
+      createdAt: booking.createdAt,
+      endDate: booking.endDate,
+      item: booking.item,
+      payment: booking.payment,
+      paymentStatus: booking.paymentStatus,
+      request: booking.request,
+      startDate: booking.startDate,
+      status: booking.status,
+      totalPrice: booking.totalPrice,
+      updatedAt: booking.updatedAt,
+      user: booking.user,
+      vendor: booking.vendor
+    }
+
+    return mappedBooking
+  }
   private paystackService = new PaystackServiceImpl();
   private transactionService = new TransactionServiceImpl();
 
@@ -405,9 +439,37 @@ export default class BookingServiceImpl implements BookingService {
     return "Booking status updated";
   }
 
-    async downloadBooking(): Promise<string> {
-        const bookings = await prisma.booking.findMany();
-        const csv = bookings.map(b => `${b.id},${b.status},${b.totalPrice}`).join("\n");
+    async downloadBooking(id: string): Promise<string> {
+      const user = await prisma.user.findUnique({where: {id}})
+
+      if(!user){
+        throw new HttpException(
+          StatusCodes.NOT_FOUND,
+          "User not found"
+        )
+      }
+
+      let bookings;
+      let csv;
+
+      if(user.role === "ADMIN"){
+        bookings = await prisma.booking.findMany({include: {user: true, vendor: true, payment: true, item: true}})
+        csv = bookings.map(b => `${b.id},${b.status},${b.totalPrice},${b.address},${b.startDate},${b.endDate},${b.paymentStatus},${b.item.title},${b.vendor.companyName},${b.vendor.contactEmail},${b.vendor.contactPhone},${b.vendor.address},${b.vendor.city},${b.vendor.state}`).join("\n");
+      }else{
+        bookings = await prisma.booking.findMany({
+          where: {
+            vendorId: id
+          },
+          include: {
+            user: true,
+            vendor:true,
+            payment: true,
+            item: true
+          }
+        })
+        csv = bookings.map(b => `${b.id},${b.status},${b.totalPrice},${b.address},${b.startDate},${b.endDate},${b.paymentStatus},${b.item.title},${b.user.name},${b.user.email},${b.user.phone},${b.user.address},${b.user.city},${b.user.state}`).join("\n");
+      }
+      
         return csv;
     }
 }
