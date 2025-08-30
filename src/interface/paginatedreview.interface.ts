@@ -8,4 +8,13 @@ export interface IPaginatedReviewResponse {
     pageSize: number;
     totalPages: number;
   };
+  stats: {
+    avgRating: number,
+    totalReview: number,
+    star5: number,
+    star4: number,
+    star3: number,
+    star2: number,
+    star1: number,
+  }
 }

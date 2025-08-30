@@ -80,10 +80,33 @@ export default class ReviewServiceImpl implements ReviewService{
                 item: true,
                 user: true,
                 vendor: true
+            },
+            orderBy: {
+                createdAt: "desc"
             }
         })
 
         const total = await prisma.review.count({where: {itemId}})
+
+        const avgRatingResult = await prisma.review.aggregate({
+            where: { itemId },
+            _avg: { rating: true },
+        });
+        const ratingCounts = await prisma.review.groupBy({
+            by: ['rating'],
+            where: { itemId },
+            _count: { rating: true },
+        });
+
+        // Initialize star counts
+        const starCounts = { star5: 0, star4: 0, star3: 0, star2: 0, star1: 0 };
+        ratingCounts.forEach(({ rating, _count }) => {
+            if (rating === 5) starCounts.star5 = _count.rating;
+            else if (rating === 4) starCounts.star4 = _count.rating;
+            else if (rating === 3) starCounts.star3 = _count.rating;
+            else if (rating === 2) starCounts.star2 = _count.rating;
+            else if (rating === 1) starCounts.star1 = _count.rating;
+        });
 
         const reviewresponse : ReviewResponseDto[] = review.map((el) => ({
             id: el.id,
@@ -94,6 +117,8 @@ export default class ReviewServiceImpl implements ReviewService{
             createdAt: el.createdAt
         }))
 
+
+
         return {
             data: reviewresponse,
             meta: {
@@ -101,6 +126,11 @@ export default class ReviewServiceImpl implements ReviewService{
                 page,
                 pageSize,
                 totalPages: Math.ceil(total/pageSize)
+            },
+            stats: {
+                avgRating: avgRatingResult._avg.rating || 0,
+                totalReview: total,
+                ...starCounts
             }
         }
     }
@@ -126,10 +156,33 @@ export default class ReviewServiceImpl implements ReviewService{
                 item: true,
                 user: true,
                 vendor: true
+            },
+            orderBy: {
+                createdAt: "desc"
             }
         })
 
         const total = await prisma.review.count({where: {vendorId}})
+
+        const avgRatingResult = await prisma.review.aggregate({
+            where: { vendorId },
+            _avg: { rating: true },
+        });
+        const ratingCounts = await prisma.review.groupBy({
+            by: ['rating'],
+            where: { vendorId },
+            _count: { rating: true },
+        });
+
+        // Initialize star counts
+        const starCounts = { star5: 0, star4: 0, star3: 0, star2: 0, star1: 0 };
+        ratingCounts.forEach(({ rating, _count }) => {
+            if (rating === 5) starCounts.star5 = _count.rating;
+            else if (rating === 4) starCounts.star4 = _count.rating;
+            else if (rating === 3) starCounts.star3 = _count.rating;
+            else if (rating === 2) starCounts.star2 = _count.rating;
+            else if (rating === 1) starCounts.star1 = _count.rating;
+        });
 
         const reviewresponse : ReviewResponseDto[] = review.map((el) => ({
             id: el.id,
@@ -147,6 +200,11 @@ export default class ReviewServiceImpl implements ReviewService{
                 page,
                 pageSize,
                 totalPages: Math.ceil(total/pageSize)
+            },
+            stats: {
+                avgRating: avgRatingResult._avg.rating || 0,
+                totalReview: total,
+                ...starCounts
             }
         }
     }
@@ -159,10 +217,31 @@ export default class ReviewServiceImpl implements ReviewService{
                 item: true,
                 user: true,
                 vendor: true
+            },
+            orderBy: {
+                createdAt: "desc"
             }
         })
 
         const total = await prisma.review.count()
+
+        const avgRatingResult = await prisma.review.aggregate({
+            _avg: { rating: true },
+        });
+        const ratingCounts = await prisma.review.groupBy({
+            by: ['rating'],
+            _count: { rating: true },
+        });
+
+        // Initialize star counts
+        const starCounts = { star5: 0, star4: 0, star3: 0, star2: 0, star1: 0 };
+        ratingCounts.forEach(({ rating, _count }) => {
+            if (rating === 5) starCounts.star5 = _count.rating;
+            else if (rating === 4) starCounts.star4 = _count.rating;
+            else if (rating === 3) starCounts.star3 = _count.rating;
+            else if (rating === 2) starCounts.star2 = _count.rating;
+            else if (rating === 1) starCounts.star1 = _count.rating;
+        });
 
         const reviewresponse : ReviewResponseDto[] = review.map((el) => ({
             id: el.id,
@@ -180,6 +259,11 @@ export default class ReviewServiceImpl implements ReviewService{
                 page,
                 pageSize,
                 totalPages: Math.ceil(total/pageSize)
+            },
+            stats: {
+                avgRating: avgRatingResult._avg.rating || 0,
+                totalReview: total,
+                ...starCounts
             }
         }
     }

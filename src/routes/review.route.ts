@@ -18,7 +18,7 @@ export default class ReviewRoute implements IRoute{
 
     private initializeRoutes(){
         this.router.post(`${this.path}/create/:id`, authMiddleware, this.controller.addReview)
-        this.router.delete(`${this.path}/delete/:id`, authMiddleware, this.controller.deleteReview)
+        this.router.delete(`${this.path}/delete/:id`, authMiddleware,isAdminMiddleWare, this.controller.deleteReview)
         this.router.get(`${this.path}/item/:id/:page/:pageSize`, authMiddleware, this.controller.fetchItemReviews)
         this.router.get(`${this.path}/all/:page/:pageSize`, authMiddleware, isAdminMiddleWare, this.controller.fetchAllReviews)
         this.router.get(`${this.path}/vendor/:page/:pageSize`, authMiddleware, isVendorMiddleWare, this.controller.fetchVendorReviews)

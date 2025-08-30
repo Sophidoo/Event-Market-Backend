@@ -208,9 +208,9 @@ model Booking {
 model Payment {
   id         String        @id @default(auto()) @map("_id") @db.ObjectId
   transactionId String @unique
-  paidAmount Float         @map("paid_amount")
-  debit      Float
-  credit     Float
+  paidAmount Float    @default(0)     @map("paid_amount")
+  debit      Float @default(0)
+  credit     Float @default(0)
   reason     String
   status     PaymentStatus @default(PENDING)
   createdAt  DateTime      @default(now()) @map("created_at")

@@ -6,6 +6,7 @@ import UserRoutes from "./routes/user.routes"
 import dotenv from "dotenv"
 import WishlistRoutes from "./routes/wishlist.route"
 import ReviewRoute from "./routes/review.route"
+import DashboardRoutes from "./routes/dashboard.routes"
 
 dotenv.config()
 
@@ -15,7 +16,8 @@ const app = new App([
     new BookingRoutes(),
     new TransactionRoutes(),
     new WishlistRoutes(),
-    new ReviewRoute()
+    new ReviewRoute(),
+    new DashboardRoutes()
 ])
 
 app.listen()
