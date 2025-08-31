@@ -74,6 +74,7 @@ model User {
   password     String
   role         Role      @default(USER)
   verified     Boolean   @default(false)
+  kycVerified  Boolean   @default(false)
   suspended    Boolean   @default(false)
   address      String?
   city         String?

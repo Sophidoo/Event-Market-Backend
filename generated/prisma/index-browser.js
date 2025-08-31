@@ -122,6 +122,7 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   verified: 'verified',
+  kycVerified: 'kycVerified',
   suspended: 'suspended',
   address: 'address',
   city: 'city',

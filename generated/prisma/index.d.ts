@@ -1777,6 +1777,7 @@ export namespace Prisma {
     password: string | null
     role: $Enums.Role | null
     verified: boolean | null
+    kycVerified: boolean | null
     suspended: boolean | null
     address: string | null
     city: string | null
@@ -1797,6 +1798,7 @@ export namespace Prisma {
     password: string | null
     role: $Enums.Role | null
     verified: boolean | null
+    kycVerified: boolean | null
     suspended: boolean | null
     address: string | null
     city: string | null
@@ -1817,6 +1819,7 @@ export namespace Prisma {
     password: number
     role: number
     verified: number
+    kycVerified: number
     suspended: number
     address: number
     city: number
@@ -1839,6 +1842,7 @@ export namespace Prisma {
     password?: true
     role?: true
     verified?: true
+    kycVerified?: true
     suspended?: true
     address?: true
     city?: true
@@ -1859,6 +1863,7 @@ export namespace Prisma {
     password?: true
     role?: true
     verified?: true
+    kycVerified?: true
     suspended?: true
     address?: true
     city?: true
@@ -1879,6 +1884,7 @@ export namespace Prisma {
     password?: true
     role?: true
     verified?: true
+    kycVerified?: true
     suspended?: true
     address?: true
     city?: true
@@ -1972,6 +1978,7 @@ export namespace Prisma {
     password: string
     role: $Enums.Role
     verified: boolean
+    kycVerified: boolean
     suspended: boolean
     address: string | null
     city: string | null
@@ -2009,6 +2016,7 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: boolean
     city?: boolean
@@ -2037,6 +2045,7 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: boolean
     city?: boolean
@@ -2048,7 +2057,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "profile" | "email" | "phone" | "password" | "role" | "verified" | "suspended" | "address" | "city" | "state" | "token" | "tokenExpires" | "country" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "profile" | "email" | "phone" | "password" | "role" | "verified" | "kycVerified" | "suspended" | "address" | "city" | "state" | "token" | "tokenExpires" | "country" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
@@ -2076,6 +2085,7 @@ export namespace Prisma {
       password: string
       role: $Enums.Role
       verified: boolean
+      kycVerified: boolean
       suspended: boolean
       address: string | null
       city: string | null
@@ -2490,6 +2500,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly verified: FieldRef<"User", 'Boolean'>
+    readonly kycVerified: FieldRef<"User", 'Boolean'>
     readonly suspended: FieldRef<"User", 'Boolean'>
     readonly address: FieldRef<"User", 'String'>
     readonly city: FieldRef<"User", 'String'>
@@ -6708,7 +6719,7 @@ export namespace Prisma {
     updatedAt: Date
     reviewer: string
     itemId: string
-    vendorId: string | null
+    vendorId: string
     _count: ReviewCountAggregateOutputType | null
     _avg: ReviewAvgAggregateOutputType | null
     _sum: ReviewSumAggregateOutputType | null
@@ -6741,7 +6752,7 @@ export namespace Prisma {
     vendorId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
-    vendor?: boolean | Review$vendorArgs<ExtArgs>
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["review"]>
 
 
@@ -6761,7 +6772,7 @@ export namespace Prisma {
   export type ReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
-    vendor?: boolean | Review$vendorArgs<ExtArgs>
+    vendor?: boolean | VendorDefaultArgs<ExtArgs>
   }
 
   export type $ReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6769,7 +6780,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       item: Prisma.$ItemPayload<ExtArgs>
-      vendor: Prisma.$VendorPayload<ExtArgs> | null
+      vendor: Prisma.$VendorPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6779,7 +6790,7 @@ export namespace Prisma {
       updatedAt: Date
       reviewer: string
       itemId: string
-      vendorId: string | null
+      vendorId: string
     }, ExtArgs["result"]["review"]>
     composites: {}
   }
@@ -7145,7 +7156,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     item<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    vendor<T extends Review$vendorArgs<ExtArgs> = {}>(args?: Subset<T, Review$vendorArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    vendor<T extends VendorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorDefaultArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7550,25 +7561,6 @@ export namespace Prisma {
      * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
      */
     options?: InputJsonValue
-  }
-
-  /**
-   * Review.vendor
-   */
-  export type Review$vendorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vendor
-     */
-    select?: VendorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Vendor
-     */
-    omit?: VendorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: VendorInclude<ExtArgs> | null
-    where?: VendorWhereInput
   }
 
   /**
@@ -10817,6 +10809,7 @@ export namespace Prisma {
     password: 'password',
     role: 'role',
     verified: 'verified',
+    kycVerified: 'kycVerified',
     suspended: 'suspended',
     address: 'address',
     city: 'city',
@@ -11148,6 +11141,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     verified?: BoolFilter<"User"> | boolean
+    kycVerified?: BoolFilter<"User"> | boolean
     suspended?: BoolFilter<"User"> | boolean
     address?: StringNullableFilter<"User"> | string | null
     city?: StringNullableFilter<"User"> | string | null
@@ -11173,6 +11167,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     verified?: SortOrder
+    kycVerified?: SortOrder
     suspended?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -11201,6 +11196,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     verified?: BoolFilter<"User"> | boolean
+    kycVerified?: BoolFilter<"User"> | boolean
     suspended?: BoolFilter<"User"> | boolean
     address?: StringNullableFilter<"User"> | string | null
     city?: StringNullableFilter<"User"> | string | null
@@ -11226,6 +11222,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     verified?: SortOrder
+    kycVerified?: SortOrder
     suspended?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -11252,6 +11249,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     verified?: BoolWithAggregatesFilter<"User"> | boolean
+    kycVerified?: BoolWithAggregatesFilter<"User"> | boolean
     suspended?: BoolWithAggregatesFilter<"User"> | boolean
     address?: StringNullableWithAggregatesFilter<"User"> | string | null
     city?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -11599,10 +11597,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Review"> | Date | string
     reviewer?: StringFilter<"Review"> | string
     itemId?: StringFilter<"Review"> | string
-    vendorId?: StringNullableFilter<"Review"> | string | null
+    vendorId?: StringFilter<"Review"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
   }
 
   export type ReviewOrderByWithRelationInput = {
@@ -11630,10 +11628,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Review"> | Date | string
     reviewer?: StringFilter<"Review"> | string
     itemId?: StringFilter<"Review"> | string
-    vendorId?: StringNullableFilter<"Review"> | string | null
+    vendorId?: StringFilter<"Review"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
   }, "id">
 
   export type ReviewOrderByWithAggregationInput = {
@@ -11663,7 +11661,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Review"> | Date | string
     reviewer?: StringWithAggregatesFilter<"Review"> | string
     itemId?: StringWithAggregatesFilter<"Review"> | string
-    vendorId?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    vendorId?: StringWithAggregatesFilter<"Review"> | string
   }
 
   export type SavedItemWhereInput = {
@@ -11925,6 +11923,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -11950,6 +11949,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -11974,6 +11974,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11998,6 +11999,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12023,6 +12025,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -12042,6 +12045,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12061,6 +12065,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12450,7 +12455,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutReviewsInput
     item: ItemCreateNestedOneWithoutReviewsInput
-    vendor?: VendorCreateNestedOneWithoutReviewsInput
+    vendor: VendorCreateNestedOneWithoutReviewsInput
   }
 
   export type ReviewUncheckedCreateInput = {
@@ -12461,7 +12466,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     reviewer: string
     itemId: string
-    vendorId?: string | null
+    vendorId: string
   }
 
   export type ReviewUpdateInput = {
@@ -12471,7 +12476,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutReviewsNestedInput
     item?: ItemUpdateOneRequiredWithoutReviewsNestedInput
-    vendor?: VendorUpdateOneWithoutReviewsNestedInput
+    vendor?: VendorUpdateOneRequiredWithoutReviewsNestedInput
   }
 
   export type ReviewUncheckedUpdateInput = {
@@ -12481,7 +12486,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewer?: StringFieldUpdateOperationsInput | string
     itemId?: StringFieldUpdateOperationsInput | string
-    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    vendorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ReviewCreateManyInput = {
@@ -12492,7 +12497,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     reviewer: string
     itemId: string
-    vendorId?: string | null
+    vendorId: string
   }
 
   export type ReviewUpdateManyMutationInput = {
@@ -12509,7 +12514,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewer?: StringFieldUpdateOperationsInput | string
     itemId?: StringFieldUpdateOperationsInput | string
-    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    vendorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SavedItemCreateInput = {
@@ -12667,9 +12672,9 @@ export namespace Prisma {
   export type PaymentCreateInput = {
     id?: string
     transactionId: string
-    paidAmount: number
-    debit: number
-    credit: number
+    paidAmount?: number
+    debit?: number
+    credit?: number
     reason: string
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
@@ -12681,9 +12686,9 @@ export namespace Prisma {
   export type PaymentUncheckedCreateInput = {
     id?: string
     transactionId: string
-    paidAmount: number
-    debit: number
-    credit: number
+    paidAmount?: number
+    debit?: number
+    credit?: number
     reason: string
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
@@ -12721,9 +12726,9 @@ export namespace Prisma {
   export type PaymentCreateManyInput = {
     id?: string
     transactionId: string
-    paidAmount: number
-    debit: number
-    credit: number
+    paidAmount?: number
+    debit?: number
+    credit?: number
     reason: string
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
@@ -12876,6 +12881,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     verified?: SortOrder
+    kycVerified?: SortOrder
     suspended?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -12896,6 +12902,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     verified?: SortOrder
+    kycVerified?: SortOrder
     suspended?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -12916,6 +12923,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     verified?: SortOrder
+    kycVerified?: SortOrder
     suspended?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -14319,12 +14327,10 @@ export namespace Prisma {
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutReviewsInput, ItemUpdateWithoutReviewsInput>, ItemUncheckedUpdateWithoutReviewsInput>
   }
 
-  export type VendorUpdateOneWithoutReviewsNestedInput = {
+  export type VendorUpdateOneRequiredWithoutReviewsNestedInput = {
     create?: XOR<VendorCreateWithoutReviewsInput, VendorUncheckedCreateWithoutReviewsInput>
     connectOrCreate?: VendorCreateOrConnectWithoutReviewsInput
     upsert?: VendorUpsertWithoutReviewsInput
-    disconnect?: boolean
-    delete?: VendorWhereInput | boolean
     connect?: VendorWhereUniqueInput
     update?: XOR<XOR<VendorUpdateToOneWithWhereWithoutReviewsInput, VendorUpdateWithoutReviewsInput>, VendorUncheckedUpdateWithoutReviewsInput>
   }
@@ -14916,7 +14922,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     item: ItemCreateNestedOneWithoutReviewsInput
-    vendor?: VendorCreateNestedOneWithoutReviewsInput
+    vendor: VendorCreateNestedOneWithoutReviewsInput
   }
 
   export type ReviewUncheckedCreateWithoutUserInput = {
@@ -14926,7 +14932,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     itemId: string
-    vendorId?: string | null
+    vendorId: string
   }
 
   export type ReviewCreateOrConnectWithoutUserInput = {
@@ -14941,9 +14947,9 @@ export namespace Prisma {
   export type PaymentCreateWithoutUserInput = {
     id?: string
     transactionId: string
-    paidAmount: number
-    debit: number
-    credit: number
+    paidAmount?: number
+    debit?: number
+    credit?: number
     reason: string
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
@@ -14954,9 +14960,9 @@ export namespace Prisma {
   export type PaymentUncheckedCreateWithoutUserInput = {
     id?: string
     transactionId: string
-    paidAmount: number
-    debit: number
-    credit: number
+    paidAmount?: number
+    debit?: number
+    credit?: number
     reason: string
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
@@ -15097,7 +15103,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Review"> | Date | string
     reviewer?: StringFilter<"Review"> | string
     itemId?: StringFilter<"Review"> | string
-    vendorId?: StringNullableFilter<"Review"> | string | null
+    vendorId?: StringFilter<"Review"> | string
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutUserInput = {
@@ -15213,6 +15219,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -15237,6 +15244,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -15413,6 +15421,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15436,6 +15445,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15619,7 +15629,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutReviewsInput
-    vendor?: VendorCreateNestedOneWithoutReviewsInput
+    vendor: VendorCreateNestedOneWithoutReviewsInput
   }
 
   export type ReviewUncheckedCreateWithoutItemInput = {
@@ -15629,7 +15639,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewer: string
-    vendorId?: string | null
+    vendorId: string
   }
 
   export type ReviewCreateOrConnectWithoutItemInput = {
@@ -15892,6 +15902,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -15916,6 +15927,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -16059,6 +16071,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16082,6 +16095,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16218,6 +16232,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -16242,6 +16257,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -16344,6 +16360,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16367,6 +16384,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16458,6 +16476,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -16482,6 +16501,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -16609,9 +16629,9 @@ export namespace Prisma {
   export type PaymentCreateWithoutBookingInput = {
     id?: string
     transactionId: string
-    paidAmount: number
-    debit: number
-    credit: number
+    paidAmount?: number
+    debit?: number
+    credit?: number
     reason: string
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
@@ -16622,9 +16642,9 @@ export namespace Prisma {
   export type PaymentUncheckedCreateWithoutBookingInput = {
     id?: string
     transactionId: string
-    paidAmount: number
-    debit: number
-    credit: number
+    paidAmount?: number
+    debit?: number
+    credit?: number
     reason: string
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
@@ -16656,6 +16676,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16679,6 +16700,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16850,6 +16872,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -16874,6 +16897,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     verified?: boolean
+    kycVerified?: boolean
     suspended?: boolean
     address?: string | null
     city?: string | null
@@ -16950,6 +16974,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16973,6 +16998,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     verified?: BoolFieldUpdateOperationsInput | boolean
+    kycVerified?: BoolFieldUpdateOperationsInput | boolean
     suspended?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17051,15 +17077,15 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     itemId: string
-    vendorId?: string | null
+    vendorId: string
   }
 
   export type PaymentCreateManyUserInput = {
     id?: string
     transactionId: string
-    paidAmount: number
-    debit: number
-    credit: number
+    paidAmount?: number
+    debit?: number
+    credit?: number
     reason: string
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
@@ -17123,7 +17149,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: ItemUpdateOneRequiredWithoutReviewsNestedInput
-    vendor?: VendorUpdateOneWithoutReviewsNestedInput
+    vendor?: VendorUpdateOneRequiredWithoutReviewsNestedInput
   }
 
   export type ReviewUncheckedUpdateWithoutUserInput = {
@@ -17132,7 +17158,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     itemId?: StringFieldUpdateOperationsInput | string
-    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    vendorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ReviewUncheckedUpdateManyWithoutUserInput = {
@@ -17141,7 +17167,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     itemId?: StringFieldUpdateOperationsInput | string
-    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    vendorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PaymentUpdateWithoutUserInput = {
@@ -17411,7 +17437,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewer: string
-    vendorId?: string | null
+    vendorId: string
   }
 
   export type BookingCreateManyItemInput = {
@@ -17450,7 +17476,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutReviewsNestedInput
-    vendor?: VendorUpdateOneWithoutReviewsNestedInput
+    vendor?: VendorUpdateOneRequiredWithoutReviewsNestedInput
   }
 
   export type ReviewUncheckedUpdateWithoutItemInput = {
@@ -17459,7 +17485,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewer?: StringFieldUpdateOperationsInput | string
-    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    vendorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ReviewUncheckedUpdateManyWithoutItemInput = {
@@ -17468,7 +17494,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewer?: StringFieldUpdateOperationsInput | string
-    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    vendorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingUpdateWithoutItemInput = {
